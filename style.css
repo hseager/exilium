@@ -1,0 +1,46 @@
+:root {
+  --theme-1: #7291d6;
+  --theme-2: #ccc;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 20px;
+}
+
+#c2d {
+  width: 800px;
+  height: 600px;
+  background: #ccc;
+  image-rendering: pixelated; /* You definitely want this if you are doing pixel art */
+  margin: 0 0 var(--spacing-4);
+}
+
+/* Get rid of any margins, set background black, use flexbox to center */
+html,
+body {
+  margin: 0;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+.controls {
+  padding: var(--spacing-4);
+  border: 1px solid var(--theme-2);
+}
+
+.controls .col {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls button {
+  margin: 0 0 var(--spacing-2);
+}
+
+.controls button:last-of-type {
+  margin: 0;
+}
