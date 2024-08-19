@@ -1,8 +1,9 @@
-import { State } from "@/core/types";
+import { Mode, State } from "@/core/types";
 import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 import { gameStateMachine } from "@/game-state-machine";
 import { menuState } from "@/game-states/menu.state";
+import { GameManager } from "@/core/game-manager";
 
 class GameState implements State {
   private pylon = new Image();
@@ -10,11 +11,24 @@ class GameState implements State {
   private ctx;
   private gameManager;
 
+  wallConfig = {
+    x: 20,
+    y: 141,
+    color: "#111",
+    width: 3,
+  };
+  safeZoneConfig = {
+    x: 20,
+    y: 50,
+    color: "#ccc",
+    width: 3,
+  };
+
   constructor() {
     this.ctx = drawEngine.context;
     this.pylon.src = "pylon.png";
     this.unitPosition = new DOMPoint(100, drawEngine.canvasHeight);
-    // this.gameManager = new Game
+    this.gameManager = new GameManager();
   }
 
   onEnter() {}
@@ -22,10 +36,34 @@ class GameState implements State {
   onUpdate() {
     this.setupBackground();
     this.drawPylons();
-    this.drawUnits();
+    // this.drawUnits();
+    this.drawSafeZone();
+
+    this.handleUnitPlacement();
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);
+    }
+  }
+
+  private handleUnitPlacement() {
+    if (this.gameManager.mode == Mode.PlaceUnit) {
+      const xPadding = 40;
+      let x = drawEngine.mousePosition.x;
+      const y = drawEngine.canvasHeight - 25;
+
+      if (x < xPadding) x = xPadding;
+      if (x > drawEngine.canvasWidth - xPadding)
+        x = drawEngine.canvasWidth - xPadding;
+
+      this.ctx.beginPath();
+      this.ctx.arc(x, y, 10, 0, 2 * Math.PI);
+      this.ctx.fillStyle = "#ccc";
+      this.ctx.strokeStyle = "#333";
+
+      this.ctx.fill();
+      this.ctx.stroke();
+      this.ctx.closePath();
     }
   }
 
@@ -56,37 +94,65 @@ class GameState implements State {
     // Draw 13 pylons across the screen
     for (let i = 0; i < 13; i++) {
       const x = spacing * (i + 1) - pylonWidth / 2;
-      this.drawPylon(x, drawEngine.canvasHeight * 0.1);
+      this.drawPylon(x, 40);
     }
+
+    this.drawWall();
+  }
+
+  private drawWall() {
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.wallConfig.x, this.wallConfig.y);
+    this.ctx.lineTo(
+      drawEngine.canvasWidth - this.wallConfig.x,
+      this.wallConfig.y
+    );
+    this.ctx.lineWidth = this.wallConfig.width;
+
+    this.ctx.strokeStyle = this.wallConfig.color;
+    this.ctx.stroke();
+    this.ctx.closePath();
+  }
+
+  private drawSafeZone() {
+    const safeZoneHeight = drawEngine.canvasHeight - this.safeZoneConfig.y;
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.safeZoneConfig.x, safeZoneHeight);
+    this.ctx.lineTo(
+      drawEngine.canvasWidth - this.safeZoneConfig.x,
+      safeZoneHeight
+    );
+    this.ctx.lineWidth = this.wallConfig.width;
+
+    this.ctx.strokeStyle = this.safeZoneConfig.color;
+    this.ctx.stroke();
+    this.ctx.closePath();
   }
 
   private drawPylon(x: number, y: number) {
     this.ctx.drawImage(this.pylon, x, y, 40, 100);
   }
 
-  private drawUnits() {
-    const spawnPaddingY = 20;
-    const radius = 12;
-    const y = drawEngine.canvasHeight - radius - spawnPaddingY;
+  // private drawUnits() {
+  //   const radius = 12;
 
-    this.unitPosition.y = this.unitPosition.y - 0.3;
+  //   this.unitPosition.y = this.unitPosition.y - 0.3;
 
-    // Draw the circle
-    this.ctx.beginPath();
-    this.ctx.arc(
-      this.unitPosition.x,
-      this.unitPosition.y,
-      radius,
-      0,
-      2 * Math.PI
-    ); // Draw circle
-    this.ctx.fillStyle = "#ccc"; // Set the fill color
-    this.ctx.strokeStyle = "#333";
+  //   this.ctx.beginPath();
+  //   this.ctx.arc(
+  //     this.unitPosition.x,
+  //     this.unitPosition.y,
+  //     radius,
+  //     0,
+  //     2 * Math.PI
+  //   );
+  //   this.ctx.fillStyle = "#ccc";
+  //   this.ctx.strokeStyle = "#333";
 
-    this.ctx.fill(); // Fill the circle
-    this.ctx.stroke();
-    this.ctx.closePath();
-  }
+  //   this.ctx.fill();
+  //   this.ctx.stroke();
+  //   this.ctx.closePath();
+  // }
 }
 
 export const gameState = new GameState();

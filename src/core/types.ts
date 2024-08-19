@@ -5,52 +5,61 @@ export interface State {
 }
 
 export type GameManager = {
+  mode: Mode;
   units: Unit[];
   timers: Timer[];
   player: Player;
 };
 
-type Player = {
+export enum Mode {
+  Playing,
+  PlaceUnit,
+}
+
+export type Player = {
   availableStatPoints: number;
   maxStatPoints: number;
 };
 
-type Timer = {
+export type Timer = {
   type: TimerType;
   currentTime: number;
   maxTime: number;
   speed: number;
 };
 
-enum TimerType {
+export enum TimerType {
   Infantry,
   Tank,
   Aircraft,
   Research,
 }
 
-type Unit = {
+export type Unit = {
   type: UnitType;
   position: DOMPoint;
   stats: Stats;
   faction: Faction;
 };
 
-enum Faction {
+export enum Faction {
   Dominus,
   Vanguard,
 }
 
-type Stats = {
+export type Stats = {
   attack: number;
+  attackSpeed: number;
   health: number;
   defence: number;
+  moveSpeed: number;
+  range: number;
 };
 
 // Tank > Infantry
 // Infantry > AirCraft
 // AirCraft > Tank
-enum UnitType {
+export enum UnitType {
   Infantry,
   Tank,
   Aircraft,

@@ -6,16 +6,17 @@
   --spacing-3: 12px;
   --spacing-4: 20px;
   --border-radius: 8px;
+  --font-family: system-ui, Roboto, Helvetica, Arial, sans-serif-black;
+  --font-size: 14px;
 }
 
 #c2d {
   background: #333;
-  image-rendering: pixelated; /* You definitely want this if you are doing pixel art */
+  image-rendering: pixelated;
   margin: 0 0 var(--spacing-4);
   border-radius: var(--border-radius);
 }
 
-/* Get rid of any margins, set background black, use flexbox to center */
 html,
 body {
   margin: 0;
@@ -25,6 +26,13 @@ body {
   align-items: center;
   height: 100%;
   flex-direction: column;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+}
+
+button {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
 }
 
 .controls {

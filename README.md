@@ -8,6 +8,17 @@ The AI's regime is known as the "Dominus Network," a name that signifies its tot
 Rebel Team Name: "The Vanguard"
 The rebels, known as "The Vanguard," are a determined group of freedom fighters who have united with the sole purpose of destroying the 13 pylons and bringing down the Dominus Network. They are a diverse team of specialists—engineers, hackers, strategists, and soldiers—who work together to build units capable of withstanding the AI's relentless defenses.
 
+## TODO
+
+- Unit placement
+- Help button
+- Stats
+- Research
+- Enemy units
+- Design
+- Win coniditon
+- Too much other stuff :/
+
 # Using JS13K TypeScript Starter
 
 **This starter kit is designed to have a powerful but easy-to-use build process allowing you to focus on building your

@@ -1,8 +1,16 @@
 class DrawEngine {
   context: CanvasRenderingContext2D;
+  mousePos: DOMPoint;
 
   constructor() {
     this.context = c2d.getContext("2d");
+
+    this.mousePos = new DOMPoint(0, 0);
+    c2d.addEventListener("mousemove", (event: MouseEvent) => {
+      let mouseX = event.clientX - c2d.getBoundingClientRect().left;
+      let mouseY = event.clientY - c2d.getBoundingClientRect().top;
+      this.mousePos = new DOMPoint(mouseX, mouseY);
+    });
   }
 
   get canvasWidth() {
@@ -11,6 +19,10 @@ class DrawEngine {
 
   get canvasHeight() {
     return this.context.canvas.height;
+  }
+
+  get mousePosition() {
+    return this.mousePos;
   }
 
   drawText(
