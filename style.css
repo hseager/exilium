@@ -30,11 +30,15 @@ body {
 .controls {
   padding: var(--spacing-4);
   border: 1px solid var(--theme-2);
+  display: flex;
+  background: var(--theme-2);
+  border-radius: var(--border-radius);
 }
 
 .controls .col {
   display: flex;
   flex-direction: column;
+  margin: 0 var(--spacing-4) 0 0;
 }
 
 .controls button {
@@ -42,5 +46,9 @@ body {
 }
 
 .controls button:last-of-type {
+  margin: 0;
+}
+
+.m-0 {
   margin: 0;
 }

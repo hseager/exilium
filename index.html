@@ -10,9 +10,27 @@
     <section class="controls">
       <div class="col">
         <button>Vanguard Troopers (Infantry)</button>
-        <button>Negotiator (Tank)</button>
+        <progress id="file" max="100" value="70">70%</progress>
+        <!-- <button>Negotiator (Tank)</button>
         <button>Raptor (Aircraft)</button>
-        <button>Goliath mk.II (Mech)</button>
+        <button>Goliath mk.II (Mech)</button> -->
+      </div>
+      <div class="col">
+        <h5 class="m-0">Stats</h5>
+        <p class="m-0">Points: <strong>10</strong></p>
+        Defence
+        <input type="range" min="1" max="10" value="2" />
+        Attack Power
+        <input type="range" min="1" max="10" value="2" />
+        Range
+        <input type="range" min="1" max="10" value="2" />
+      </div>
+      <div class="col">
+        <h5 class="m-0">Research</h5>
+        <progress id="file" max="100" value="70">70%</progress>
+        <button>Increase recruitment speed</button>
+        <button>New units</button>
+        <button>Stat point</button>
       </div>
     </section>
     <script type="module" src="/src/index.ts"></script>

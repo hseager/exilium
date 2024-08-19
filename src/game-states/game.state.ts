@@ -5,23 +5,24 @@ import { gameStateMachine } from "@/game-state-machine";
 import { menuState } from "@/game-states/menu.state";
 
 class GameState implements State {
-  pylon = new Image();
-
+  private pylon = new Image();
+  private unitPosition: DOMPoint;
   private ctx;
+  private gameManager;
 
   constructor() {
     this.ctx = drawEngine.context;
     this.pylon.src = "pylon.png";
+    this.unitPosition = new DOMPoint(100, drawEngine.canvasHeight);
+    // this.gameManager = new Game
   }
 
-  onEnter() {
-    // this.ballPosition = new DOMPoint(100, 100);
-    // this.ballVelocity = new DOMPoint(10, 10);
-  }
+  onEnter() {}
 
   onUpdate() {
     this.setupBackground();
     this.drawPylons();
+    this.drawUnits();
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);
@@ -50,7 +51,6 @@ class GameState implements State {
 
   private drawPylons() {
     const pylonWidth = 22;
-    const pylonHeight = drawEngine.canvasHeight * 0.14;
     const spacing = drawEngine.canvasWidth / 14; // 13 pylons, 14 spaces
 
     // Draw 13 pylons across the screen
@@ -61,8 +61,31 @@ class GameState implements State {
   }
 
   private drawPylon(x: number, y: number) {
-    this.ctx.beginPath();
     this.ctx.drawImage(this.pylon, x, y, 40, 100);
+  }
+
+  private drawUnits() {
+    const spawnPaddingY = 20;
+    const radius = 12;
+    const y = drawEngine.canvasHeight - radius - spawnPaddingY;
+
+    this.unitPosition.y = this.unitPosition.y - 0.3;
+
+    // Draw the circle
+    this.ctx.beginPath();
+    this.ctx.arc(
+      this.unitPosition.x,
+      this.unitPosition.y,
+      radius,
+      0,
+      2 * Math.PI
+    ); // Draw circle
+    this.ctx.fillStyle = "#ccc"; // Set the fill color
+    this.ctx.strokeStyle = "#333";
+
+    this.ctx.fill(); // Fill the circle
+    this.ctx.stroke();
+    this.ctx.closePath();
   }
 }
 
