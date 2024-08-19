@@ -1,3 +1,5 @@
+import { Unit } from "./unit";
+
 export interface State {
   onUpdate: (timeElapsed: number) => void;
   onEnter?: Function;
@@ -34,13 +36,6 @@ export enum TimerType {
   Aircraft,
   Research,
 }
-
-export type Unit = {
-  type: UnitType;
-  position: DOMPoint;
-  stats: Stats;
-  faction: Faction;
-};
 
 export enum Faction {
   Dominus,

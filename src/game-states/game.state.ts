@@ -7,7 +7,6 @@ import { GameManager } from "@/core/game-manager";
 
 class GameState implements State {
   private pylon = new Image();
-  private unitPosition: DOMPoint;
   private ctx;
   private gameManager;
 
@@ -27,7 +26,6 @@ class GameState implements State {
   constructor() {
     this.ctx = drawEngine.context;
     this.pylon.src = "pylon.png";
-    this.unitPosition = new DOMPoint(100, drawEngine.canvasHeight);
     this.gameManager = new GameManager();
   }
 
@@ -36,7 +34,7 @@ class GameState implements State {
   onUpdate() {
     this.setupBackground();
     this.drawPylons();
-    // this.drawUnits();
+    this.drawUnits();
     this.drawSafeZone();
 
     this.handleUnitPlacement();
@@ -133,26 +131,21 @@ class GameState implements State {
     this.ctx.drawImage(this.pylon, x, y, 40, 100);
   }
 
-  // private drawUnits() {
-  //   const radius = 12;
+  private drawUnits() {
+    this.gameManager.units?.forEach((unit) => {
+      const radius = 12;
+      unit.position.y = unit.position.y - unit.stats.moveSpeed;
 
-  //   this.unitPosition.y = this.unitPosition.y - 0.3;
+      this.ctx.beginPath();
+      this.ctx.arc(unit.position.x, unit.position.y, radius, 0, 2 * Math.PI);
+      this.ctx.fillStyle = "#ccc";
+      this.ctx.strokeStyle = "#333";
 
-  //   this.ctx.beginPath();
-  //   this.ctx.arc(
-  //     this.unitPosition.x,
-  //     this.unitPosition.y,
-  //     radius,
-  //     0,
-  //     2 * Math.PI
-  //   );
-  //   this.ctx.fillStyle = "#ccc";
-  //   this.ctx.strokeStyle = "#333";
-
-  //   this.ctx.fill();
-  //   this.ctx.stroke();
-  //   this.ctx.closePath();
-  // }
+      this.ctx.fill();
+      this.ctx.stroke();
+      this.ctx.closePath();
+    });
+  }
 }
 
 export const gameState = new GameState();
