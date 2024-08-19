@@ -2,7 +2,7 @@ class DrawEngine {
   context: CanvasRenderingContext2D;
 
   constructor() {
-    this.context = c2d.getContext('2d');
+    this.context = c2d.getContext("2d");
   }
 
   get canvasWidth() {
@@ -13,12 +13,19 @@ class DrawEngine {
     return this.context.canvas.height;
   }
 
-  drawText(text: string, fontSize: number, x: number, y: number, color = 'white', textAlign: 'center' | 'left' | 'right' = 'center') {
+  drawText(
+    text: string,
+    fontSize: number,
+    x: number,
+    y: number,
+    color = "white",
+    textAlign: "center" | "left" | "right" = "center"
+  ) {
     const context = this.context;
 
-    context.font = `${fontSize}px Impact, sans-serif-black`;
+    context.font = `${fontSize}px system-ui, Roboto, Helvetica, Arial, sans-serif-black`;
     context.textAlign = textAlign;
-    context.strokeStyle = 'black';
+    context.strokeStyle = "black";
     context.lineWidth = 4;
     context.strokeText(text, x, y);
     context.fillStyle = color;
