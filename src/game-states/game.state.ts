@@ -1,43 +1,41 @@
-import { Mode, State } from "@/core/types";
+import { Faction, Mode, Pylon, State } from "@/core/types";
 import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 import { gameStateMachine } from "@/game-state-machine";
 import { menuState } from "@/game-states/menu.state";
 import { GameManager } from "@/core/game-manager";
+import {
+  getFactionTheme,
+  infantryStyle,
+  pylonDamageRange,
+  pylonWidth,
+  pylonY,
+  safeZoneConfig,
+  wallConfig,
+} from "@/core/config";
 
 class GameState implements State {
-  private pylon = new Image();
+  private pylonSprite = new Image();
   private ctx;
   private gameManager;
 
-  wallConfig = {
-    x: 20,
-    y: 141,
-    color: "#111",
-    width: 3,
-  };
-  safeZoneConfig = {
-    x: 20,
-    y: 50,
-    color: "#ccc",
-    width: 3,
-  };
-
   constructor() {
     this.ctx = drawEngine.context;
-    this.pylon.src = "pylon.png";
+    this.pylonSprite.src = "pylon.png";
     this.gameManager = new GameManager();
   }
 
   onEnter() {}
 
-  onUpdate() {
+  onUpdate(delta: number) {
     this.setupBackground();
     this.drawPylons();
-    this.drawUnits();
     this.drawSafeZone();
+    this.drawUnits();
 
     this.handleUnitPlacement();
+
+    this.gameManager.updateTimers(delta);
 
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);
@@ -54,10 +52,12 @@ class GameState implements State {
       if (x > drawEngine.canvasWidth - xPadding)
         x = drawEngine.canvasWidth - xPadding;
 
+      const theme = getFactionTheme(Faction.Vanguard);
+
       this.ctx.beginPath();
-      this.ctx.arc(x, y, 10, 0, 2 * Math.PI);
-      this.ctx.fillStyle = "#ccc";
-      this.ctx.strokeStyle = "#333";
+      this.ctx.arc(x, y, infantryStyle.radius, 0, 2 * Math.PI);
+      this.ctx.fillStyle = theme.fill;
+      this.ctx.strokeStyle = theme.border;
 
       this.ctx.fill();
       this.ctx.stroke();
@@ -86,64 +86,102 @@ class GameState implements State {
   }
 
   private drawPylons() {
-    const pylonWidth = 22;
-    const spacing = drawEngine.canvasWidth / 14; // 13 pylons, 14 spaces
+    const spacing = drawEngine.canvasWidth / this.gameManager.pylons.length + 1;
 
     // Draw 13 pylons across the screen
-    for (let i = 0; i < 13; i++) {
+    this.gameManager.pylons.forEach((pylon, i) => {
       const x = spacing * (i + 1) - pylonWidth / 2;
-      this.drawPylon(x, 40);
-    }
+
+      // Check for units damaging them
+      this.gameManager.units.forEach((unit) => {
+        const distance = Math.sqrt(
+          (unit.position.x - x) ** 2 + (unit.position.y - pylonY) ** 2
+        );
+
+        if (distance <= pylonDamageRange && !unit.hasAttackedPylon) {
+          // Apply damage to the pylon
+          pylon.life -= unit.stats.attack;
+          unit.hasAttackedPylon = true;
+
+          // Optionally, handle the case where the pylon is destroyed
+          if (pylon.life <= 0) {
+            console.log(`Pylon ${i} is destroyed!`);
+            // You might want to remove the pylon from the array or mark it as destroyed
+          }
+        }
+      });
+
+      this.drawPylon(x, pylonY, pylon);
+    });
 
     this.drawWall();
   }
 
   private drawWall() {
     this.ctx.beginPath();
-    this.ctx.moveTo(this.wallConfig.x, this.wallConfig.y);
-    this.ctx.lineTo(
-      drawEngine.canvasWidth - this.wallConfig.x,
-      this.wallConfig.y
-    );
-    this.ctx.lineWidth = this.wallConfig.width;
+    this.ctx.moveTo(wallConfig.x, wallConfig.y);
+    this.ctx.lineTo(drawEngine.canvasWidth - wallConfig.x, wallConfig.y);
+    this.ctx.lineWidth = wallConfig.width;
 
-    this.ctx.strokeStyle = this.wallConfig.color;
+    this.ctx.strokeStyle = wallConfig.color;
     this.ctx.stroke();
     this.ctx.closePath();
   }
 
   private drawSafeZone() {
-    const safeZoneHeight = drawEngine.canvasHeight - this.safeZoneConfig.y;
+    const safeZoneHeight = drawEngine.canvasHeight - safeZoneConfig.y;
     this.ctx.beginPath();
-    this.ctx.moveTo(this.safeZoneConfig.x, safeZoneHeight);
-    this.ctx.lineTo(
-      drawEngine.canvasWidth - this.safeZoneConfig.x,
-      safeZoneHeight
-    );
-    this.ctx.lineWidth = this.wallConfig.width;
+    this.ctx.moveTo(safeZoneConfig.x, safeZoneHeight);
+    this.ctx.lineTo(drawEngine.canvasWidth - safeZoneConfig.x, safeZoneHeight);
+    this.ctx.lineWidth = wallConfig.width;
 
-    this.ctx.strokeStyle = this.safeZoneConfig.color;
+    this.ctx.strokeStyle = safeZoneConfig.color;
     this.ctx.stroke();
     this.ctx.closePath();
   }
 
-  private drawPylon(x: number, y: number) {
-    this.ctx.drawImage(this.pylon, x, y, 40, 100);
+  private drawPylon(x: number, y: number, pylon: Pylon) {
+    const originalHeight = 100; // Assuming the original height of the pylon sprite is 100px
+    const clippedHeight = (pylon.life / pylon.maxLife) * originalHeight;
+
+    this.ctx.save(); // Save the current state of the canvas
+
+    // Define the clipping region
+    this.ctx.beginPath();
+    this.ctx.rect(x, y + (originalHeight - clippedHeight), 40, clippedHeight);
+    this.ctx.clip();
+
+    // Draw the pylon image within the clipped region
+    this.ctx.drawImage(this.pylonSprite, x, y, 40, originalHeight);
+
+    this.ctx.restore(); // Restore the canvas to its original state
   }
 
   private drawUnits() {
-    this.gameManager.units?.forEach((unit) => {
-      const radius = 12;
+    this.gameManager.units = this.gameManager.units?.filter((unit) => {
+      if (unit.position.y <= wallConfig.y) {
+        return false; // Exclude this unit from the new array
+      }
+
       unit.position.y = unit.position.y - unit.stats.moveSpeed;
 
-      this.ctx.beginPath();
-      this.ctx.arc(unit.position.x, unit.position.y, radius, 0, 2 * Math.PI);
-      this.ctx.fillStyle = "#ccc";
-      this.ctx.strokeStyle = "#333";
+      const theme = getFactionTheme(unit.faction);
 
+      this.ctx.beginPath();
+      this.ctx.arc(
+        unit.position.x,
+        unit.position.y,
+        infantryStyle.radius,
+        0,
+        2 * Math.PI
+      );
+      this.ctx.fillStyle = theme.fill;
+      this.ctx.strokeStyle = theme.border;
       this.ctx.fill();
       this.ctx.stroke();
       this.ctx.closePath();
+
+      return true; // Keep this unit in the new array
     });
   }
 }

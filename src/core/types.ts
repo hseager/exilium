@@ -59,3 +59,8 @@ export enum UnitType {
   Tank,
   Aircraft,
 }
+
+export type Pylon = {
+  maxLife: number;
+  life: number;
+};

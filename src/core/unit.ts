@@ -6,12 +6,14 @@ export class Unit {
   position: DOMPoint;
   faction: Faction;
   stats: Stats;
+  hasAttackedPylon: boolean;
 
   constructor(type: UnitType, faction: Faction, stats: Stats) {
     this.type = type;
     this.faction = faction;
     this.position = this.getStartingPosition(faction);
     this.stats = stats;
+    this.hasAttackedPylon = false;
   }
 
   private getStartingPosition(faction: Faction) {
