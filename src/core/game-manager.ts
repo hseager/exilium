@@ -4,6 +4,7 @@ import { Unit } from "../model/unit";
 import { playerInfantryStats, pylonCount } from "./config";
 import { InfantryTimer } from "@/model/infantry-timer";
 import { Timer } from "@/model/timer";
+import { ResearchTimer } from "@/model/research-timer";
 
 export class GameManager {
   mode: Mode;
@@ -27,6 +28,7 @@ export class GameManager {
 
   private setInitialTimers() {
     this.timers.push(new InfantryTimer());
+    this.timers.push(new ResearchTimer());
   }
 
   // This method should be called in your game loop
@@ -34,11 +36,7 @@ export class GameManager {
     this.timers
       .filter((timer) => timer.active)
       .forEach((timer) => {
-        console.log(timer.currentTime);
-        // Update the timer's current time based on its speed and deltaTime
         timer.tick(deltaTime);
-
-        // Check if the timer has reached or exceeded its max time
         if (timer.currentTime >= timer.maxTime) {
           timer.handleComplete();
 

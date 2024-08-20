@@ -19,9 +19,9 @@ export const pylonY = 40;
 export const pylonDamageRange = 110;
 
 export const playerInfantryStats = {
-  attack: 20,
+  attack: 10,
   attackSpeed: 20,
-  moveSpeed: 2,
+  moveSpeed: 1,
   defence: 3,
   health: 100,
   range: 4,

@@ -51,3 +51,9 @@ export type Pylon = {
   maxLife: number;
   life: number;
 };
+
+export enum ResearchType {
+  NewUnit = "New Unit",
+  RecruitmentSpeed = "Recruitment Speed",
+  TechUpgrade = "Tech Upgrade",
+}
