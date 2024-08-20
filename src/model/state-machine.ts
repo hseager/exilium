@@ -1,4 +1,4 @@
-import { State } from "./types";
+import { State } from "../core/types";
 
 export class StateMachine {
   private currentState: State;

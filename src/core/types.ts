@@ -1,17 +1,11 @@
-import { Unit } from "./unit";
+import { Timer } from "@/model/timer";
+import { Unit } from "../model/unit";
 
 export interface State {
   onUpdate: (timeElapsed: number) => void;
   onEnter?: Function;
   onLeave?: Function;
 }
-
-export type GameManager = {
-  mode: Mode;
-  units: Unit[];
-  timers: Timer[];
-  player: Player;
-};
 
 export enum Mode {
   Playing,
@@ -21,13 +15,6 @@ export enum Mode {
 export type Player = {
   availableStatPoints: number;
   maxStatPoints: number;
-};
-
-export type Timer = {
-  type: TimerType;
-  currentTime: number;
-  maxTime: number;
-  speed: number;
 };
 
 export enum TimerType {

@@ -1,4 +1,4 @@
-import { StateMachine } from "./core/state-machine";
+import { StateMachine } from "./model/state-machine";
 import { State } from "./core/types";
 
 export let gameStateMachine: StateMachine;

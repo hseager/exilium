@@ -1,15 +1,9 @@
 import { select } from "@/util";
-import {
-  Faction,
-  Mode,
-  Pylon,
-  Stats,
-  Timer,
-  TimerType,
-  UnitType,
-} from "./types";
-import { Unit } from "./unit";
-import { playerInfantryStats, pylonCount, timerConfig } from "./config";
+import { Faction, Mode, Pylon, Stats, TimerType, UnitType } from "./types";
+import { Unit } from "../model/unit";
+import { playerInfantryStats, pylonCount } from "./config";
+import { InfantryTimer } from "@/model/infantry-timer";
+import { Timer } from "@/model/timer";
 
 export class GameManager {
   mode: Mode;
@@ -32,47 +26,26 @@ export class GameManager {
   }
 
   private setInitialTimers() {
-    const infantryTimer: Timer = {
-      type: TimerType.Infantry,
-      currentTime: 0,
-      maxTime: timerConfig.infantry.max,
-      speed: timerConfig.infantry.speed,
-    };
-    this.timers.push(infantryTimer);
+    this.timers.push(new InfantryTimer());
   }
 
   // This method should be called in your game loop
   updateTimers(deltaTime: number) {
-    this.timers.forEach((timer) => {
-      console.log(timer.currentTime);
-      // Update the timer's current time based on its speed and deltaTime
-      timer.currentTime += timer.speed * deltaTime;
+    this.timers
+      .filter((timer) => timer.active)
+      .forEach((timer) => {
+        console.log(timer.currentTime);
+        // Update the timer's current time based on its speed and deltaTime
+        timer.tick(deltaTime);
 
-      // Check if the timer has reached or exceeded its max time
-      if (timer.currentTime >= timer.maxTime) {
-        this.handleTimerCompletion(timer);
+        // Check if the timer has reached or exceeded its max time
+        if (timer.currentTime >= timer.maxTime) {
+          timer.handleComplete();
 
-        // Optionally reset or remove the timer
-        timer.currentTime = 0; // Reset timer for repeating timers
-        // Or remove the timer if it's a one-time timer:
-        // this.timers = this.timers.filter(t => t !== timer);
-      }
-    });
-  }
-
-  handleTimerCompletion(timer: Timer) {
-    switch (timer.type) {
-      case TimerType.Infantry:
-        const deployInfantryButton =
-          select<HTMLButtonElement>("#deploy-infantry");
-        if (deployInfantryButton) {
-          deployInfantryButton.disabled = false;
+          // Or remove the timer if it's a one-time timer:
+          // this.timers = this.timers.filter(t => t !== timer);
         }
-        break;
-      default:
-        console.log(`Timer ${timer} completed.`);
-        break;
-    }
+      });
   }
 
   private attachDomEvents() {
@@ -92,6 +65,10 @@ export class GameManager {
               playerInfantryStats
             );
             this.units.push(infantry);
+            const infantryTimer = this.timers.find(
+              (timer) => timer.type == TimerType.Infantry
+            );
+            infantryTimer && infantryTimer.restart();
             break;
         }
       }

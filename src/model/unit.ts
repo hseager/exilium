@@ -1,5 +1,5 @@
-import { drawEngine } from "./draw-engine";
-import { Faction, Stats, UnitType } from "./types";
+import { drawEngine } from "../core/draw-engine";
+import { Faction, Stats, UnitType } from "../core/types";
 
 export class Unit {
   type: UnitType;
