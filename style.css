@@ -1,31 +1,34 @@
 :root {
-  --theme-1: #7291d6;
-  --theme-2: #ccc;
+  --theme-1: #010615;
+  --theme-2: #292930;
+  --theme-3: #18beba;
   --spacing-1: 4px;
   --spacing-2: 8px;
   --spacing-3: 12px;
   --spacing-4: 20px;
   --border-radius: 8px;
-  --font-family: system-ui, Roboto, Helvetica, Arial, sans-serif-black;
+  --font-family: "Courier New", Roboto, Helvetica, Arial, sans-serif-black;
   --font-size: 14px;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 #c2d {
   background: #333;
   image-rendering: pixelated;
-  margin: 0 0 var(--spacing-4);
   border-radius: var(--border-radius);
 }
 
 html,
 body {
   margin: 0;
-  background-color: #202020;
+  background: var(--theme-1);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  flex-direction: column;
   font-family: var(--font-family);
   font-size: var(--font-size);
 }
@@ -37,16 +40,18 @@ button {
 
 .controls {
   padding: var(--spacing-4);
-  border: 1px solid var(--theme-2);
-  display: flex;
-  background: var(--theme-2);
-  border-radius: var(--border-radius);
-}
+  height: 600px;
 
-.controls .col {
-  display: flex;
-  flex-direction: column;
-  margin: 0 var(--spacing-4) 0 0;
+  background: var(--theme-1);
+  background: linear-gradient(
+    180deg,
+    var(--theme-1) 0%,
+    var(--theme-2) 50%,
+    var(--theme-1) 100%
+  );
+
+  color: var(--theme-3);
+  border: 4px solid var(--theme-2);
 }
 
 .controls button {

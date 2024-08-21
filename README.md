@@ -10,13 +10,15 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ## TODO
 
-- Unit placement
-- Help button
-- Stats
-- Research
 - Enemy units
-- Design
+- Stats/Items
+- Research
+- UI Design
 - Win coniditon
+- Lose Condition
+- Intro screen
+- Text Narration/Event log
+- Help button
 - Too much other stuff :/
 
 # Using JS13K TypeScript Starter

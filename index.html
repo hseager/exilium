@@ -8,16 +8,13 @@
   <body>
     <canvas id="c2d" width="1000" height="600"></canvas>
     <section class="controls">
-      <div class="col">
-        <h4 class="m-0">Deployments</h4>
-        <button id="deploy-infantry" disabled>
-          Vanguard Troopers (Infantry)
-        </button>
-        <progress id="infantry-progress" max="100" value="0"></progress>
-        <!-- <button>Negotiator (Tank)</button>
+      <h3 class="m-0">Deployments</h3>
+      <button id="deploy-infantry" disabled>Vanguard Troopers (Infantry)</button
+      ><br />
+      <progress id="infantry-progress" max="100" value="0"></progress>
+      <!-- <button>Negotiator (Tank)</button>
         <button>Raptor (Aircraft)</button>
         <button>Goliath mk.II (Mech)</button> -->
-      </div>
       <!-- <div class="col">
         <h5 class="m-0">Stats</h5>
         <p class="m-0">Points: <strong>10</strong></p>
@@ -28,14 +25,12 @@
         Range
         <input type="range" min="1" max="10" value="2" />
       </div> -->
-      <div class="col">
-        <h4 class="m-0">Research</h4>
-        <progress id="research-progress" max="100" value="0"></progress>
-        <div id="research-points" class="d-none"></div>
-        <!-- <button>Increase recruitment speed</button>
+      <h3 class="m-0">Research</h3>
+      <progress id="research-progress" max="100" value="0"></progress>
+      <div id="research-points" class="d-none"></div>
+      <!-- <button>Increase recruitment speed</button>
         <button>New units</button>
         <button>Stat point</button> -->
-      </div>
     </section>
     <script type="module" src="/src/index.ts"></script>
   </body>
