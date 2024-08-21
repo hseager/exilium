@@ -13,6 +13,7 @@ import {
   safeZoneConfig,
   wallConfig,
 } from "@/core/config";
+import { winState } from "./win.state";
 
 class GameState implements State {
   private pylonSprite = new Image();
@@ -25,7 +26,9 @@ class GameState implements State {
     this.gameManager = new GameManager();
   }
 
-  onEnter() {}
+  onEnter() {
+    this.gameManager = new GameManager();
+  }
 
   onUpdate(delta: number) {
     this.setupBackground();
@@ -40,6 +43,21 @@ class GameState implements State {
     if (controls.isEscape) {
       gameStateMachine.setState(menuState);
     }
+
+    this.checkWinCondition();
+    this.checkLoseCondition();
+  }
+
+  private checkWinCondition() {
+    if (this.gameManager.pylons.every((p) => p.life <= 90)) {
+      gameStateMachine.setState(winState);
+    }
+  }
+
+  private checkLoseCondition() {
+    // if (this.gameManager.player.every((p) => p.life <= 90)) {
+    //   gameStateMachine.setState(winState);
+    // }
   }
 
   private handleUnitPlacement() {
@@ -73,43 +91,37 @@ class GameState implements State {
       drawEngine.canvasHeight
     );
 
-    // Add color stops
-    gradient.addColorStop(0, "#1f313f"); // Dark color at the top
+    gradient.addColorStop(0, "#1f313f");
     gradient.addColorStop(0.05, "#385a64");
     gradient.addColorStop(0.1, "#618384");
     gradient.addColorStop(0.2, "#cfd3c2");
     gradient.addColorStop(0.24, "#6b8a8d");
-    gradient.addColorStop(1, "#010008"); // Lighter color at the bottom
+    gradient.addColorStop(1, "#010008");
 
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(0, 0, drawEngine.canvasWidth, drawEngine.canvasHeight);
   }
 
   private drawPylons() {
-    const spacing = drawEngine.canvasWidth / this.gameManager.pylons.length + 1;
+    const spacing = drawEngine.canvasWidth / this.gameManager.pylons.length - 5;
 
-    // Draw 13 pylons across the screen
     this.gameManager.pylons.forEach((pylon, i) => {
       const x = spacing * (i + 1) - pylonWidth / 2;
 
       // Check for units damaging them
-      this.gameManager.units.forEach((unit) => {
-        const distance = Math.sqrt(
-          (unit.position.x - x) ** 2 + (unit.position.y - pylonY) ** 2
-        );
+      this.gameManager.units
+        .filter((unit) => unit.faction === Faction.Vanguard)
+        .forEach((unit) => {
+          const distance = Math.sqrt(
+            (unit.position.x - x) ** 2 + (unit.position.y - pylonY) ** 2
+          );
 
-        if (distance <= pylonDamageRange && !unit.hasAttackedPylon) {
-          // Apply damage to the pylon
-          pylon.life -= unit.stats.attack;
-          unit.hasAttackedPylon = true;
-
-          // Optionally, handle the case where the pylon is destroyed
-          if (pylon.life <= 0) {
-            console.log(`Pylon ${i} is destroyed!`);
-            // You might want to remove the pylon from the array or mark it as destroyed
+          if (distance <= pylonDamageRange && !unit.hasAttackedPylon) {
+            // Apply damage to the pylon
+            pylon.life -= unit.stats.attack;
+            unit.hasAttackedPylon = true;
           }
-        }
-      });
+        });
 
       this.drawPylon(x, pylonY, pylon);
     });
@@ -159,13 +171,20 @@ class GameState implements State {
 
   private drawUnits() {
     this.gameManager.units = this.gameManager.units?.filter((unit) => {
-      if (unit.position.y <= wallConfig.y) {
-        return false; // Exclude this unit from the new array
-      }
-
-      unit.position.y = unit.position.y - unit.stats.moveSpeed;
-
       const theme = getFactionTheme(unit.faction);
+
+      if (unit.faction === Faction.Vanguard) {
+        if (unit.position.y <= wallConfig.y) {
+          return false; // Exclude this unit from the new array
+        }
+        unit.position.y = unit.position.y - unit.stats.moveSpeed;
+      } else if (unit.faction === Faction.Dominus) {
+        if (unit.position.y >= drawEngine.canvasHeight - safeZoneConfig.y) {
+          this.gameManager.player.takeDamage(unit.stats.attack);
+          return false; // Exclude this unit from the new array
+        }
+        unit.position.y = unit.position.y + unit.stats.moveSpeed;
+      }
 
       this.ctx.beginPath();
       this.ctx.arc(

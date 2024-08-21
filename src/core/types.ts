@@ -18,10 +18,11 @@ export type Player = {
 };
 
 export enum TimerType {
-  Infantry,
-  Tank,
-  Aircraft,
-  Research,
+  PlayerDeployInfantry,
+  PlayerDeployTank,
+  PlayerDeployAircraft,
+  PlayerResearch,
+  EnemyDeployInfantry,
 }
 
 export enum Faction {
@@ -56,4 +57,9 @@ export enum ResearchType {
   NewUnit = "New Unit",
   RecruitmentSpeed = "Recruitment Speed",
   TechUpgrade = "Tech Upgrade",
+}
+
+export interface TimerConfig {
+  maxTime: number;
+  speed: number;
 }

@@ -1,14 +1,20 @@
 :root {
   --theme-1: #010615;
   --theme-2: #292930;
-  --theme-3: #18beba;
+  --theme-3: #08121c;
+  --theme-4: #18beba;
+  --theme-5: #28485f;
+  --theme-6: #464b4e;
+  --theme-7: #c1c6c9;
+
   --spacing-1: 4px;
   --spacing-2: 8px;
   --spacing-3: 12px;
   --spacing-4: 20px;
-  --border-radius: 8px;
+  --border-radius: 5px;
   --font-family: "Courier New", Roboto, Helvetica, Arial, sans-serif-black;
   --font-size: 14px;
+  --font-size-lg: 16px;
 }
 
 * {
@@ -16,9 +22,8 @@
 }
 
 #c2d {
-  background: #333;
+  background: var(--theme-1);
   image-rendering: pixelated;
-  border-radius: var(--border-radius);
 }
 
 html,
@@ -41,6 +46,7 @@ button {
 .controls {
   padding: var(--spacing-4);
   height: 600px;
+  width: 300px;
 
   background: var(--theme-1);
   background: linear-gradient(
@@ -50,12 +56,26 @@ button {
     var(--theme-1) 100%
   );
 
-  color: var(--theme-3);
-  border: 4px solid var(--theme-2);
+  color: var(--theme-4);
+  border: 3px solid var(--theme-7);
+  border-left-color: var(--theme-6);
+  border-bottom-color: var(--theme-6);
+
+  border-radius: var(--border-radius);
 }
 
 .controls button {
   margin: 0 0 var(--spacing-2);
+}
+
+.controls h3 {
+  margin: 0 0 var(--spacing-2);
+}
+
+.controls .grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 10px; /
 }
 
 .controls button:last-of-type {
@@ -68,4 +88,34 @@ button {
 
 .d-none {
   display: none;
+}
+
+.progress-bar {
+  width: 100%;
+}
+
+.button {
+  background: var(--theme-1);
+  color: var(--theme-4);
+  padding: var(--spacing-2) var(--spacing-2);
+  text-align: center;
+  width: 100%;
+  font-size: var(--font-size-lg);
+
+  border: 2px solid var(--theme-7);
+  border-left-color: var(--theme-6);
+  border-bottom-color: var(--theme-6);
+
+  border-radius: var(--border-radius);
+}
+
+.button:active {
+  border: 2px solid var(--theme-6);
+  border-left-color: var(--theme-7);
+  border-bottom-color: var(--theme-7);
+}
+
+.button:disabled {
+  color: var(--theme-6);
+  border-color: var(--theme-6);
 }

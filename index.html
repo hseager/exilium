@@ -9,9 +9,30 @@
     <canvas id="c2d" width="1000" height="600"></canvas>
     <section class="controls">
       <h3 class="m-0">Deployments</h3>
-      <button id="deploy-infantry" disabled>Vanguard Troopers (Infantry)</button
-      ><br />
-      <progress id="infantry-progress" max="100" value="0"></progress>
+      <div class="grid">
+        <div>
+          <button id="deploy-infantry" class="button" disabled>
+            Vanguard Troopers (Infantry)</button
+          ><br />
+          <progress
+            id="infantry-progress"
+            class="progress-bar"
+            max="100"
+            value="0"
+          ></progress>
+        </div>
+        <!-- <div>
+          <button id="deploy-infantry" class="button" disabled>
+            Negotiator (Tank)</button
+          ><br />
+          <progress
+            id="infantry-progress"
+            class="progress-bar"
+            max="100"
+            value="0"
+          ></progress>
+        </div> -->
+      </div>
       <!-- <button>Negotiator (Tank)</button>
         <button>Raptor (Aircraft)</button>
         <button>Goliath mk.II (Mech)</button> -->
@@ -26,7 +47,12 @@
         <input type="range" min="1" max="10" value="2" />
       </div> -->
       <h3 class="m-0">Research</h3>
-      <progress id="research-progress" max="100" value="0"></progress>
+      <progress
+        id="research-progress"
+        class="progress-bar"
+        max="100"
+        value="0"
+      ></progress>
       <div id="research-points" class="d-none"></div>
       <!-- <button>Increase recruitment speed</button>
         <button>New units</button>

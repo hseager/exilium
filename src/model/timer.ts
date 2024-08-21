@@ -1,3 +1,4 @@
+import { GameManager } from "@/core/game-manager";
 import { TimerType } from "../core/types";
 
 export class Timer {
@@ -34,5 +35,5 @@ export class Timer {
     this.currentTime += this.speed * deltaTime;
   }
 
-  handleComplete() {}
+  handleComplete(gameManager: GameManager) {}
 }

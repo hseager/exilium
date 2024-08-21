@@ -31,6 +31,7 @@ export const generateResearchOptions = () => {
   const button = document.createElement("button");
   button.id = option.name;
   button.textContent = option.title;
+  button.classList.add("button");
   button.onclick = (event) => {
     console.log(event?.target);
   };

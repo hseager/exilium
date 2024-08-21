@@ -1,4 +1,4 @@
-import { Faction } from "./types";
+import { Faction, Stats, TimerConfig } from "./types";
 
 export const wallConfig = {
   x: 20,
@@ -14,11 +14,13 @@ export const safeZoneConfig = {
 };
 
 export const pylonCount = 13;
-export const pylonWidth = 22;
+export const pylonWidth = 44;
 export const pylonY = 40;
-export const pylonDamageRange = 110;
+export const pylonDamageRange = 107;
 
-export const playerInfantryStats = {
+export const playerMaxLife = 100;
+
+export const playerInfantryStats: Stats = {
   attack: 10,
   attackSpeed: 20,
   moveSpeed: 1,
@@ -27,11 +29,20 @@ export const playerInfantryStats = {
   range: 4,
 };
 
+export const enemyInfantryStats: Stats = {
+  attack: 8,
+  attackSpeed: 20,
+  moveSpeed: 0.8,
+  defence: 3,
+  health: 100,
+  range: 4,
+};
+
 export function getFactionTheme(faction: Faction) {
   if (faction === Faction.Vanguard) {
     return {
-      fill: "#917821",
-      border: "#3d3002",
+      fill: "#18beba",
+      border: "#08121c",
     };
   } else {
     return {
@@ -43,4 +54,18 @@ export function getFactionTheme(faction: Faction) {
 
 export const infantryStyle = {
   radius: 12,
+};
+
+export const playerInfantryTimer: TimerConfig = {
+  maxTime: 100,
+  speed: 0.01,
+};
+export const playerResearchTimer: TimerConfig = {
+  maxTime: 100,
+  speed: 0.002,
+};
+export const enemyInfantryTimer: TimerConfig = {
+  maxTime: 100,
+  // speed: 0.007,
+  speed: 0.02,
 };

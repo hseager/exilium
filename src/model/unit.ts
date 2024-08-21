@@ -1,3 +1,4 @@
+import { wallConfig } from "@/core/config";
 import { drawEngine } from "../core/draw-engine";
 import { Faction, Stats, UnitType } from "../core/types";
 
@@ -23,7 +24,11 @@ export class Unit {
         drawEngine.canvasHeight - 25
       );
     } else {
-      return new DOMPoint(400, 120);
+      const min = wallConfig.x;
+      const max = drawEngine.canvasWidth - wallConfig.x;
+      const randomX = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      return new DOMPoint(randomX, wallConfig.y);
     }
   }
 }

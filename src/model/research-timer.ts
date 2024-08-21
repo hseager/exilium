@@ -5,14 +5,15 @@ import {
   hideResearchOptions,
   showResearchOptions,
 } from "@/core/research-manager";
-
-const maxTime = 100;
-// const speed = 0.005;
-const speed = 0.2;
+import { playerResearchTimer } from "@/core/config";
 
 export class ResearchTimer extends Timer {
   constructor() {
-    super(TimerType.Research, maxTime, speed);
+    super(
+      TimerType.PlayerResearch,
+      playerResearchTimer.maxTime,
+      playerResearchTimer.speed
+    );
   }
 
   start() {

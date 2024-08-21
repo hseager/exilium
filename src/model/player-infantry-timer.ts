@@ -1,13 +1,15 @@
 import { TimerType } from "@/core/types";
 import { Timer } from "./timer";
 import { select } from "@/util";
+import { playerInfantryTimer } from "@/core/config";
 
-const maxTime = 100;
-const speed = 0.01;
-
-export class InfantryTimer extends Timer {
+export class PlayerInfantryTimer extends Timer {
   constructor() {
-    super(TimerType.Infantry, maxTime, speed);
+    super(
+      TimerType.PlayerDeployInfantry,
+      playerInfantryTimer.maxTime,
+      playerInfantryTimer.speed
+    );
   }
 
   start() {

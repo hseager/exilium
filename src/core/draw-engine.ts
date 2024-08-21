@@ -31,7 +31,7 @@ class DrawEngine {
   ) {
     const context = this.context;
 
-    context.font = `${fontSize}px system-ui, Roboto, Helvetica, Arial, sans-serif-black`;
+    context.font = `${fontSize}px "Courier New", Roboto, Helvetica, Arial, sans-serif-black`;
     context.textAlign = textAlign;
     context.strokeStyle = "black";
     context.lineWidth = 4;
