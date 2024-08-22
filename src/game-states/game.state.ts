@@ -1,4 +1,4 @@
-import { Faction, Mode, Pylon, State } from "@/core/types";
+import { Building, Faction, Mode, Pylon, State } from "@/core/types";
 import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 import { gameStateMachine } from "@/game-state-machine";
@@ -8,6 +8,7 @@ import {
   getFactionTheme,
   infantryStyle,
   pylonDamageRange,
+  pylonHexCodes,
   pylonWidth,
   pylonY,
   safeZoneConfig,
@@ -19,19 +20,26 @@ class GameState implements State {
   private pylonSprite = new Image();
   private ctx;
   private gameManager;
+  private buildings: Building[];
 
   constructor() {
     this.ctx = drawEngine.context;
     this.pylonSprite.src = "pylon.png";
     this.gameManager = new GameManager();
+    this.buildings = [];
   }
 
   onEnter() {
     this.gameManager = new GameManager();
+    this.initializeSkyline();
   }
 
   onUpdate(delta: number) {
-    this.setupBackground();
+    this.drawBackground();
+    this.drawSun();
+    this.drawClouds();
+    this.drawSkyline();
+    this.drawBoard();
     this.drawPylons();
     this.drawSafeZone();
     this.drawUnits();
@@ -83,7 +91,39 @@ class GameState implements State {
     }
   }
 
-  private setupBackground() {
+  private drawSun() {
+    const sunRadius = 26;
+    const sunX = drawEngine.canvasWidth / 2;
+    const sunY = sunRadius + 10;
+
+    this.ctx.beginPath();
+    this.ctx.arc(sunX, sunY, sunRadius, 0, 2 * Math.PI);
+    this.ctx.fillStyle = "#d8d1b7";
+    this.ctx.fill();
+    this.ctx.closePath();
+  }
+
+  private drawClouds() {
+    this.drawCloud(50, 50, 0.14);
+    this.drawCloud(750, 50, 0.24);
+  }
+
+  private drawCloud(x: number, y: number, opacity: number) {
+    this.ctx.globalAlpha = opacity;
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, 20, Math.PI * 0.5, Math.PI * 1.5);
+    this.ctx.arc(x + 30, y - 20, 30, Math.PI * 1, Math.PI * 1.85);
+    this.ctx.arc(x + 70, y - 20, 40, Math.PI * 1.37, Math.PI * 1.91);
+    this.ctx.arc(x + 100, y, 30, Math.PI * 1.5, Math.PI * 0.5);
+    this.ctx.closePath();
+    this.ctx.fillStyle = "#FFFFFF";
+    this.ctx.fill();
+    this.ctx.strokeStyle = "#D3D3D3";
+    this.ctx.stroke();
+    this.ctx.globalAlpha = 1;
+  }
+
+  private drawBoard() {
     const gradient = this.ctx.createLinearGradient(
       0,
       0,
@@ -94,12 +134,120 @@ class GameState implements State {
     gradient.addColorStop(0, "#1f313f");
     gradient.addColorStop(0.05, "#385a64");
     gradient.addColorStop(0.1, "#618384");
-    gradient.addColorStop(0.2, "#cfd3c2");
-    gradient.addColorStop(0.24, "#6b8a8d");
-    gradient.addColorStop(1, "#010008");
+    gradient.addColorStop(0.15, "#cfd3c2");
+    gradient.addColorStop(0.23, "#6b8a8d");
+    gradient.addColorStop(0.24, "#2a4240");
+    gradient.addColorStop(1, "#131515");
+
+    this.ctx.fillStyle = gradient;
+    this.ctx.fillRect(
+      0,
+      wallConfig.y,
+      drawEngine.canvasWidth,
+      drawEngine.canvasHeight
+    );
+  }
+
+  private drawBackground() {
+    const gradient = this.ctx.createLinearGradient(
+      0,
+      0,
+      0,
+      drawEngine.canvasHeight
+    );
+
+    gradient.addColorStop(0, "#1f313f");
+    gradient.addColorStop(0.05, "#385a64");
+    gradient.addColorStop(0.1, "#618384");
+    gradient.addColorStop(0.15, "#cfd3c2");
+    gradient.addColorStop(0.23, "#6b8a8d");
+    gradient.addColorStop(0.24, "#2a4240");
+    gradient.addColorStop(1, "#131515");
 
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(0, 0, drawEngine.canvasWidth, drawEngine.canvasHeight);
+  }
+
+  private initializeSkyline() {
+    const maxHeight = 80;
+    const minHeight = 120;
+    const minWidth = 20;
+    const maxWidth = 100;
+
+    let currentX = 0;
+
+    while (currentX < drawEngine.canvasWidth) {
+      const buildingWidth =
+        Math.floor(Math.random() * (maxWidth - minWidth + 1)) + minWidth;
+      const buildingHeight =
+        Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+
+      const building: Building = {
+        x: currentX,
+        y: buildingHeight,
+        width: buildingWidth,
+        height: 100 + buildingHeight,
+        lights: this.generateLights(
+          currentX,
+          buildingHeight,
+          buildingWidth,
+          buildingHeight
+        ),
+      };
+
+      this.buildings.push(building);
+
+      currentX += buildingWidth;
+    }
+  }
+
+  private generateLights(
+    x: number,
+    y: number,
+    buildingWidth: number,
+    buildingHeight: number
+  ) {
+    const lights = [];
+    const lightSize = 3;
+    const lightSpacing = 10;
+
+    for (
+      let lx = x + lightSpacing;
+      lx < x + buildingWidth - lightSpacing;
+      lx += lightSpacing
+    ) {
+      for (
+        let ly = y + lightSpacing;
+        ly < y + buildingHeight - lightSpacing;
+        ly += lightSpacing
+      ) {
+        if (Math.random() > 0.75) {
+          // 30% chance to add a light
+          lights.push({ x: lx, y: ly, size: lightSize });
+        }
+      }
+    }
+
+    return lights;
+  }
+
+  private drawSkyline() {
+    this.buildings.forEach((building) => {
+      // Draw the building
+      this.ctx.fillStyle = "#34363c";
+      this.ctx.fillRect(
+        building.x,
+        building.y,
+        building.width,
+        building.height
+      );
+
+      // Draw the lights
+      this.ctx.fillStyle = "#d6d6bb";
+      building.lights.forEach((light) => {
+        this.ctx.fillRect(light.x, light.y, light.size, light.size);
+      });
+    });
   }
 
   private drawPylons() {
@@ -123,7 +271,7 @@ class GameState implements State {
           }
         });
 
-      this.drawPylon(x, pylonY, pylon);
+      this.drawPylon(x, pylonY, pylon, pylonHexCodes[i]);
     });
 
     this.drawWall();
@@ -152,7 +300,7 @@ class GameState implements State {
     this.ctx.closePath();
   }
 
-  private drawPylon(x: number, y: number, pylon: Pylon) {
+  private drawPylon(x: number, y: number, pylon: Pylon, glowColour: string) {
     const originalHeight = 100; // Assuming the original height of the pylon sprite is 100px
     const clippedHeight = (pylon.life / pylon.maxLife) * originalHeight;
 
@@ -163,8 +311,16 @@ class GameState implements State {
     this.ctx.rect(x, y + (originalHeight - clippedHeight), 40, clippedHeight);
     this.ctx.clip();
 
+    this.ctx.shadowColor = glowColour;
+    this.ctx.shadowBlur = 4;
+    this.ctx.shadowOffsetX = 0;
+    this.ctx.shadowOffsetY = 0;
+
     // Draw the pylon image within the clipped region
     this.ctx.drawImage(this.pylonSprite, x, y, 40, originalHeight);
+
+    this.ctx.shadowColor = "transparent";
+    this.ctx.shadowBlur = 0;
 
     this.ctx.restore(); // Restore the canvas to its original state
   }

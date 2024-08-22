@@ -18,6 +18,22 @@ export const pylonWidth = 44;
 export const pylonY = 40;
 export const pylonDamageRange = 107;
 
+export const pylonHexCodes = [
+  "#3F3C7D", // Deep Purple
+  "#4C4F9B", // Medium Purple-Blue
+  "#7A79C0", // Light Purple-Blue
+  "#8F8EC4", // Soft Purple-Blue
+  "#A4A1C8", // Very Light Purple-Blue
+  "#B9B6D1", // Lightest Purple-Blue
+  "#D0C9E3", // Almost White Purple-Blue
+  "#C8B9E2", // Very Light Lavender
+  "#B0A1E1", // Light Lavender-Blue
+  "#9B8CD0", // Medium Lavender-Blue
+  "#7A79C0", // Light Purple-Blue
+  "#4C4F9B", // Medium Purple-Blue
+  "#3F3C7D", // Deep Purple
+];
+
 export const playerMaxLife = 100;
 
 export const playerInfantryStats: Stats = {

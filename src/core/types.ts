@@ -63,3 +63,17 @@ export interface TimerConfig {
   maxTime: number;
   speed: number;
 }
+
+export type Building = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  lights: Light[];
+};
+
+export type Light = {
+  x: number;
+  y: number;
+  size: number;
+};
