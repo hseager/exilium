@@ -16,7 +16,7 @@ export const safeZoneConfig = {
 export const pylonCount = 13;
 export const pylonWidth = 44;
 export const pylonY = 40;
-export const pylonDamageRange = 107;
+export const pylonDamageRange = 108;
 
 export const pylonHexCodes = [
   "#3F3C7D", // Deep Purple
@@ -38,7 +38,7 @@ export const playerMaxLife = 100;
 
 export const playerInfantryStats: Stats = {
   attack: 10,
-  attackSpeed: 20,
+  attackSpeed: 0.16,
   moveSpeed: 1,
   defence: 3,
   health: 100,
@@ -47,7 +47,7 @@ export const playerInfantryStats: Stats = {
 
 export const enemyInfantryStats: Stats = {
   attack: 8,
-  attackSpeed: 20,
+  attackSpeed: 0.2,
   moveSpeed: 0.8,
   defence: 3,
   health: 100,
@@ -74,7 +74,7 @@ export const infantryStyle = {
 
 export const playerInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.01,
+  speed: 0.2,
 };
 export const playerResearchTimer: TimerConfig = {
   maxTime: 100,

@@ -26,18 +26,21 @@ import {
   drawWall,
 } from "@/core/scene";
 import { loseState } from "./lose.state";
+import { CombatManager } from "@/core/combat-manager";
 
 class GameState implements State {
   private pylonSprite = new Image();
   private ctx;
   private gameManager;
   private buildings: Building[];
+  private combatManager;
 
   constructor() {
     this.ctx = drawEngine.context;
     this.pylonSprite.src = "pylon.png";
     this.gameManager = new GameManager();
     this.buildings = [];
+    this.combatManager = new CombatManager();
   }
 
   onEnter() {
@@ -55,7 +58,7 @@ class GameState implements State {
     this.drawPylons();
     drawWall(this.ctx);
     drawSafeZone(this.ctx);
-    this.drawUnits();
+    this.drawUnits(delta);
 
     this.handleUnitPlacement();
 
@@ -217,23 +220,48 @@ class GameState implements State {
     this.ctx.restore(); // Restore the canvas to its original state
   }
 
-  private drawUnits() {
+  private drawUnits(delta: number) {
     this.gameManager.units = this.gameManager.units?.filter((unit) => {
       const theme = getFactionTheme(unit.faction);
 
-      if (unit.faction === Faction.Vanguard) {
-        if (unit.position.y <= wallConfig.y) {
-          return false; // Exclude this unit from the new array
+      // Check for nearby opposing units
+      const opponent = this.gameManager.units.find((otherUnit) => {
+        return (
+          otherUnit.faction !== unit.faction &&
+          Math.hypot(
+            unit.position.x - otherUnit.position.x,
+            unit.position.y - otherUnit.position.y
+          ) <
+            infantryStyle.radius * 2
+        );
+      });
+
+      if (opponent) {
+        // Manage combat state
+        this.combatManager.addCombatUnit(unit, opponent);
+
+        // Units do not move if they are engaged in combat
+      } else {
+        // Reset lastAttackTime when not in combat
+        unit.lastAttackTime = undefined;
+
+        // Handle normal movement
+        if (unit.faction === Faction.Vanguard) {
+          if (unit.position.y <= wallConfig.y) return false;
+          unit.position.y -= unit.stats.moveSpeed;
+        } else if (unit.faction === Faction.Dominus) {
+          if (unit.position.y >= drawEngine.canvasHeight - safeZoneConfig.y) {
+            this.gameManager.player.takeDamage(unit.stats.attack);
+            return false;
+          }
+          unit.position.y += unit.stats.moveSpeed;
         }
-        unit.position.y = unit.position.y - unit.stats.moveSpeed;
-      } else if (unit.faction === Faction.Dominus) {
-        if (unit.position.y >= drawEngine.canvasHeight - safeZoneConfig.y) {
-          this.gameManager.player.takeDamage(unit.stats.attack);
-          return false; // Exclude this unit from the new array
-        }
-        unit.position.y = unit.position.y + unit.stats.moveSpeed;
+
+        // Remove from combat if they are not in combat
+        this.combatManager.removeCombatUnit(unit);
       }
 
+      // Draw the unit
       this.ctx.beginPath();
       this.ctx.arc(
         unit.position.x,
@@ -250,6 +278,9 @@ class GameState implements State {
 
       return true; // Keep this unit in the new array
     });
+
+    // Update combat manager
+    this.combatManager.update(delta, this.gameManager);
   }
 }
 

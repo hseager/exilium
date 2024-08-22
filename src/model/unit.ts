@@ -7,6 +7,7 @@ export class Unit {
   position: DOMPoint;
   faction: Faction;
   stats: Stats;
+  lastAttackTime?: number;
   hasAttackedPylon: boolean;
 
   constructor(type: UnitType, faction: Faction, stats: Stats) {
