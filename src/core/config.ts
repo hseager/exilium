@@ -69,7 +69,7 @@ export function getFactionTheme(faction: Faction) {
 }
 
 export const infantryStyle = {
-  radius: 12,
+  radius: 16,
 };
 
 export const playerInfantryTimer: TimerConfig = {

@@ -57,11 +57,11 @@ button {
   );
 
   color: var(--theme-4);
-  border: 3px solid var(--theme-7);
+  border: 2px solid var(--theme-7);
   border-left-color: var(--theme-6);
   border-bottom-color: var(--theme-6);
 
-  border-radius: var(--border-radius);
+  /* border-radius: var(--border-radius); */
 }
 
 .controls button {
@@ -118,4 +118,32 @@ button {
 .button:disabled {
   color: var(--theme-6);
   border-color: var(--theme-6);
+}
+
+.damage-meter {
+  height: 600px;
+  width: 8px;
+  background: var(--theme-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.damage {
+  position: absolute;
+  top: 0;
+  left:0;
+  background: var(--theme-6);
+  height: 0;
+  width: 100%;
+  z-index: 99;
+  transition: height 0.5s;
+}
+
+.current-health {
+  height: 100%;
+  background: linear-gradient(#a6e293, #fee191, #e84258);
+  position: absolute;
+  bottom:0;
+  left:0;
+  width:100%;
 }

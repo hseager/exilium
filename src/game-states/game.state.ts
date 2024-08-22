@@ -15,6 +15,14 @@ import {
   wallConfig,
 } from "@/core/config";
 import { winState } from "./win.state";
+import {
+  drawBackground,
+  drawBoard,
+  drawClouds,
+  drawRoad,
+  drawSkyline,
+  drawSun,
+} from "@/core/scene";
 
 class GameState implements State {
   private pylonSprite = new Image();
@@ -35,11 +43,12 @@ class GameState implements State {
   }
 
   onUpdate(delta: number) {
-    this.drawBackground();
-    this.drawSun();
-    this.drawClouds();
-    this.drawSkyline();
-    this.drawBoard();
+    drawBackground(this.ctx);
+    drawSun(this.ctx);
+    drawClouds(this.ctx);
+    drawSkyline(this.ctx, this.buildings);
+    drawBoard(this.ctx);
+    drawRoad(this.ctx);
     this.drawPylons();
     this.drawSafeZone();
     this.drawUnits();
@@ -89,83 +98,6 @@ class GameState implements State {
       this.ctx.stroke();
       this.ctx.closePath();
     }
-  }
-
-  private drawSun() {
-    const sunRadius = 26;
-    const sunX = drawEngine.canvasWidth / 2;
-    const sunY = sunRadius + 10;
-
-    this.ctx.beginPath();
-    this.ctx.arc(sunX, sunY, sunRadius, 0, 2 * Math.PI);
-    this.ctx.fillStyle = "#d8d1b7";
-    this.ctx.fill();
-    this.ctx.closePath();
-  }
-
-  private drawClouds() {
-    this.drawCloud(50, 50, 0.14);
-    this.drawCloud(750, 50, 0.24);
-  }
-
-  private drawCloud(x: number, y: number, opacity: number) {
-    this.ctx.globalAlpha = opacity;
-    this.ctx.beginPath();
-    this.ctx.arc(x, y, 20, Math.PI * 0.5, Math.PI * 1.5);
-    this.ctx.arc(x + 30, y - 20, 30, Math.PI * 1, Math.PI * 1.85);
-    this.ctx.arc(x + 70, y - 20, 40, Math.PI * 1.37, Math.PI * 1.91);
-    this.ctx.arc(x + 100, y, 30, Math.PI * 1.5, Math.PI * 0.5);
-    this.ctx.closePath();
-    this.ctx.fillStyle = "#FFFFFF";
-    this.ctx.fill();
-    this.ctx.strokeStyle = "#D3D3D3";
-    this.ctx.stroke();
-    this.ctx.globalAlpha = 1;
-  }
-
-  private drawBoard() {
-    const gradient = this.ctx.createLinearGradient(
-      0,
-      0,
-      0,
-      drawEngine.canvasHeight
-    );
-
-    gradient.addColorStop(0, "#1f313f");
-    gradient.addColorStop(0.05, "#385a64");
-    gradient.addColorStop(0.1, "#618384");
-    gradient.addColorStop(0.15, "#cfd3c2");
-    gradient.addColorStop(0.23, "#6b8a8d");
-    gradient.addColorStop(0.24, "#2a4240");
-    gradient.addColorStop(1, "#131515");
-
-    this.ctx.fillStyle = gradient;
-    this.ctx.fillRect(
-      0,
-      wallConfig.y,
-      drawEngine.canvasWidth,
-      drawEngine.canvasHeight
-    );
-  }
-
-  private drawBackground() {
-    const gradient = this.ctx.createLinearGradient(
-      0,
-      0,
-      0,
-      drawEngine.canvasHeight
-    );
-
-    gradient.addColorStop(0, "#1f313f");
-    gradient.addColorStop(0.05, "#385a64");
-    gradient.addColorStop(0.1, "#618384");
-    gradient.addColorStop(0.15, "#cfd3c2");
-    gradient.addColorStop(0.23, "#6b8a8d");
-    gradient.addColorStop(0.24, "#2a4240");
-    gradient.addColorStop(1, "#131515");
-
-    this.ctx.fillStyle = gradient;
-    this.ctx.fillRect(0, 0, drawEngine.canvasWidth, drawEngine.canvasHeight);
   }
 
   private initializeSkyline() {
@@ -229,25 +161,6 @@ class GameState implements State {
     }
 
     return lights;
-  }
-
-  private drawSkyline() {
-    this.buildings.forEach((building) => {
-      // Draw the building
-      this.ctx.fillStyle = "#34363c";
-      this.ctx.fillRect(
-        building.x,
-        building.y,
-        building.width,
-        building.height
-      );
-
-      // Draw the lights
-      this.ctx.fillStyle = "#d6d6bb";
-      building.lights.forEach((light) => {
-        this.ctx.fillRect(light.x, light.y, light.size, light.size);
-      });
-    });
   }
 
   private drawPylons() {
