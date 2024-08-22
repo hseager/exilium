@@ -20,9 +20,12 @@ import {
   drawBoard,
   drawClouds,
   drawRoad,
+  drawSafeZone,
   drawSkyline,
   drawSun,
+  drawWall,
 } from "@/core/scene";
+import { loseState } from "./lose.state";
 
 class GameState implements State {
   private pylonSprite = new Image();
@@ -50,7 +53,8 @@ class GameState implements State {
     drawBoard(this.ctx);
     drawRoad(this.ctx);
     this.drawPylons();
-    this.drawSafeZone();
+    drawWall(this.ctx);
+    drawSafeZone(this.ctx);
     this.drawUnits();
 
     this.handleUnitPlacement();
@@ -72,9 +76,9 @@ class GameState implements State {
   }
 
   private checkLoseCondition() {
-    // if (this.gameManager.player.every((p) => p.life <= 90)) {
-    //   gameStateMachine.setState(winState);
-    // }
+    if (this.gameManager.player.life <= 0) {
+      gameStateMachine.setState(loseState);
+    }
   }
 
   private handleUnitPlacement() {
@@ -186,31 +190,6 @@ class GameState implements State {
 
       this.drawPylon(x, pylonY, pylon, pylonHexCodes[i]);
     });
-
-    this.drawWall();
-  }
-
-  private drawWall() {
-    this.ctx.beginPath();
-    this.ctx.moveTo(wallConfig.x, wallConfig.y);
-    this.ctx.lineTo(drawEngine.canvasWidth - wallConfig.x, wallConfig.y);
-    this.ctx.lineWidth = wallConfig.width;
-
-    this.ctx.strokeStyle = wallConfig.color;
-    this.ctx.stroke();
-    this.ctx.closePath();
-  }
-
-  private drawSafeZone() {
-    const safeZoneHeight = drawEngine.canvasHeight - safeZoneConfig.y;
-    this.ctx.beginPath();
-    this.ctx.moveTo(safeZoneConfig.x, safeZoneHeight);
-    this.ctx.lineTo(drawEngine.canvasWidth - safeZoneConfig.x, safeZoneHeight);
-    this.ctx.lineWidth = wallConfig.width;
-
-    this.ctx.strokeStyle = safeZoneConfig.color;
-    this.ctx.stroke();
-    this.ctx.closePath();
   }
 
   private drawPylon(x: number, y: number, pylon: Pylon, glowColour: string) {

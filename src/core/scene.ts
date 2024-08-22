@@ -7,7 +7,7 @@ export function drawSun(ctx: CanvasRenderingContext2D) {
   const sunX = drawEngine.canvasWidth / 2;
   const sunY = sunRadius + 10;
 
-  ctx.globalAlpha = 0.4;
+  ctx.globalAlpha = 0.6;
   ctx.beginPath();
   ctx.arc(sunX, sunY, sunRadius, 0, 2 * Math.PI);
   ctx.fillStyle = "#d8d1b7";
@@ -120,4 +120,27 @@ export function drawSkyline(
       ctx.fillRect(light.x, light.y, light.size, light.size);
     });
   });
+}
+
+export function drawWall(ctx: CanvasRenderingContext2D) {
+  ctx.beginPath();
+  ctx.moveTo(wallConfig.x, wallConfig.y);
+  ctx.lineTo(drawEngine.canvasWidth - wallConfig.x, wallConfig.y);
+  ctx.lineWidth = wallConfig.width;
+
+  ctx.strokeStyle = wallConfig.color;
+  ctx.stroke();
+  ctx.closePath();
+}
+
+export function drawSafeZone(ctx: CanvasRenderingContext2D) {
+  const safeZoneHeight = drawEngine.canvasHeight - safeZoneConfig.y;
+  ctx.beginPath();
+  ctx.moveTo(safeZoneConfig.x, safeZoneHeight);
+  ctx.lineTo(drawEngine.canvasWidth - safeZoneConfig.x, safeZoneHeight);
+  ctx.lineWidth = wallConfig.width;
+
+  ctx.strokeStyle = safeZoneConfig.color;
+  ctx.stroke();
+  ctx.closePath();
 }

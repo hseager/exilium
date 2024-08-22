@@ -10,14 +10,20 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ## TODO
 
-- Enemy units
+- Battles
 - Stats/Items
 - Research
 - UI Design
-- Lose Condition
-- Intro screen
 - Text Narration/Event log
 - Help button
+
+### Feature ideas
+
+- Auto deploy on timer
+  - Upgrade auto deploy time
+  - Upgrade amount of units on auto deploy
+- Ion cannon
+- Auto heal over time
 
 # Using JS13K TypeScript Starter
 

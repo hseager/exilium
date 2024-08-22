@@ -2,7 +2,7 @@ import { State } from "@/core/types";
 import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 
-class WinState implements State {
+class LoseState implements State {
   onEnter() {
     c2d.addEventListener("click", () => {
       window.location.reload();
@@ -11,21 +11,27 @@ class WinState implements State {
 
   onUpdate() {
     const xCenter = drawEngine.context.canvas.width / 2;
-    drawEngine.drawText("You defeated", 60, xCenter, 60);
-    drawEngine.drawText("the Dominus Network", 60, xCenter, 120);
+    drawEngine.drawText("You were defeated", 80, xCenter, 90);
     drawEngine.drawText(
-      "Victory is yours! The Dominus Network crumbles, and the dawn ",
+      "Hope fades as the Dominus Network tightens its grip.",
       24,
       xCenter,
-      240
+      160
     );
     drawEngine.drawText(
-      "of a new era begins — The Vanguard has reclaimed freedom for all!",
+      "The Vanguard's resistance has been crushed, but the ",
       24,
       xCenter,
-      284
+      190
+    );
+    drawEngine.drawText(
+      "fight for freedom is far from over.",
+      24,
+      xCenter,
+      220
     );
     drawEngine.drawText("Back to Menu", 60, xCenter, 400);
+
     this.updateControls();
   }
 
@@ -36,4 +42,4 @@ class WinState implements State {
   }
 }
 
-export const winState = new WinState();
+export const loseState = new LoseState();
