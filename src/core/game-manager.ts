@@ -61,11 +61,9 @@ export class GameManager {
       if (this.mode === Mode.PlaceUnit) {
         switch (this.unitToDeploy) {
           case UnitType.Infantry:
-            const infantry = new Unit(
-              UnitType.Infantry,
-              Faction.Vanguard,
-              playerInfantryStats
-            );
+            const infantry = new Unit(UnitType.Infantry, Faction.Vanguard, {
+              ...playerInfantryStats,
+            });
             this.units.push(infantry);
             const infantryTimer = this.timers.find(
               (timer) => timer.type == TimerType.PlayerDeployInfantry

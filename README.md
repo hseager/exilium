@@ -10,7 +10,6 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ## TODO
 
-- Battles
 - Stats/Items
 - Research
 - UI Design

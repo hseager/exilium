@@ -258,7 +258,7 @@ class GameState implements State {
         }
 
         // Remove from combat if they are not in combat
-        this.combatManager.removeCombatUnit(unit);
+        this.combatManager.removeCombatUnit(unit, this.gameManager);
       }
 
       // Draw the unit

@@ -38,7 +38,7 @@ export const playerMaxLife = 100;
 
 export const playerInfantryStats: Stats = {
   attack: 10,
-  attackSpeed: 0.16,
+  attackSpeed: 0.3,
   moveSpeed: 1,
   defence: 3,
   health: 100,
@@ -82,6 +82,5 @@ export const playerResearchTimer: TimerConfig = {
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,
-  // speed: 0.007,
-  speed: 0.02,
+  speed: 0.007,
 };

@@ -2,14 +2,19 @@ import { Unit } from "@/model/unit";
 import { GameManager } from "./game-manager";
 
 export class CombatManager {
-  private unitsInCombat: Map<Unit, Unit> = new Map(); // Maps attacking unit to the opponent
+  // Maps each unit to a set of opponents it's currently in combat with
+  private unitsInCombat: Map<Unit, Set<Unit>> = new Map();
 
+  // Updates combat states for all units in combat
   public update(delta: number, gameManager: GameManager) {
-    this.unitsInCombat.forEach((opponent, unit) => {
-      this.handleCombat(unit, opponent, delta, gameManager);
+    this.unitsInCombat.forEach((opponents, unit) => {
+      opponents.forEach((opponent) => {
+        this.handleCombat(unit, opponent, delta, gameManager);
+      });
     });
   }
 
+  // Handles the combat logic between two units
   private handleCombat(
     unit: Unit,
     opponent: Unit,
@@ -17,7 +22,6 @@ export class CombatManager {
     gameManager: GameManager
   ) {
     const attackCooldown = 1000 / unit.stats.attackSpeed; // Attack cooldown in milliseconds
-    const opponentAttackCooldown = 1000 / opponent.stats.attackSpeed;
 
     // Update attack timings
     unit.lastAttackTime = (unit.lastAttackTime || 0) + deltaTime;
@@ -28,29 +32,45 @@ export class CombatManager {
       opponent.stats.health -= unit.stats.attack;
       unit.lastAttackTime = 0; // Reset attack timer
 
-      // Check if the opponent should retaliate
-      if (opponent.lastAttackTime >= opponentAttackCooldown) {
-        unit.stats.health -= opponent.stats.attack;
-        opponent.lastAttackTime = 0; // Reset opponent's attack timer
-      }
-
-      // Remove defeated units
-      if (unit.stats.health <= 0) {
-        gameManager.units = gameManager.units.filter((u) => u !== unit);
-        this.unitsInCombat.delete(unit);
-      }
+      // Check if any units have been defeated
       if (opponent.stats.health <= 0) {
-        gameManager.units = gameManager.units.filter((u) => u !== opponent);
-        this.unitsInCombat.delete(opponent);
+        this.removeCombatUnit(opponent, gameManager);
+      }
+      if (unit.stats.health <= 0) {
+        this.removeCombatUnit(unit, gameManager);
       }
     }
   }
 
+  // Adds a unit and its opponent to the combat tracking
   public addCombatUnit(unit: Unit, opponent: Unit) {
-    this.unitsInCombat.set(unit, opponent);
+    if (!this.unitsInCombat.has(unit)) {
+      this.unitsInCombat.set(unit, new Set());
+    }
+    this.unitsInCombat.get(unit)!.add(opponent);
+
+    if (!this.unitsInCombat.has(opponent)) {
+      this.unitsInCombat.set(opponent, new Set());
+    }
+    this.unitsInCombat.get(opponent)!.add(unit);
   }
 
-  public removeCombatUnit(unit: Unit) {
-    this.unitsInCombat.delete(unit);
+  // Removes a unit from combat and cleans up any references to it
+  public removeCombatUnit(unit: Unit, gameManager: GameManager) {
+    if (this.unitsInCombat.has(unit)) {
+      // Remove this unit from its opponents' sets
+      this.unitsInCombat.get(unit)!.forEach((opponent) => {
+        this.unitsInCombat.get(opponent)!.delete(unit);
+        if (this.unitsInCombat.get(opponent)!.size === 0) {
+          this.unitsInCombat.delete(opponent);
+        }
+      });
+
+      // Remove the unit from the combat map
+      this.unitsInCombat.delete(unit);
+    }
+
+    // Remove the unit from the game manager's units
+    gameManager.units = gameManager.units.filter((u) => u !== unit);
   }
 }
