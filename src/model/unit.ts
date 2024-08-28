@@ -1,9 +1,4 @@
-import {
-  getFactionTheme,
-  infantryStyle,
-  tankStyle,
-  wallConfig,
-} from "@/core/config";
+import { getFactionTheme, tankStyle, wallConfig } from "@/core/config";
 import { drawEngine } from "../core/draw-engine";
 import { Faction, Stats, UnitType } from "../core/types";
 
@@ -51,7 +46,7 @@ export class Unit {
       ctx.arc(
         x ?? this.position.x,
         y ?? this.position.y,
-        infantryStyle.radius,
+        this.stats.range,
         0,
         2 * Math.PI
       );

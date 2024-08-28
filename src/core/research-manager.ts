@@ -28,8 +28,26 @@ export const researchOptions: { [key: number]: ResearchOption } = {
   2: new UpgradeInfantryResearchOption(),
 };
 
-const getResearchOptions = (level: number): ResearchOption => {
-  return researchOptions[level] ?? defaultResearchOption;
+const setResearchOptions = (gameManager: GameManager, level: number) => {
+  const researchOptionsMap = new Map<number, new () => any>([
+    [1, UpgradeInfantryResearchOption],
+    [2, WarFactoryResearchOption],
+  ]);
+
+  const ResearchOption = researchOptionsMap.get(level);
+
+  if (
+    (ResearchOption &&
+      !gameManager.researchOptions.some(
+        (option) => option instanceof ResearchOption
+      )) ||
+    (ResearchOption &&
+      !gameManager.researchedOptions.some(
+        (option) => option instanceof ResearchOption
+      ))
+  ) {
+    gameManager.researchOptions.push(new ResearchOption());
+  }
 };
 
 export const showResearchOptions = (gameManager: GameManager) => {
@@ -42,19 +60,31 @@ export const hideResearchOptions = () => {
 };
 
 export const generateResearchOptions = (gameManager: GameManager) => {
-  const option = getResearchOptions(gameManager.player.level);
+  optionsContainer?.replaceChildren();
 
-  const button = document.createElement("button");
-  button.id = option.name;
-  button.textContent = option.title;
-  button.classList.add("button");
-  button.onclick = () => {
-    option.onSelect(gameManager);
-    const researchTimer = gameManager.timers.find(
-      (timer) => timer.type === TimerType.PlayerResearch
-    );
-    researchTimer?.restart();
-  };
+  setResearchOptions(gameManager, gameManager.player.level);
 
-  optionsContainer?.replaceChildren(button);
+  gameManager.researchOptions.forEach((option) => {
+    const button = document.createElement("button");
+    button.id = option.name;
+    button.textContent = option.title;
+    button.classList.add("button");
+    button.onclick = () => {
+      gameManager.researchOptions.filter((o) => o != option);
+      if (
+        option &&
+        !gameManager.researchedOptions.some((o) => o instanceof ResearchOption)
+      ) {
+        gameManager.researchedOptions.push(option);
+      }
+
+      option.onSelect(gameManager);
+      const researchTimer = gameManager.timers.find(
+        (timer) => timer.type === TimerType.PlayerResearch
+      );
+      researchTimer?.restart();
+    };
+
+    optionsContainer?.appendChild(button);
+  });
 };

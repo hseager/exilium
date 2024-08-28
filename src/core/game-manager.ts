@@ -7,6 +7,7 @@ import { Timer } from "@/model/timer";
 import { ResearchTimer } from "@/model/timers/research-timer";
 import { EnemyUnitTimer } from "@/model/timers/enemy-unit-timer";
 import { Player } from "@/model/player";
+import { ResearchOption } from "@/model/research-option";
 
 export class GameManager {
   mode: Mode;
@@ -15,6 +16,8 @@ export class GameManager {
   pylons: Pylon[];
   timers: Timer[];
   player: Player;
+  researchOptions: ResearchOption[];
+  researchedOptions: ResearchOption[];
 
   constructor() {
     this.mode = Mode.Playing;
@@ -25,6 +28,8 @@ export class GameManager {
     }));
     this.timers = [];
     this.player = new Player();
+    this.researchOptions = [];
+    this.researchedOptions = [];
 
     this.attachDomEvents();
     this.setInitialTimers();

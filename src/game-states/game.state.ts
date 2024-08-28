@@ -6,7 +6,6 @@ import { menuState } from "@/game-states/menu.state";
 import { GameManager } from "@/core/game-manager";
 import {
   getFactionTheme,
-  infantryStyle,
   pylonDamageRange,
   pylonHexCodes,
   pylonWidth,
@@ -28,6 +27,7 @@ import {
 } from "@/core/scene";
 import { loseState } from "./lose.state";
 import { CombatManager } from "@/core/combat-manager";
+import { Unit } from "@/model/unit";
 
 class GameState implements State {
   private pylonSprite = new Image();
@@ -222,18 +222,33 @@ class GameState implements State {
     this.ctx.restore(); // Restore the canvas to its original state
   }
 
+  private checkCollision(unit: Unit, otherUnit: Unit) {
+    if (unit.type === UnitType.Infantry) {
+      return (
+        otherUnit.faction !== unit.faction &&
+        Math.hypot(
+          unit.position.x - otherUnit.position.x,
+          unit.position.y - otherUnit.position.y
+        ) <
+          unit.stats.range * 2
+      );
+    } else if (unit.type === UnitType.Tank) {
+      return (
+        otherUnit.faction !== unit.faction &&
+        Math.hypot(
+          unit.position.x - tankStyle.width / 2 - otherUnit.position.x,
+          unit.position.y - tankStyle.height / 2 - otherUnit.position.y
+        ) <
+          unit.stats.range * 2
+      );
+    }
+  }
+
   private drawUnits(delta: number) {
     this.gameManager.units = this.gameManager.units?.filter((unit) => {
       // Check for nearby opposing units
       const opponent = this.gameManager.units.find((otherUnit) => {
-        return (
-          otherUnit.faction !== unit.faction &&
-          Math.hypot(
-            unit.position.x - otherUnit.position.x,
-            unit.position.y - otherUnit.position.y
-          ) <
-            infantryStyle.radius * 2
-        );
+        return this.checkCollision(unit, otherUnit);
       });
 
       if (opponent) {

@@ -41,15 +41,15 @@ export const playerInfantryStats: Stats = {
   attackSpeed: 0.3,
   moveSpeed: 0.5,
   health: 100,
-  range: 4,
+  range: 16,
 };
 
 export const playerTankStats: Stats = {
   attack: 24,
   attackSpeed: 0.2,
-  moveSpeed: 0.35,
+  moveSpeed: 0.6,
   health: 150,
-  range: 6,
+  range: 20,
 };
 
 export const enemyInfantryStats: Stats = {
@@ -57,7 +57,7 @@ export const enemyInfantryStats: Stats = {
   attackSpeed: 0.2,
   moveSpeed: 0.4,
   health: 100,
-  range: 4,
+  range: 16,
 };
 
 export function getFactionTheme(faction: Faction) {
@@ -73,10 +73,6 @@ export function getFactionTheme(faction: Faction) {
     };
   }
 }
-
-export const infantryStyle = {
-  radius: 16,
-};
 
 export const tankStyle = {
   width: 30,
@@ -97,5 +93,6 @@ export const playerResearchTimer: TimerConfig = {
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.007,
+  // speed: 0.007,
+  speed: 0.01,
 };
