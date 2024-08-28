@@ -47,7 +47,7 @@ export const playerInfantryStats: Stats = {
 export const playerTankStats: Stats = {
   attack: 24,
   attackSpeed: 0.2,
-  moveSpeed: 0.2,
+  moveSpeed: 0.35,
   health: 150,
   range: 6,
 };
@@ -79,8 +79,8 @@ export const infantryStyle = {
 };
 
 export const tankStyle = {
-  width: 20,
-  height: 30,
+  width: 30,
+  height: 42,
 };
 
 export const playerInfantryTimer: TimerConfig = {

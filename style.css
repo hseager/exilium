@@ -11,6 +11,7 @@
   --spacing-2: 8px;
   --spacing-3: 12px;
   --spacing-4: 20px;
+  --spacing-5: 32px;
   --border-radius: 5px;
   --font-family: "Courier New", Roboto, Helvetica, Arial, sans-serif-black;
   --font-size: 14px;
@@ -84,6 +85,10 @@ button {
 
 .controls button:last-of-type {
   margin: 0;
+}
+
+.controls section {
+  margin-bottom: var(--spacing-5);
 }
 
 .m-0 {

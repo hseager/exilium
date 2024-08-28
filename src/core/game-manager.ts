@@ -10,7 +10,7 @@ import { Player } from "@/model/player";
 
 export class GameManager {
   mode: Mode;
-  unitToDeploy?: UnitType;
+  unitToDeploy?: Unit;
   units: Unit[];
   pylons: Pylon[];
   timers: Timer[];
@@ -52,33 +52,33 @@ export class GameManager {
     const deployInfantryButton = select<HTMLButtonElement>("#deploy-infantry");
     deployInfantryButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
-      this.unitToDeploy = UnitType.Infantry;
+      this.unitToDeploy = new Unit(UnitType.Infantry, Faction.Vanguard, {
+        ...playerInfantryStats,
+      });
     });
 
     const deployTankButton = select<HTMLButtonElement>("#deploy-tank");
     deployTankButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
-      this.unitToDeploy = UnitType.Tank;
+      this.unitToDeploy = new Unit(UnitType.Tank, Faction.Vanguard, {
+        ...playerTankStats,
+      });
     });
 
     c2d.addEventListener("click", () => {
       if (this.mode === Mode.PlaceUnit) {
-        switch (this.unitToDeploy) {
+        switch (this.unitToDeploy?.type) {
           case UnitType.Infantry:
-            const infantry = new Unit(UnitType.Infantry, Faction.Vanguard, {
-              ...playerInfantryStats,
-            });
-            this.units.push(infantry);
+            this.unitToDeploy.initPosition();
+            this.units.push(this.unitToDeploy);
             const infantryTimer = this.timers.find(
               (timer) => timer.type == TimerType.PlayerDeployInfantry
             );
             infantryTimer && infantryTimer.restart();
             break;
           case UnitType.Tank:
-            const tank = new Unit(UnitType.Tank, Faction.Vanguard, {
-              ...playerTankStats,
-            });
-            this.units.push(tank);
+            this.unitToDeploy.initPosition();
+            this.units.push(this.unitToDeploy);
             const tankTimer = this.timers.find(
               (timer) => timer.type == TimerType.PlayerDeployTank
             );

@@ -12,55 +12,59 @@
       <div class="current-health"></div>
     </section>
     <section class="controls">
-      <h3 class="m-0">Deployments</h3>
-      <div class="grid">
-        <div>
-          <button id="deploy-infantry" class="button" disabled>
-            Vanguard Troopers (Infantry)</button
-          ><br />
-          <progress
-            id="infantry-progress"
-            class="progress-bar"
-            max="100"
-            value="0"
-          ></progress>
+      <section>
+        <h3 class="m-0">Deployments</h3>
+        <div class="grid">
+          <div>
+            <button id="deploy-infantry" class="button" disabled>
+              Vanguard Troopers (Infantry)</button
+            ><br />
+            <progress
+              id="infantry-progress"
+              class="progress-bar"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div id="tank-option" class="d-none">
+            <button id="deploy-tank" class="button" disabled>
+              Negotiator (Tank)</button
+            ><br />
+            <progress
+              id="tank-progress"
+              class="progress-bar"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
         </div>
-        <div id="tank-option" class="d-none">
-          <button id="deploy-tank" class="button">Negotiator (Tank)</button
-          ><br />
-          <progress
-            id="tank-progress"
-            class="progress-bar"
-            max="100"
-            value="0"
-          ></progress>
-        </div>
-      </div>
-      <!-- <button>Negotiator (Tank)</button>
-        <button>Raptor (Aircraft)</button>
-        <button>Goliath mk.II (Mech)</button> -->
-      <!-- <div class="col">
-        <h5 class="m-0">Stats</h5>
-        <p class="m-0">Points: <strong>10</strong></p>
-        Defence
-        <input type="range" min="1" max="10" value="2" />
-        Attack Power
-        <input type="range" min="1" max="10" value="2" />
-        Range
-        <input type="range" min="1" max="10" value="2" />
-      </div> -->
-      <br />
-      <h3 class="m-0">Research</h3>
-      <progress
-        id="research-progress"
-        class="progress-bar"
-        max="100"
-        value="0"
-      ></progress>
-      <div id="research-points" class="d-none"></div>
-      <!-- <button>Increase recruitment speed</button>
+        <!--
+          <button>Raptor (Aircraft)</button>
+          <button>Goliath mk.II (Mech)</button> -->
+        <!-- <div class="col">
+          <h5 class="m-0">Stats</h5>
+          <p class="m-0">Points: <strong>10</strong></p>
+          Defence
+          <input type="range" min="1" max="10" value="2" />
+          Attack Power
+          <input type="range" min="1" max="10" value="2" />
+          Range
+          <input type="range" min="1" max="10" value="2" />
+        </div> -->
+      </section>
+      <section>
+        <h3 class="m-0">Research</h3>
+        <progress
+          id="research-progress"
+          class="progress-bar"
+          max="100"
+          value="0"
+        ></progress>
+        <div id="research-points" class="d-none"></div>
+        <!-- <button>Increase recruitment speed</button>
         <button>New units</button>
         <button>Stat point</button> -->
+      </section>
     </section>
     <script type="module" src="/src/index.ts"></script>
   </body>

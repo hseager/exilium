@@ -101,12 +101,7 @@ class GameState implements State {
       this.ctx.fillStyle = theme.fill;
       this.ctx.strokeStyle = theme.border;
 
-      // TODO Refactor into a draw() method for each unit type
-      if (this.gameManager.unitToDeploy === UnitType.Infantry) {
-        this.ctx.arc(x, y, infantryStyle.radius, 0, 2 * Math.PI);
-      } else if (this.gameManager.unitToDeploy === UnitType.Tank) {
-        this.ctx.rect(x, y, tankStyle.width, tankStyle.height);
-      }
+      this.gameManager?.unitToDeploy?.draw(this.ctx, x, y);
 
       this.ctx.fill();
       this.ctx.stroke();
@@ -229,8 +224,6 @@ class GameState implements State {
 
   private drawUnits(delta: number) {
     this.gameManager.units = this.gameManager.units?.filter((unit) => {
-      const theme = getFactionTheme(unit.faction);
-
       // Check for nearby opposing units
       const opponent = this.gameManager.units.find((otherUnit) => {
         return (
@@ -245,14 +238,13 @@ class GameState implements State {
 
       if (opponent) {
         // Manage combat state
-        this.combatManager.addCombatUnit(unit, opponent);
-
         // Units do not move if they are engaged in combat
+        this.combatManager.addCombatUnit(unit, opponent);
       } else {
         // Reset lastAttackTime when not in combat
         unit.lastAttackTime = undefined;
 
-        // Handle normal movement
+        // Handle movement
         if (unit.faction === Faction.Vanguard) {
           if (unit.position.y <= wallConfig.y) return false;
           unit.position.y -= unit.stats.moveSpeed;
@@ -269,19 +261,7 @@ class GameState implements State {
       }
 
       // Draw the unit
-      this.ctx.beginPath();
-      this.ctx.arc(
-        unit.position.x,
-        unit.position.y,
-        infantryStyle.radius,
-        0,
-        2 * Math.PI
-      );
-      this.ctx.fillStyle = theme.fill;
-      this.ctx.strokeStyle = theme.border;
-      this.ctx.fill();
-      this.ctx.stroke();
-      this.ctx.closePath();
+      unit.draw(this.ctx);
 
       return true; // Keep this unit in the new array
     });
