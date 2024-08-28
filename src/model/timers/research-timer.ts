@@ -1,11 +1,12 @@
 import { TimerType } from "@/core/types";
-import { Timer } from "./timer";
+import { Timer } from "../timer";
 import { select } from "@/util";
 import {
   hideResearchOptions,
   showResearchOptions,
 } from "@/core/research-manager";
 import { playerResearchTimer } from "@/core/config";
+import { GameManager } from "@/core/game-manager";
 
 export class ResearchTimer extends Timer {
   constructor() {
@@ -21,9 +22,10 @@ export class ResearchTimer extends Timer {
     hideResearchOptions();
   }
 
-  handleComplete() {
+  handleComplete(gameManager: GameManager) {
     super.stop();
-    showResearchOptions();
+    gameManager.player.levelUp();
+    showResearchOptions(gameManager);
   }
 
   tick(deltaTime: number) {

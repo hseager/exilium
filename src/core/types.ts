@@ -34,7 +34,6 @@ export type Stats = {
   attack: number;
   attackSpeed: number;
   health: number;
-  defence: number;
   moveSpeed: number;
   range: number;
 };

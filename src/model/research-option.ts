@@ -1,9 +1,13 @@
-import { ResearchType } from "@/core/types";
+import { GameManager } from "@/core/game-manager";
 
 export class ResearchOption {
-  type: ResearchType;
+  name: string;
+  title: string;
 
-  constructor(type: ResearchType) {
-    this.type = type;
+  constructor(name: string, title: string) {
+    this.name = name;
+    this.title = title;
   }
+
+  onSelect(gameManager: GameManager) {}
 }

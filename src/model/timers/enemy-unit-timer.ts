@@ -1,9 +1,8 @@
 import { Faction, TimerType, UnitType } from "@/core/types";
-import { Timer } from "./timer";
-import { select } from "@/util";
+import { Timer } from "../timer";
 import { enemyInfantryStats, enemyInfantryTimer } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
-import { Unit } from "./unit";
+import { Unit } from "../unit";
 
 export class EnemyUnitTimer extends Timer {
   constructor() {

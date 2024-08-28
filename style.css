@@ -75,7 +75,11 @@ button {
 .controls .grid {
   display: grid;
   grid-template-columns: 50% 50%;
-  gap: 10px; /
+  gap: 10px;
+}
+
+.controls .grid .button {
+  height: 100%;
 }
 
 .controls button:last-of-type {
@@ -131,7 +135,7 @@ button {
 .damage {
   position: absolute;
   top: 0;
-  left:0;
+  left: 0;
   background: var(--theme-6);
   height: 0;
   width: 100%;
@@ -143,7 +147,7 @@ button {
   height: 100%;
   background: linear-gradient(#83e067, #f8d46f, #e42841);
   position: absolute;
-  bottom:0;
-  left:0;
-  width:100%;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }

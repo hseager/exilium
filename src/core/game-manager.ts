@@ -1,11 +1,11 @@
 import { select } from "@/util";
 import { Faction, Mode, Pylon, Stats, TimerType, UnitType } from "./types";
 import { Unit } from "../model/unit";
-import { playerInfantryStats, pylonCount } from "./config";
-import { PlayerInfantryTimer } from "@/model/player-infantry-timer";
+import { playerInfantryStats, playerTankStats, pylonCount } from "./config";
+import { PlayerInfantryTimer } from "@/model/timers/player-infantry-timer";
 import { Timer } from "@/model/timer";
-import { ResearchTimer } from "@/model/research-timer";
-import { EnemyUnitTimer } from "@/model/enemy-unit-timer";
+import { ResearchTimer } from "@/model/timers/research-timer";
+import { EnemyUnitTimer } from "@/model/timers/enemy-unit-timer";
 import { Player } from "@/model/player";
 
 export class GameManager {
@@ -43,18 +43,22 @@ export class GameManager {
         timer.tick(deltaTime);
         if (timer.currentTime >= timer.maxTime) {
           timer.handleComplete(this);
-
-          // Or remove the timer if it's a one-time timer:
-          // this.timers = this.timers.filter(t => t !== timer);
         }
       });
   }
 
   private attachDomEvents() {
+    // TODO this could be refactored similar to research options
     const deployInfantryButton = select<HTMLButtonElement>("#deploy-infantry");
     deployInfantryButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
       this.unitToDeploy = UnitType.Infantry;
+    });
+
+    const deployTankButton = select<HTMLButtonElement>("#deploy-tank");
+    deployTankButton?.addEventListener("click", () => {
+      this.mode = Mode.PlaceUnit;
+      this.unitToDeploy = UnitType.Tank;
     });
 
     c2d.addEventListener("click", () => {
@@ -69,6 +73,16 @@ export class GameManager {
               (timer) => timer.type == TimerType.PlayerDeployInfantry
             );
             infantryTimer && infantryTimer.restart();
+            break;
+          case UnitType.Tank:
+            const tank = new Unit(UnitType.Tank, Faction.Vanguard, {
+              ...playerTankStats,
+            });
+            this.units.push(tank);
+            const tankTimer = this.timers.find(
+              (timer) => timer.type == TimerType.PlayerDeployTank
+            );
+            tankTimer && tankTimer.restart();
             break;
         }
       }

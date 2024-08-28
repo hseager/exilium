@@ -1,4 +1,4 @@
-import { Building, Faction, Mode, Pylon, State } from "@/core/types";
+import { Building, Faction, Mode, Pylon, State, UnitType } from "@/core/types";
 import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 import { gameStateMachine } from "@/game-state-machine";
@@ -12,6 +12,7 @@ import {
   pylonWidth,
   pylonY,
   safeZoneConfig,
+  tankStyle,
   wallConfig,
 } from "@/core/config";
 import { winState } from "./win.state";
@@ -97,9 +98,15 @@ class GameState implements State {
       const theme = getFactionTheme(Faction.Vanguard);
 
       this.ctx.beginPath();
-      this.ctx.arc(x, y, infantryStyle.radius, 0, 2 * Math.PI);
       this.ctx.fillStyle = theme.fill;
       this.ctx.strokeStyle = theme.border;
+
+      // TODO Refactor into a draw() method for each unit type
+      if (this.gameManager.unitToDeploy === UnitType.Infantry) {
+        this.ctx.arc(x, y, infantryStyle.radius, 0, 2 * Math.PI);
+      } else if (this.gameManager.unitToDeploy === UnitType.Tank) {
+        this.ctx.rect(x, y, tankStyle.width, tankStyle.height);
+      }
 
       this.ctx.fill();
       this.ctx.stroke();
