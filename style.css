@@ -62,7 +62,7 @@ button {
   border-left-color: var(--theme-6);
   border-bottom-color: var(--theme-6);
 
-  /* border-radius: var(--border-radius); */
+  overflow-y: auto;
 }
 
 .controls button {
@@ -89,6 +89,10 @@ button {
 
 .controls section {
   margin-bottom: var(--spacing-5);
+}
+
+.controls section:last-of-type {
+  margin-bottom: 0;
 }
 
 .m-0 {
@@ -155,4 +159,25 @@ button {
   bottom: 0;
   left: 0;
   width: 100%;
+}
+
+.form-row label {
+  display: block;
+}
+
+.tab {
+  background: var(--theme-1);
+  color: var(--theme-4);
+  padding: var(--spacing-2) var(--spacing-2);
+  text-align: center;
+
+  border: 0;
+  border-top: 1px solid var(--theme-7);
+
+  border-radius: var(--border-radius);
+}
+
+.tab.active {
+  border-top: 0;
+  border-bottom: 1px solid var(--theme-7);
 }

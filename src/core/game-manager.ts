@@ -7,11 +7,12 @@ import {
   pylonCount,
 } from "./config";
 import { PlayerInfantryTimer } from "@/model/timers/player-infantry-timer";
-import { Timer } from "@/model/timer";
+import { Timer } from "@/model/timers/timer";
 import { ResearchTimer } from "@/model/timers/research-timer";
 import { EnemyUnitTimer } from "@/model/timers/enemy-unit-timer";
 import { Player } from "@/model/player";
 import { ResearchOption } from "@/model/research-option";
+import { TechCentre } from "@/model/tech-center";
 
 export class GameManager {
   mode: Mode;
@@ -21,6 +22,7 @@ export class GameManager {
   timers: Timer[];
   player: Player;
   researchOptions: ResearchOption[];
+  techCentre?: TechCentre;
 
   constructor() {
     this.mode = Mode.Playing;
@@ -32,6 +34,9 @@ export class GameManager {
     this.timers = [];
     this.player = new Player();
     this.researchOptions = [];
+
+    // TODO remove this once done testing:
+    this.techCentre = new TechCentre();
 
     this.attachDomEvents();
     this.setInitialTimers();

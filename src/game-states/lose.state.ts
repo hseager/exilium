@@ -1,9 +1,12 @@
 import { State } from "@/core/types";
 import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
+import { select } from "@/util";
 
 class LoseState implements State {
   onEnter() {
+    select<HTMLDivElement>(".damage-meter")?.classList.add("d-none");
+    select<HTMLDivElement>(".controls")?.classList.add("d-none");
     c2d.addEventListener("click", () => {
       window.location.reload();
     });

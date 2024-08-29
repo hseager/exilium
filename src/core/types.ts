@@ -1,6 +1,3 @@
-import { Timer } from "@/model/timer";
-import { Unit } from "../model/unit";
-
 export interface State {
   onUpdate: (timeElapsed: number) => void;
   onEnter?: Function;

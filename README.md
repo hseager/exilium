@@ -10,7 +10,6 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ## TODO
 
-- Stats/Items
 - Research Options
 - Damage visualised as radius
 - AI difficulty over time
@@ -23,6 +22,7 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
   - Upgrade auto deploy time
   - Upgrade amount of units on auto deploy
 - Ion cannon
+- Tank & Aircraft Tech points
 - Auto heal over time
 
 # Using JS13K TypeScript Starter

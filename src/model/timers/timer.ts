@@ -1,5 +1,5 @@
 import { GameManager } from "@/core/game-manager";
-import { TimerType } from "../core/types";
+import { TimerType } from "../../core/types";
 
 export class Timer {
   type: TimerType;

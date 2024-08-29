@@ -1,8 +1,9 @@
 import { GameManager } from "@/core/game-manager";
 import { ResearchOption } from "../research-option";
 import { ResearchType } from "@/core/types";
+import { TechCentre } from "../tech-center";
 
-export class TechCentre extends ResearchOption {
+export class TechCentreResearchOption extends ResearchOption {
   constructor() {
     const title = "Build Tech Centre";
     const type = ResearchType.IncreaseInfantryRecruitment;
@@ -11,7 +12,6 @@ export class TechCentre extends ResearchOption {
   }
 
   onSelect(gameManager: GameManager) {
-    // Unlock Stats
-    console.log("Build Tech Centre");
+    gameManager.techCentre = new TechCentre();
   }
 }

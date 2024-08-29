@@ -7,11 +7,11 @@
 <html>
   <body>
     <canvas id="c2d" width="1000" height="600"></canvas>
-    <section class="damage-meter">
+    <section class="damage-meter d-none">
       <div class="damage"></div>
       <div class="current-health"></div>
     </section>
-    <section class="controls">
+    <section class="controls d-none">
       <section>
         <h3 class="m-0">Deployments</h3>
         <div class="grid">
@@ -41,16 +41,6 @@
         <!--
           <button>Raptor (Aircraft)</button>
           <button>Goliath mk.II (Mech)</button> -->
-        <!-- <div class="col">
-          <h5 class="m-0">Stats</h5>
-          <p class="m-0">Points: <strong>10</strong></p>
-          Defence
-          <input type="range" min="1" max="10" value="2" />
-          Attack Power
-          <input type="range" min="1" max="10" value="2" />
-          Range
-          <input type="range" min="1" max="10" value="2" />
-        </div> -->
       </section>
       <section>
         <h3 class="m-0">Research</h3>
@@ -61,9 +51,82 @@
           value="0"
         ></progress>
         <div id="research-points" class="d-none"></div>
-        <!-- <button>Increase recruitment speed</button>
-        <button>New units</button>
-        <button>Stat point</button> -->
+      </section>
+      <section>
+        <h3 class="m-0">
+          Tech Centre <small>(Points: <span class="points">5</span>)</small>
+        </h3>
+        <button id="infantry-tab" class="tab active">Infantry</button>
+        <button id="tank-tab" class="tab d-none">Tank</button>
+        <button id="aircraft-tab" class="tab d-none">Aircraft</button>
+        <div id="infantry-tech">
+          <div class="form-row">
+            <label>Attack Power</label>
+            <input
+              id="infantry-attack"
+              class="tech-range"
+              type="range"
+              min="1"
+              max="10"
+              value="2"
+            />
+          </div>
+          <div class="form-row">
+            <label>Attack Speed</label>
+            <input
+              id="infantry-attack-speed"
+              class="tech-range"
+              type="range"
+              min="1"
+              max="10"
+              value="2"
+            />
+          </div>
+          <div class="form-row">
+            <label>Defence</label>
+            <input
+              id="infantry-health"
+              class="tech-range"
+              type="range"
+              min="1"
+              max="10"
+              value="2"
+            />
+          </div>
+          <div class="form-row">
+            <label>Move Speed</label>
+            <input
+              id="infantry-move-speed"
+              class="tech-range"
+              type="range"
+              min="1"
+              max="10"
+              value="2"
+            />
+          </div>
+          <div class="form-row">
+            <label>Range</label>
+            <input
+              id="infantry-range"
+              class="tech-range"
+              type="range"
+              min="1"
+              max="10"
+              value="2"
+            />
+          </div>
+        </div>
+
+        <!-- <div class="col">
+          <h5 class="m-0">Stats</h5>
+          <p class="m-0">Points: <strong>10</strong></p>
+          Defence
+          <input type="range" min="1" max="10" value="2" />
+          Attack Power
+          <input type="range" min="1" max="10" value="2" />
+          Range
+          <input type="range" min="1" max="10" value="2" />
+        </div> -->
       </section>
     </section>
     <script type="module" src="/src/index.ts"></script>

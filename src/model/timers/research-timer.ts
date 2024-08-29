@@ -1,5 +1,5 @@
 import { TimerType } from "@/core/types";
-import { Timer } from "../timer";
+import { Timer } from "./timer";
 import { select } from "@/util";
 import {
   hideResearchOptions,

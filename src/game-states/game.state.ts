@@ -28,6 +28,7 @@ import {
 import { loseState } from "./lose.state";
 import { CombatManager } from "@/core/combat-manager";
 import { Unit } from "@/model/unit";
+import { select } from "@/util";
 
 class GameState implements State {
   private pylonSprite = new Image();
@@ -47,6 +48,8 @@ class GameState implements State {
   onEnter() {
     this.gameManager = new GameManager();
     this.initializeSkyline();
+    select<HTMLDivElement>(".damage-meter")?.classList.remove("d-none");
+    select<HTMLDivElement>(".controls")?.classList.remove("d-none");
   }
 
   onUpdate(delta: number) {
@@ -230,7 +233,7 @@ class GameState implements State {
           unit.position.x - otherUnit.position.x,
           unit.position.y - otherUnit.position.y
         ) <
-          unit.stats.range * 2
+          unit.stats.range + otherUnit.stats.range
       );
     } else if (unit.type === UnitType.Tank) {
       return (
@@ -239,7 +242,7 @@ class GameState implements State {
           unit.position.x - tankStyle.width / 2 - otherUnit.position.x,
           unit.position.y - tankStyle.height / 2 - otherUnit.position.y
         ) <
-          unit.stats.range * 2
+          unit.stats.range + otherUnit.stats.range
       );
     }
   }

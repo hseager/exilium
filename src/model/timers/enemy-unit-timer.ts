@@ -1,5 +1,5 @@
 import { Faction, TimerType, UnitType } from "@/core/types";
-import { Timer } from "../timer";
+import { Timer } from "./timer";
 import { baseEnemyInfantryStats, enemyInfantryTimer } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
