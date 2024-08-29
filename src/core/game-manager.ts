@@ -1,7 +1,11 @@
 import { select } from "@/util";
 import { Faction, Mode, Pylon, Stats, TimerType, UnitType } from "./types";
 import { Unit } from "../model/unit";
-import { playerInfantryStats, playerTankStats, pylonCount } from "./config";
+import {
+  basePlayerInfantryStats,
+  basePlayerTankStats,
+  pylonCount,
+} from "./config";
 import { PlayerInfantryTimer } from "@/model/timers/player-infantry-timer";
 import { Timer } from "@/model/timer";
 import { ResearchTimer } from "@/model/timers/research-timer";
@@ -17,7 +21,6 @@ export class GameManager {
   timers: Timer[];
   player: Player;
   researchOptions: ResearchOption[];
-  researchedOptions: ResearchOption[];
 
   constructor() {
     this.mode = Mode.Playing;
@@ -29,7 +32,6 @@ export class GameManager {
     this.timers = [];
     this.player = new Player();
     this.researchOptions = [];
-    this.researchedOptions = [];
 
     this.attachDomEvents();
     this.setInitialTimers();
@@ -58,7 +60,7 @@ export class GameManager {
     deployInfantryButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
       this.unitToDeploy = new Unit(UnitType.Infantry, Faction.Vanguard, {
-        ...playerInfantryStats,
+        ...basePlayerInfantryStats,
       });
     });
 
@@ -66,7 +68,7 @@ export class GameManager {
     deployTankButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
       this.unitToDeploy = new Unit(UnitType.Tank, Faction.Vanguard, {
-        ...playerTankStats,
+        ...basePlayerTankStats,
       });
     });
 

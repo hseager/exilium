@@ -53,9 +53,11 @@ export type Pylon = {
 };
 
 export enum ResearchType {
-  NewUnit = "New Unit",
-  RecruitmentSpeed = "Recruitment Speed",
-  TechUpgrade = "Tech Upgrade",
+  IncreaseInfantryRecruitment,
+  IncreaseResearchSpeed,
+  IncreaseTankBuildSpeed,
+  WarFactory,
+  TechCentre,
 }
 
 export interface TimerConfig {

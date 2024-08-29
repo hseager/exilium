@@ -1,6 +1,6 @@
 import { Faction, TimerType, UnitType } from "@/core/types";
 import { Timer } from "../timer";
-import { enemyInfantryStats, enemyInfantryTimer } from "@/core/config";
+import { baseEnemyInfantryStats, enemyInfantryTimer } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
 
@@ -19,7 +19,7 @@ export class EnemyUnitTimer extends Timer {
 
   handleComplete(gameManager: GameManager) {
     const infantry = new Unit(UnitType.Infantry, Faction.Dominus, {
-      ...enemyInfantryStats,
+      ...baseEnemyInfantryStats,
     });
 
     gameManager.units.push(infantry);

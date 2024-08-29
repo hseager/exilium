@@ -2,13 +2,14 @@ import { select } from "@/util";
 import { ResearchOption } from "../research-option";
 import { GameManager } from "@/core/game-manager";
 import { PlayerTankTimer } from "../timers/player-tank-timer";
+import { ResearchType } from "@/core/types";
 
-export class WarFactoryResearchOption extends ResearchOption {
+export class WarFactory extends ResearchOption {
   constructor() {
-    const name = "war-factory";
     const title = "Build War Factory";
+    const type = ResearchType.WarFactory;
 
-    super(name, title);
+    super(title, type);
   }
 
   onSelect(gameManager: GameManager) {

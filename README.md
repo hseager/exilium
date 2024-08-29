@@ -11,12 +11,13 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 ## TODO
 
 - Stats/Items
-- Research
+- Research Options
+- Damage visualised as radius
+- AI difficulty over time
 - UI Design
 - Text Narration/Event log
-- Help button
 
-### Feature ideas
+### Reasearch ideas
 
 - Auto deploy on timer
   - Upgrade auto deploy time

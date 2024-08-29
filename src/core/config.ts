@@ -36,23 +36,23 @@ export const pylonHexCodes = [
 
 export const playerMaxLife = 100;
 
-export const playerInfantryStats: Stats = {
+export const basePlayerInfantryStats: Stats = {
   attack: 10,
   attackSpeed: 0.3,
-  moveSpeed: 0.5,
+  moveSpeed: 0.4,
   health: 100,
   range: 16,
 };
 
-export const playerTankStats: Stats = {
+export const basePlayerTankStats: Stats = {
   attack: 24,
   attackSpeed: 0.2,
-  moveSpeed: 0.6,
+  moveSpeed: 0.3,
   health: 150,
   range: 20,
 };
 
-export const enemyInfantryStats: Stats = {
+export const baseEnemyInfantryStats: Stats = {
   attack: 8,
   attackSpeed: 0.2,
   moveSpeed: 0.4,
@@ -81,18 +81,25 @@ export const tankStyle = {
 
 export const playerInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.1,
+  speed: 0.006,
 };
 export const playerTankTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.02,
+  speed: 0.004,
 };
 export const playerResearchTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.02,
+  speed: 0.006,
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,
-  // speed: 0.007,
-  speed: 0.01,
+  speed: 0.007,
+};
+
+export const researchUpgradeStats = {
+  timers: {
+    playerInfantry: 0.0022,
+    playerTank: 0.002,
+    playerResearch: 0.002,
+  },
 };
