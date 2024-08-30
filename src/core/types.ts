@@ -39,9 +39,9 @@ export type Stats = {
 // Infantry > AirCraft
 // AirCraft > Tank
 export enum UnitType {
-  Infantry,
-  Tank,
-  Aircraft,
+  Infantry = "infantry",
+  Tank = "tank",
+  Aircraft = "aircraft",
 }
 
 export type Pylon = {
@@ -55,6 +55,7 @@ export enum ResearchType {
   IncreaseTankBuildSpeed,
   WarFactory,
   TechCentre,
+  AddTechSkillPoint,
 }
 
 export interface TimerConfig {

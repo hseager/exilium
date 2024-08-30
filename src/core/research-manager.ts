@@ -7,6 +7,7 @@ import { IncreaseResearchSpeed } from "@/model/research-options/increase-researc
 import { IncreaseInfantryRecruitment } from "@/model/research-options/increase-infantry-recruitment";
 import { TechCentreResearchOption } from "@/model/research-options/tech-centre-research-option";
 import { IncreaseTankBuildSpeed } from "@/model/research-options/increase-tank-build-speed";
+import { AddTechSkillPoint } from "@/model/research-options/add-tech-skill-point";
 
 const optionsContainer = select<HTMLDivElement>("#research-points");
 
@@ -16,6 +17,8 @@ const researchOptionsMap = new Map<number, ResearchOption[]>([
   [3, [new WarFactory()]],
   [5, [new IncreaseResearchSpeed()]],
   [6, [new TechCentreResearchOption(), new IncreaseTankBuildSpeed()]],
+  [8, [new AddTechSkillPoint()]],
+  [9, [new AddTechSkillPoint()]],
 ]);
 
 const addResearchOptions = (gameManager: GameManager, level: number) => {

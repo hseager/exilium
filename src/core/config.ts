@@ -60,6 +60,14 @@ export const baseEnemyInfantryStats: Stats = {
   range: 16,
 };
 
+export const techCentreStatIncrement: Stats = {
+  attack: 2,
+  attackSpeed: 0.05,
+  moveSpeed: 0.1,
+  health: 4,
+  range: 1.5,
+};
+
 export function getFactionTheme(faction: Faction) {
   if (faction === Faction.Vanguard) {
     return {
@@ -81,7 +89,8 @@ export const tankStyle = {
 
 export const playerInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.006,
+  // speed: 0.006,
+  speed: 0.01,
 };
 export const playerTankTimer: TimerConfig = {
   maxTime: 100,
@@ -89,7 +98,8 @@ export const playerTankTimer: TimerConfig = {
 };
 export const playerResearchTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.006,
+  // speed: 0.006,
+  speed: 0.04,
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,

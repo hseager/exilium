@@ -5,6 +5,7 @@ import {
   basePlayerInfantryStats,
   basePlayerTankStats,
   pylonCount,
+  techCentreStatIncrement,
 } from "./config";
 import { PlayerInfantryTimer } from "@/model/timers/player-infantry-timer";
 import { Timer } from "@/model/timers/timer";
@@ -35,9 +36,6 @@ export class GameManager {
     this.player = new Player();
     this.researchOptions = [];
 
-    // TODO remove this once done testing:
-    this.techCentre = new TechCentre();
-
     this.attachDomEvents();
     this.setInitialTimers();
   }
@@ -59,22 +57,69 @@ export class GameManager {
       });
   }
 
+  private getUnitStats(unitType: UnitType) {
+    let unitStats: Stats;
+
+    switch (unitType) {
+      case UnitType.Infantry:
+        if (!this.techCentre) {
+          unitStats = basePlayerInfantryStats;
+        } else {
+          // Loop through the stat keys and add the tech centre upgrade values to the units stats
+          unitStats = Object.keys(basePlayerInfantryStats).reduce(
+            (acc, key) => {
+              acc[key as keyof Stats] =
+                basePlayerInfantryStats[key as keyof Stats] +
+                (this.techCentre?.infantryStatPoints[key as keyof Stats] || 0) *
+                  techCentreStatIncrement[key as keyof Stats];
+              return acc;
+            },
+            {} as Stats
+          );
+        }
+        break;
+      case UnitType.Tank:
+        if (!this.techCentre) {
+          unitStats = basePlayerTankStats;
+        } else {
+          // Loop through the stat keys and add the tech centre upgrade values to the units stats
+          unitStats = Object.keys(basePlayerTankStats).reduce((acc, key) => {
+            acc[key as keyof Stats] =
+              basePlayerTankStats[key as keyof Stats] +
+              (this.techCentre?.tankStatPoints[key as keyof Stats] || 0) *
+                techCentreStatIncrement[key as keyof Stats];
+            return acc;
+          }, {} as Stats);
+        }
+        break;
+      default:
+        unitStats = basePlayerInfantryStats;
+        break;
+    }
+
+    return unitStats;
+  }
+
   private attachDomEvents() {
     // TODO this could be refactored similar to research options
     const deployInfantryButton = select<HTMLButtonElement>("#deploy-infantry");
     deployInfantryButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
-      this.unitToDeploy = new Unit(UnitType.Infantry, Faction.Vanguard, {
-        ...basePlayerInfantryStats,
-      });
+      this.unitToDeploy = new Unit(
+        UnitType.Infantry,
+        Faction.Vanguard,
+        this.getUnitStats(UnitType.Infantry)
+      );
     });
 
     const deployTankButton = select<HTMLButtonElement>("#deploy-tank");
     deployTankButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
-      this.unitToDeploy = new Unit(UnitType.Tank, Faction.Vanguard, {
-        ...basePlayerTankStats,
-      });
+      this.unitToDeploy = new Unit(
+        UnitType.Tank,
+        Faction.Vanguard,
+        this.getUnitStats(UnitType.Tank)
+      );
     });
 
     c2d.addEventListener("click", () => {

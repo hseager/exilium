@@ -181,3 +181,11 @@ button {
   border-top: 0;
   border-bottom: 1px solid var(--theme-7);
 }
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
