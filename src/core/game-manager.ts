@@ -10,7 +10,7 @@ import {
 import { PlayerInfantryTimer } from "@/model/timers/player-infantry-timer";
 import { Timer } from "@/model/timers/timer";
 import { ResearchTimer } from "@/model/timers/research-timer";
-import { EnemyUnitTimer } from "@/model/timers/enemy-unit-timer";
+import { EnemyInfantryTimer } from "@/model/timers/enemy-unit-timer";
 import { Player } from "@/model/player";
 import { ResearchOption } from "@/model/research-option";
 import { TechCentre } from "@/model/tech-center";
@@ -43,7 +43,7 @@ export class GameManager {
   private setInitialTimers() {
     this.timers.push(new PlayerInfantryTimer());
     this.timers.push(new ResearchTimer());
-    this.timers.push(new EnemyUnitTimer());
+    this.timers.push(new EnemyInfantryTimer());
   }
 
   updateTimers(deltaTime: number) {

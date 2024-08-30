@@ -1,10 +1,14 @@
-import { Faction, TimerType, UnitType } from "@/core/types";
+import { Faction, Stats, TimerType, UnitType } from "@/core/types";
 import { Timer } from "./timer";
-import { baseEnemyInfantryStats, enemyInfantryTimer } from "@/core/config";
+import {
+  baseEnemyInfantryStats,
+  enemyInfantryIncrementStat,
+  enemyInfantryTimer,
+} from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
 
-export class EnemyUnitTimer extends Timer {
+export class EnemyInfantryTimer extends Timer {
   constructor() {
     super(
       TimerType.EnemyDeployInfantry,
@@ -18,9 +22,16 @@ export class EnemyUnitTimer extends Timer {
   }
 
   handleComplete(gameManager: GameManager) {
-    const infantry = new Unit(UnitType.Infantry, Faction.Dominus, {
-      ...baseEnemyInfantryStats,
-    });
+    // We increment each enemy stat for each player level to make the game harder as the player levels up
+    const unitStats = Object.keys(baseEnemyInfantryStats).reduce((acc, key) => {
+      acc[key as keyof Stats] =
+        baseEnemyInfantryStats[key as keyof Stats] +
+        gameManager.player.level *
+          enemyInfantryIncrementStat[key as keyof Stats];
+      return acc;
+    }, {} as Stats);
+
+    const infantry = new Unit(UnitType.Infantry, Faction.Dominus, unitStats);
 
     gameManager.units.push(infantry);
     super.restart();

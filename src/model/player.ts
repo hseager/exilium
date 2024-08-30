@@ -4,7 +4,7 @@ import { select } from "@/util";
 export class Player {
   maxLife = playerMaxLife;
   life = playerMaxLife;
-  level = 0;
+  level = 1;
 
   takeDamage(damage: number) {
     this.life -= damage;

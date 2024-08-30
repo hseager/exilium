@@ -47,7 +47,7 @@ export const basePlayerInfantryStats: Stats = {
 export const basePlayerTankStats: Stats = {
   attack: 24,
   attackSpeed: 0.2,
-  moveSpeed: 0.3,
+  moveSpeed: 0.27,
   health: 150,
   range: 28,
 };
@@ -66,6 +66,14 @@ export const techCentreStatIncrement: Stats = {
   moveSpeed: 0.1,
   health: 4,
   range: 1.5,
+};
+
+export const enemyInfantryIncrementStat: Stats = {
+  attack: 0.3,
+  attackSpeed: 0.01,
+  moveSpeed: 0.02,
+  health: 1,
+  range: 0.6,
 };
 
 export function getFactionTheme(faction: Faction) {
@@ -103,7 +111,8 @@ export const playerResearchTimer: TimerConfig = {
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.007,
+  // speed: 0.007,
+  speed: 0.01,
 };
 
 export const researchUpgradeStats = {
