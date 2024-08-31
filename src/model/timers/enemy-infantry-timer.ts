@@ -31,9 +31,9 @@ export class EnemyInfantryTimer extends Timer {
       return acc;
     }, {} as Stats);
 
-    const infantry = new Unit(UnitType.Infantry, Faction.Dominus, unitStats);
+    const unit = new Unit(UnitType.Infantry, Faction.Dominus, unitStats);
 
-    gameManager.units.push(infantry);
+    gameManager.units.push(unit);
     super.restart();
   }
 

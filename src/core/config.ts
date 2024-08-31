@@ -36,10 +36,11 @@ export const pylonHexCodes = [
 
 export const playerMaxLife = 100;
 
+// Player base stats
 export const basePlayerInfantryStats: Stats = {
-  attack: 10,
-  attackSpeed: 0.3,
-  moveSpeed: 0.4,
+  attack: 11,
+  attackSpeed: 0.2,
+  moveSpeed: 0.35,
   health: 100,
   range: 16,
 };
@@ -52,12 +53,21 @@ export const basePlayerTankStats: Stats = {
   range: 28,
 };
 
+// Enemy base stats
 export const baseEnemyInfantryStats: Stats = {
-  attack: 8,
+  attack: 7,
   attackSpeed: 0.2,
-  moveSpeed: 0.4,
+  moveSpeed: 0.3,
   health: 100,
   range: 16,
+};
+
+export const baseEnemyTankStats: Stats = {
+  attack: 20,
+  attackSpeed: 0.2,
+  moveSpeed: 0.2,
+  health: 140,
+  range: 28,
 };
 
 export const techCentreStatIncrement: Stats = {
@@ -68,12 +78,21 @@ export const techCentreStatIncrement: Stats = {
   range: 1.5,
 };
 
+// The amount that enemy unit stats increment by each player level
 export const enemyInfantryIncrementStat: Stats = {
   attack: 0.3,
   attackSpeed: 0.01,
   moveSpeed: 0.02,
   health: 1,
   range: 0.6,
+};
+
+export const enemyTankIncrementStat: Stats = {
+  attack: 0.4,
+  attackSpeed: 0.01,
+  moveSpeed: 0.02,
+  health: 1,
+  range: 0.7,
 };
 
 export function getFactionTheme(faction: Faction) {
@@ -97,8 +116,7 @@ export const tankStyle = {
 
 export const playerInfantryTimer: TimerConfig = {
   maxTime: 100,
-  // speed: 0.006,
-  speed: 0.01,
+  speed: 0.007,
 };
 export const playerTankTimer: TimerConfig = {
   maxTime: 100,
@@ -106,13 +124,15 @@ export const playerTankTimer: TimerConfig = {
 };
 export const playerResearchTimer: TimerConfig = {
   maxTime: 100,
-  // speed: 0.006,
-  speed: 0.04,
+  speed: 0.004,
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,
-  // speed: 0.007,
-  speed: 0.01,
+  speed: 0.005,
+};
+export const enemyTankTimer: TimerConfig = {
+  maxTime: 100,
+  speed: 0.002,
 };
 
 export const researchUpgradeStats = {

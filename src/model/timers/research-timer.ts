@@ -24,7 +24,7 @@ export class ResearchTimer extends Timer {
 
   handleComplete(gameManager: GameManager) {
     super.stop();
-    gameManager.player.levelUp();
+    gameManager.levelUp();
     showResearchOptions(gameManager);
   }
 

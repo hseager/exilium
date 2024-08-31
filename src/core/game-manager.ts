@@ -10,10 +10,11 @@ import {
 import { PlayerInfantryTimer } from "@/model/timers/player-infantry-timer";
 import { Timer } from "@/model/timers/timer";
 import { ResearchTimer } from "@/model/timers/research-timer";
-import { EnemyInfantryTimer } from "@/model/timers/enemy-unit-timer";
+import { EnemyInfantryTimer } from "@/model/timers/enemy-infantry-timer";
 import { Player } from "@/model/player";
 import { ResearchOption } from "@/model/research-option";
 import { TechCentre } from "@/model/tech-center";
+import { EnemyTankTimer } from "@/model/timers/enemy-tank-timer";
 
 export class GameManager {
   mode: Mode;
@@ -55,6 +56,17 @@ export class GameManager {
           timer.handleComplete(this);
         }
       });
+  }
+
+  levelUp() {
+    this.player.level++;
+    this.handleAIScaling(this.player.level);
+  }
+
+  private handleAIScaling(level: number) {
+    if (level === 2) {
+      this.timers.push(new EnemyTankTimer());
+    }
   }
 
   private getUnitStats(unitType: UnitType) {

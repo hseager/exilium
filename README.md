@@ -17,6 +17,10 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 - UI Design
 - Text Narration/Event log
 
+### Bugs
+
+- Are attack speed upgrades slowing down attack?
+
 ### Reasearch ideas
 
 - Auto deploy on timer

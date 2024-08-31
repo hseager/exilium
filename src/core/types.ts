@@ -20,6 +20,7 @@ export enum TimerType {
   PlayerDeployAircraft,
   PlayerResearch,
   EnemyDeployInfantry,
+  EnemyDeployTank,
 }
 
 export enum Faction {
