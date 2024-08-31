@@ -67,7 +67,7 @@ export class TechCentre {
           if (!stat) return;
 
           const key = stat as keyof Stats;
-          const value = parseInt(element.value);
+          const value = parseInt(element.value, 10);
 
           let statPoints;
           let difference;
@@ -108,7 +108,7 @@ export class TechCentre {
           if (!stat) return;
 
           const key = stat as keyof Stats;
-          const value = parseInt(element.value);
+          const value = parseInt(element.value, 10);
 
           switch (type) {
             case UnitType.Infantry:

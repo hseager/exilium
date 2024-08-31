@@ -19,13 +19,13 @@ import { EnemyTankTimer } from "@/model/timers/enemy-tank-timer";
 
 export class GameManager {
   mode: Mode;
-  unitToDeploy?: Unit;
+  unitToDeploy: Unit | null;
   units: Unit[];
   pylons: Pylon[];
   timers: Timer[];
   player: Player;
   researchOptions: ResearchOption[];
-  techCentre?: TechCentre;
+  techCentre: TechCentre | null;
 
   constructor() {
     this.mode = Mode.Playing;
@@ -37,6 +37,8 @@ export class GameManager {
     this.timers = [];
     this.player = new Player();
     this.researchOptions = [];
+    this.unitToDeploy = null;
+    this.techCentre = null;
 
     this.attachDomEvents();
     this.setInitialTimers();
@@ -161,7 +163,7 @@ export class GameManager {
             break;
         }
       }
-      this.unitToDeploy = undefined;
+      this.unitToDeploy = null;
       this.mode = Mode.Playing;
     });
   }

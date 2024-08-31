@@ -63,7 +63,7 @@ export const baseEnemyInfantryStats: Stats = {
   attackSpeed: 0.15,
   moveSpeed: 0.3,
   health: 100,
-  range: 16,
+  range: 12,
 };
 
 export const baseEnemyTankStats: Stats = {

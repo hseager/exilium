@@ -93,7 +93,6 @@ export function drawRoad(ctx: CanvasRenderingContext2D) {
   // Draw the trapezoid
   ctx.fillStyle = "#333"; // Road color
   ctx.strokeStyle = "#222"; // Road border color
-  ctx.lineWidth;
   ctx.beginPath();
   ctx.moveTo(bottomLeftX, yStart); // Bottom left corner
   ctx.lineTo(bottomRightX, yStart); // Bottom right corner
