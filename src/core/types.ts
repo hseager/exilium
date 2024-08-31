@@ -54,7 +54,7 @@ export enum ResearchType {
   IncreaseInfantryRecruitment,
   IncreaseResearchSpeed,
   IncreaseTankBuildSpeed,
-  WarFactory,
+  TankFactory,
   TechCentre,
   AddTechSkillPoint,
 }

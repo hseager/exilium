@@ -1,5 +1,6 @@
 import { Unit } from "@/model/unit";
 import { GameManager } from "./game-manager";
+import { Faction } from "./types";
 
 export class CombatManager {
   // Maps each unit to a set of opponents it's currently in combat with

@@ -4,6 +4,7 @@ import { Unit } from "../model/unit";
 import {
   basePlayerInfantryStats,
   basePlayerTankStats,
+  initialGameStartDelay,
   pylonCount,
   techCentreStatIncrement,
 } from "./config";
@@ -43,8 +44,13 @@ export class GameManager {
 
   private setInitialTimers() {
     this.timers.push(new PlayerInfantryTimer());
-    this.timers.push(new ResearchTimer());
-    this.timers.push(new EnemyInfantryTimer());
+
+    setTimeout(() => {
+      this.timers.push(new ResearchTimer());
+      this.timers.push(new EnemyInfantryTimer());
+
+      select("#research-centre")?.classList.remove("d-none");
+    }, initialGameStartDelay);
   }
 
   updateTimers(deltaTime: number) {
@@ -64,7 +70,7 @@ export class GameManager {
   }
 
   private handleAIScaling(level: number) {
-    if (level === 2) {
+    if (level === 5) {
       this.timers.push(new EnemyTankTimer());
     }
   }

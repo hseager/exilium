@@ -135,7 +135,7 @@ button {
 
 .damage-meter {
   height: 600px;
-  width: 8px;
+  width: 14px;
   background: var(--theme-6);
   position: relative;
   overflow: hidden;

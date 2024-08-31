@@ -10,16 +10,11 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ## TODO
 
-- AI difficulty over time
 - Improve Research Options
 - Add aircraft
 - Damage visualised as radius
 - UI Design
 - Text Narration/Event log
-
-### Bugs
-
-- Are attack speed upgrades slowing down attack?
 
 ### Reasearch ideas
 

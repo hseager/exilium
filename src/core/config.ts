@@ -36,10 +36,14 @@ export const pylonHexCodes = [
 
 export const playerMaxLife = 100;
 
+// Give the player a couple of minutes to work out what's going on before
+// sending enemy infantry and player research
+export const initialGameStartDelay = 1000 * 30;
+
 // Player base stats
 export const basePlayerInfantryStats: Stats = {
   attack: 11,
-  attackSpeed: 0.2,
+  attackSpeed: 0.2, // The bigger the faster the attack
   moveSpeed: 0.35,
   health: 100,
   range: 16,
@@ -47,7 +51,7 @@ export const basePlayerInfantryStats: Stats = {
 
 export const basePlayerTankStats: Stats = {
   attack: 24,
-  attackSpeed: 0.2,
+  attackSpeed: 0.1,
   moveSpeed: 0.27,
   health: 150,
   range: 28,
@@ -56,7 +60,7 @@ export const basePlayerTankStats: Stats = {
 // Enemy base stats
 export const baseEnemyInfantryStats: Stats = {
   attack: 7,
-  attackSpeed: 0.2,
+  attackSpeed: 0.15,
   moveSpeed: 0.3,
   health: 100,
   range: 16,
@@ -64,7 +68,7 @@ export const baseEnemyInfantryStats: Stats = {
 
 export const baseEnemyTankStats: Stats = {
   attack: 20,
-  attackSpeed: 0.2,
+  attackSpeed: 0.1,
   moveSpeed: 0.2,
   health: 140,
   range: 28,
@@ -81,7 +85,7 @@ export const techCentreStatIncrement: Stats = {
 // The amount that enemy unit stats increment by each player level
 export const enemyInfantryIncrementStat: Stats = {
   attack: 0.3,
-  attackSpeed: 0.01,
+  attackSpeed: 0.005,
   moveSpeed: 0.02,
   health: 1,
   range: 0.6,
@@ -89,7 +93,7 @@ export const enemyInfantryIncrementStat: Stats = {
 
 export const enemyTankIncrementStat: Stats = {
   attack: 0.4,
-  attackSpeed: 0.01,
+  attackSpeed: 0.002,
   moveSpeed: 0.02,
   health: 1,
   range: 0.7,
@@ -116,19 +120,20 @@ export const tankStyle = {
 
 export const playerInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.007,
+  speed: 0.006,
 };
 export const playerTankTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.004,
+  speed: 0.0035,
 };
 export const playerResearchTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.004,
+  // speed: 0.0035,
+  speed: 0.02,
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.005,
+  speed: 0.003,
 };
 export const enemyTankTimer: TimerConfig = {
   maxTime: 100,

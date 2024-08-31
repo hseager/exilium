@@ -2,7 +2,7 @@ import { select } from "@/util";
 import { GameManager } from "./game-manager";
 import { TimerType } from "./types";
 import { ResearchOption } from "@/model/research-option";
-import { WarFactory as WarFactory } from "@/model/research-options/war-factory";
+import { TankFactory as TankFactory } from "@/model/research-options/tank-factory";
 import { IncreaseResearchSpeed } from "@/model/research-options/increase-research-speed";
 import { IncreaseInfantryRecruitment } from "@/model/research-options/increase-infantry-recruitment";
 import { TechCentreResearchOption } from "@/model/research-options/tech-centre-research-option";
@@ -14,7 +14,7 @@ const optionsContainer = select<HTMLDivElement>("#research-points");
 const researchOptionsMap = new Map<number, ResearchOption[]>([
   [1, [new IncreaseInfantryRecruitment()]],
   [2, [new IncreaseInfantryRecruitment(), new IncreaseResearchSpeed()]],
-  [3, [new WarFactory()]],
+  [3, [new TankFactory()]],
   [5, [new IncreaseResearchSpeed()]],
   [6, [new TechCentreResearchOption(), new IncreaseTankBuildSpeed()]],
   [8, [new AddTechSkillPoint()]],

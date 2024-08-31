@@ -4,10 +4,10 @@ import { GameManager } from "@/core/game-manager";
 import { PlayerTankTimer } from "../timers/player-tank-timer";
 import { ResearchType } from "@/core/types";
 
-export class WarFactory extends ResearchOption {
+export class TankFactory extends ResearchOption {
   constructor() {
-    const title = "Build War Factory";
-    const type = ResearchType.WarFactory;
+    const title = "Build Tank Factory";
+    const type = ResearchType.TankFactory;
 
     super(title, type);
   }
