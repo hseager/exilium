@@ -2,8 +2,7 @@ import { Stats, UnitType } from "@/core/types";
 import { select, selectAll } from "@/util";
 
 export class TechCentre {
-  // points = 5;
-  points = 100;
+  points = 4;
   infantryStatPoints: Stats;
   tankStatPoints: Stats;
 

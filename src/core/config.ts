@@ -38,7 +38,7 @@ export const playerMaxLife = 100;
 
 // Give the player a couple of minutes to work out what's going on before
 // sending enemy infantry and player research
-export const initialGameStartDelay = 1000 * 30;
+export const initialGameStartDelay = 1000 * 20;
 
 // Player base stats
 export const basePlayerInfantryStats: Stats = {
@@ -84,18 +84,18 @@ export const techCentreStatIncrement: Stats = {
 
 // The amount that enemy unit stats increment by each player level
 export const enemyInfantryIncrementStat: Stats = {
-  attack: 0.3,
-  attackSpeed: 0.005,
-  moveSpeed: 0.02,
-  health: 1,
+  attack: 0.1,
+  attackSpeed: 0.003,
+  moveSpeed: 0.01,
+  health: 0.5,
   range: 0.6,
 };
 
 export const enemyTankIncrementStat: Stats = {
   attack: 0.4,
   attackSpeed: 0.002,
-  moveSpeed: 0.02,
-  health: 1,
+  moveSpeed: 0.008,
+  health: 0.5,
   range: 0.7,
 };
 
@@ -120,7 +120,7 @@ export const tankStyle = {
 
 export const playerInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.006,
+  speed: 0.0065,
 };
 export const playerTankTimer: TimerConfig = {
   maxTime: 100,
@@ -128,8 +128,7 @@ export const playerTankTimer: TimerConfig = {
 };
 export const playerResearchTimer: TimerConfig = {
   maxTime: 100,
-  // speed: 0.0035,
-  speed: 0.02,
+  speed: 0.0035,
 };
 export const enemyInfantryTimer: TimerConfig = {
   maxTime: 100,
@@ -144,6 +143,6 @@ export const researchUpgradeStats = {
   timers: {
     playerInfantry: 0.0022,
     playerTank: 0.002,
-    playerResearch: 0.002,
+    playerResearch: 0.001,
   },
 };
