@@ -16,13 +16,10 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 - UI Design
 - Text Narration/Event log
 
-### Reasearch ideas
+### Research ideas
 
-- Auto deploy on timer
-  - Upgrade auto deploy time
-  - Upgrade amount of units on auto deploy
 - Ion cannon
-- Tank & Aircraft Tech points
+- Aircraft Tech points
 - Auto heal over time
 
 # Using JS13K TypeScript Starter

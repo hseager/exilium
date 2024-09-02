@@ -69,6 +69,7 @@ export const ResearchType = {
   TechCentre: 4,
   AddTechSkillPoint: 5,
   AutoDeployInfantry: 6,
+  IncreaseInfantryAutoDeploySpeed: 7,
 };
 
 export type ResearchType = (typeof ResearchType)[keyof typeof ResearchType];

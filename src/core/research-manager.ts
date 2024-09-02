@@ -9,6 +9,7 @@ import { TechCentreResearchOption } from "@/model/research-options/tech-centre-r
 import { IncreaseTankBuildSpeed } from "@/model/research-options/increase-tank-build-speed";
 import { AddTechSkillPoint } from "@/model/research-options/add-tech-skill-point";
 import { AutoDeployInfantryOption } from "@/model/research-options/auto-deploy-infantry-option";
+import { IncreaseInfantryAutoDeploy } from "@/model/research-options/increase-infantry-auto-deploy";
 
 const optionsContainer = select<HTMLDivElement>("#research-points");
 
@@ -19,13 +20,20 @@ const researchOptionsMap = new Map<number, ResearchOption[]>([
   [5, [new IncreaseInfantryRecruitment()]],
   [6, [new TechCentreResearchOption(), new IncreaseTankBuildSpeed()]],
   [8, [new AddTechSkillPoint()]],
-  [9, [new AddTechSkillPoint()]],
+  [9, [new IncreaseInfantryAutoDeploy(), new IncreaseTankBuildSpeed()]],
+  [11, [new AddTechSkillPoint()]],
 ]);
 
 const addResearchOptions = (gameManager: GameManager, level: number) => {
   const options = researchOptionsMap.get(level);
 
-  if (!options) return;
+  if (!options) {
+    if (level >= 10) {
+      // Add skill points if we run out of options
+      gameManager.researchOptions.push(new AddTechSkillPoint());
+    }
+    return;
+  }
 
   options.forEach((option) => {
     if (!gameManager.researchOptions.some((o) => o.type === option.type)) {

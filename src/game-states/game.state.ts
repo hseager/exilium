@@ -77,7 +77,7 @@ class GameState implements State {
   }
 
   private checkWinCondition() {
-    if (this.gameManager.pylons.every((p) => p.life <= 90)) {
+    if (this.gameManager.pylons.every((p) => p.life <= 20)) {
       gameStateMachine.setState(winState);
     }
   }

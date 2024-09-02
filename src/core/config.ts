@@ -36,14 +36,14 @@ export const pylonHexCodes = [
 
 export const playerMaxLife = 100;
 
-// Give the player a couple of minutes to work out what's going on before
+// Give the player a while to work out what's going on before
 // sending enemy infantry and player research
 export const initialGameStartDelay = 1000 * 20;
 
 // Player base stats
 export const basePlayerInfantryStats: Stats = {
   attack: 11,
-  attackSpeed: 0.2, // The bigger the faster the attack
+  attackSpeed: 0.2, // the higher, the faster the attack
   moveSpeed: 0.35,
   health: 100,
   range: 16,
@@ -59,17 +59,17 @@ export const basePlayerTankStats: Stats = {
 
 // Enemy base stats
 export const baseEnemyInfantryStats: Stats = {
-  attack: 7,
+  attack: 10,
   attackSpeed: 0.15,
   moveSpeed: 0.3,
   health: 100,
-  range: 12,
+  range: 15,
 };
 
 export const baseEnemyTankStats: Stats = {
   attack: 20,
   attackSpeed: 0.1,
-  moveSpeed: 0.2,
+  moveSpeed: 0.1,
   health: 140,
   range: 28,
 };
@@ -84,19 +84,19 @@ export const techCentreStatIncrement: Stats = {
 
 // The amount that enemy unit stats increment by each player level
 export const enemyInfantryIncrementStat: Stats = {
-  attack: 0.1,
-  attackSpeed: 0.003,
+  attack: 0.4,
+  attackSpeed: 0.005,
   moveSpeed: 0.01,
-  health: 0.5,
-  range: 0.6,
+  health: 1,
+  range: 0.4,
 };
 
 export const enemyTankIncrementStat: Stats = {
-  attack: 0.4,
+  attack: 0.5,
   attackSpeed: 0.002,
   moveSpeed: 0.008,
-  health: 0.5,
-  range: 0.7,
+  health: 1,
+  range: 0.6,
 };
 
 export function getFactionTheme(faction: Faction) {
@@ -148,5 +148,6 @@ export const researchUpgradeStats = {
     playerInfantry: 0.0022,
     playerTank: 0.002,
     playerResearch: 0.001,
+    playerInfantryAutoDeploy: 0.001,
   },
 };
