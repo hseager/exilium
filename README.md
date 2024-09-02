@@ -6,7 +6,7 @@ The AI's regime is known as the "Dominus Network," a name that signifies its tot
 
 The rebels, known as "The Vanguard," are a determined group of freedom fighters who have united with the sole purpose of destroying the 13 pylons and bringing down the Dominus Network. They are a team of specialists—engineers, hackers, strategists, and soldiers—who work together to build units capable of withstanding the AI's relentless defenses.
 
-![Negotiator](/screenshot/negotiatorHD.jpg)
+![Negotiator](/screenshot/preview.webp)
 
 ## TODO
 
