@@ -6,6 +6,7 @@
   --theme-5: #28485f;
   --theme-6: #464b4e;
   --theme-7: #c1c6c9;
+  --theme-8: #efefef;
 
   --spacing-1: 4px;
   --spacing-2: 8px;
@@ -79,8 +80,8 @@ button {
   gap: 10px;
 }
 
-.controls .grid .button {
-  height: 100%;
+.controls .grid .grid-item {
+  height: 120px;
 }
 
 .controls button:last-of-type {
@@ -131,6 +132,34 @@ button {
 .button:disabled {
   color: var(--theme-6);
   border-color: var(--theme-6);
+}
+
+.button.deploy {
+  width: 100%;
+  height: 110px;
+  cursor: pointer;
+
+  font-size: 12px;
+
+  padding: var(--spacing-1);
+  color: var(--theme-8);
+
+  display: flex;
+  align-items: flex-end; /* Align items to the bottom */
+  justify-content: flex-start; /* Align items to the left */
+  text-align: left;
+}
+
+.button.deploy span {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-weight: bold;
+}
+
+.button:disabled.deploy {
+  cursor: auto;
+  color: var(--theme-7);
+  filter: grayscale(100%);
 }
 
 .damage-meter {
@@ -188,4 +217,14 @@ button {
 
 .tab-panel.active {
   display: block;
+}
+
+#deploy-infantry {
+  background: url("/infantry.png") no-repeat;
+  background-size: 100%;
+}
+
+#deploy-tank {
+  background: url("/negotiator.png") no-repeat;
+  background-size: 100%;
 }

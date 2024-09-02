@@ -15,10 +15,10 @@
       <section>
         <h3 class="m-0">Deployments</h3>
         <div class="grid">
-          <div>
-            <button id="deploy-infantry" class="button" disabled>
-              Vanguard Troopers (Infantry)</button
-            ><br />
+          <div class="grid-item">
+            <button id="deploy-infantry" class="button deploy" disabled>
+              <span>Vanguard Troopers</span>
+            </button>
             <progress
               id="infantry-progress"
               class="progress-bar"
@@ -26,10 +26,10 @@
               value="0"
             ></progress>
           </div>
-          <div id="tank-option" class="d-none">
-            <button id="deploy-tank" class="button" disabled>
-              Negotiator (Tank)</button
-            ><br />
+          <div id="tank-option" class="grid-item">
+            <button id="deploy-tank" class="button deploy" disabled>
+              <span>Negotiator</span>
+            </button>
             <progress
               id="tank-progress"
               class="progress-bar"
