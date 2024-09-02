@@ -24,6 +24,7 @@ export const TimerType = {
   PlayerResearch: 3,
   EnemyDeployInfantry: 4,
   EnemyDeployTank: 5,
+  AutoDeployInfantry: 6,
 };
 
 export type TimerType = (typeof TimerType)[keyof typeof TimerType];
@@ -67,6 +68,7 @@ export const ResearchType = {
   TankFactory: 3,
   TechCentre: 4,
   AddTechSkillPoint: 5,
+  AutoDeployInfantry: 6,
 };
 
 export type ResearchType = (typeof ResearchType)[keyof typeof ResearchType];

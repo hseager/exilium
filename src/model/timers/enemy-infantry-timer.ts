@@ -42,14 +42,6 @@ export class EnemyInfantryTimer extends Timer {
         gameManager.player.level * enemyInfantryIncrementStat.range,
     };
 
-    // const unitStats = Object.keys(baseEnemyInfantryStats).reduce((acc, key) => {
-    //   acc[key as keyof Stats] =
-    //     baseEnemyInfantryStats[key as keyof Stats] +
-    //     gameManager.player.level *
-    //       enemyInfantryIncrementStat[key as keyof Stats];
-    //   return acc;
-    // }, {} as Stats);
-
     const unit = new Unit(UnitType.Infantry, Faction.Dominus, unitStats);
 
     gameManager.units.push(unit);

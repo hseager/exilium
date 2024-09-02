@@ -8,14 +8,15 @@ import { IncreaseInfantryRecruitment } from "@/model/research-options/increase-i
 import { TechCentreResearchOption } from "@/model/research-options/tech-centre-research-option";
 import { IncreaseTankBuildSpeed } from "@/model/research-options/increase-tank-build-speed";
 import { AddTechSkillPoint } from "@/model/research-options/add-tech-skill-point";
+import { AutoDeployInfantryOption } from "@/model/research-options/auto-deploy-infantry-option";
 
 const optionsContainer = select<HTMLDivElement>("#research-points");
 
 const researchOptionsMap = new Map<number, ResearchOption[]>([
   [1, [new IncreaseInfantryRecruitment()]],
-  [2, [new IncreaseInfantryRecruitment(), new IncreaseResearchSpeed()]],
+  [2, [new AutoDeployInfantryOption(), new IncreaseResearchSpeed()]],
   [3, [new TankFactory()]],
-  [5, [new IncreaseResearchSpeed()]],
+  [5, [new IncreaseInfantryRecruitment()]],
   [6, [new TechCentreResearchOption(), new IncreaseTankBuildSpeed()]],
   [8, [new AddTechSkillPoint()]],
   [9, [new AddTechSkillPoint()]],

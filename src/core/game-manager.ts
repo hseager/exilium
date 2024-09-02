@@ -16,6 +16,7 @@ import { Player } from "@/model/player";
 import { ResearchOption } from "@/model/research-option";
 import { TechCentre } from "@/model/tech-center";
 import { EnemyTankTimer } from "@/model/timers/enemy-tank-timer";
+import { AutoDeployInfantryTimer } from "@/model/timers/auto-deploy-infantry-timer";
 
 export class GameManager {
   mode: Mode;
@@ -77,7 +78,7 @@ export class GameManager {
     }
   }
 
-  private getUnitStats(unitType: UnitType) {
+  getUnitStats(unitType: UnitType) {
     let unitStats: Stats;
 
     switch (unitType) {
