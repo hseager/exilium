@@ -84,16 +84,16 @@ export const techCentreStatIncrement: Stats = {
 
 // The amount that enemy unit stats increment by each player level
 export const enemyInfantryIncrementStat: Stats = {
-  attack: 0.4,
-  attackSpeed: 0.005,
+  attack: 0.7,
+  attackSpeed: 0.007,
   moveSpeed: 0.01,
   health: 1,
   range: 0.4,
 };
 
 export const enemyTankIncrementStat: Stats = {
-  attack: 0.5,
-  attackSpeed: 0.002,
+  attack: 0.6,
+  attackSpeed: 0.003,
   moveSpeed: 0.008,
   health: 1,
   range: 0.6,
@@ -108,7 +108,7 @@ export function getFactionTheme(faction: Faction) {
   } else {
     return {
       fill: "#481c7f",
-      border: "#290639",
+      border: "#170221",
     };
   }
 }
