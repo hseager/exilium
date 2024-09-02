@@ -16,7 +16,6 @@ import { Player } from "@/model/player";
 import { ResearchOption } from "@/model/research-option";
 import { TechCentre } from "@/model/tech-center";
 import { EnemyTankTimer } from "@/model/timers/enemy-tank-timer";
-import { AutoDeployInfantryTimer } from "@/model/timers/auto-deploy-infantry-timer";
 
 export class GameManager {
   mode: Mode;
@@ -84,37 +83,66 @@ export class GameManager {
     switch (unitType) {
       case UnitType.Infantry:
         if (!this.techCentre) {
-          unitStats = basePlayerInfantryStats;
+          unitStats = {
+            ...basePlayerInfantryStats,
+          };
         } else {
-          // Loop through the stat keys and add the tech centre upgrade values to the units stats
-          unitStats = Object.keys(basePlayerInfantryStats).reduce(
-            (acc, key) => {
-              acc[key as keyof Stats] =
-                basePlayerInfantryStats[key as keyof Stats] +
-                (this.techCentre?.infantryStatPoints[key as keyof Stats] || 0) *
-                  techCentreStatIncrement[key as keyof Stats];
-              return acc;
-            },
-            {} as Stats
-          );
+          unitStats = {
+            attack:
+              basePlayerInfantryStats.attack +
+              this.techCentre?.infantryStatPoints.attack *
+                techCentreStatIncrement.attack,
+            attackSpeed:
+              basePlayerInfantryStats.attackSpeed +
+              this.techCentre?.infantryStatPoints.attackSpeed *
+                techCentreStatIncrement.attackSpeed,
+            health:
+              basePlayerInfantryStats.health +
+              this.techCentre?.infantryStatPoints.health *
+                techCentreStatIncrement.health,
+            moveSpeed:
+              basePlayerInfantryStats.moveSpeed +
+              this.techCentre?.infantryStatPoints.moveSpeed *
+                techCentreStatIncrement.moveSpeed,
+            range:
+              basePlayerInfantryStats.range +
+              this.techCentre?.infantryStatPoints.range *
+                techCentreStatIncrement.range,
+          };
         }
         break;
       case UnitType.Tank:
         if (!this.techCentre) {
-          unitStats = basePlayerTankStats;
+          unitStats = {
+            ...basePlayerTankStats,
+          };
         } else {
-          // Loop through the stat keys and add the tech centre upgrade values to the units stats
-          unitStats = Object.keys(basePlayerTankStats).reduce((acc, key) => {
-            acc[key as keyof Stats] =
-              basePlayerTankStats[key as keyof Stats] +
-              (this.techCentre?.tankStatPoints[key as keyof Stats] || 0) *
-                techCentreStatIncrement[key as keyof Stats];
-            return acc;
-          }, {} as Stats);
+          unitStats = {
+            attack:
+              basePlayerTankStats.attack +
+              this.techCentre?.tankStatPoints.attack *
+                techCentreStatIncrement.attack,
+            attackSpeed:
+              basePlayerTankStats.attackSpeed +
+              this.techCentre?.tankStatPoints.attackSpeed *
+                techCentreStatIncrement.attackSpeed,
+            health:
+              basePlayerTankStats.health +
+              this.techCentre?.tankStatPoints.health *
+                techCentreStatIncrement.health,
+            moveSpeed:
+              basePlayerTankStats.moveSpeed +
+              this.techCentre?.tankStatPoints.moveSpeed *
+                techCentreStatIncrement.moveSpeed,
+            range:
+              basePlayerTankStats.range +
+              this.techCentre?.tankStatPoints.range *
+                techCentreStatIncrement.range,
+          };
         }
         break;
       default:
-        unitStats = basePlayerInfantryStats;
+        unitStats = { ...basePlayerInfantryStats };
         break;
     }
 

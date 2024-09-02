@@ -140,7 +140,7 @@ export const enemyTankTimer: TimerConfig = {
 };
 export const autoDeployInfantryTimer: TimerConfig = {
   maxTime: 100,
-  speed: 0.02,
+  speed: 0.002,
 };
 
 export const researchUpgradeStats = {

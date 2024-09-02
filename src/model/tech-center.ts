@@ -142,26 +142,6 @@ export class TechCentre {
 
           this.updatePointsUI();
         };
-        slider.onchange = (event: Event) => {
-          const element = event.target as HTMLInputElement;
-          const { type, stat } = element?.dataset;
-
-          if (!stat) return;
-
-          const key = stat as keyof Stats;
-          const value = parseInt(element.value, 10);
-
-          switch (type) {
-            case UnitType.Infantry:
-              this.infantryStatPoints[key] = value;
-              break;
-            case UnitType.Tank:
-              this.tankStatPoints[key] = value;
-              break;
-          }
-
-          this.updatePointsUI();
-        };
       });
   }
 
