@@ -70,6 +70,7 @@ export const ResearchType = {
   AddTechSkillPoint: 5,
   AutoDeployInfantry: 6,
   IncreaseInfantryAutoDeploySpeed: 7,
+  AirBase: 8,
 };
 
 export type ResearchType = (typeof ResearchType)[keyof typeof ResearchType];

@@ -1,6 +1,6 @@
 import {
+  aircraftStyle,
   getFactionTheme,
-  safeZoneConfig,
   tankStyle,
   wallConfig,
 } from "@/core/config";
@@ -74,7 +74,6 @@ export class Unit {
       ctx.stroke();
 
       // Calculate the radius of the health circle based on health ratio
-
       const healthRadius = this.stats.range * healthRatio;
 
       // Draw the filled arc for health (inner circle)
@@ -107,6 +106,61 @@ export class Unit {
         tankStyle.width,
         fillHeight
       );
+      ctx.fillStyle = theme.fill;
+      ctx.fill();
+    } else if (this.type === UnitType.Aircraft) {
+      ctx.beginPath();
+
+      // Define the three points of the triangle
+      const xPos = x ? x : this.position.x;
+      const yPos = y ? y : this.position.y;
+
+      // Move to the top point of the triangle
+      ctx.moveTo(xPos, yPos - aircraftStyle.height / 2);
+
+      // Draw line to bottom right
+      ctx.lineTo(
+        xPos + aircraftStyle.width / 2,
+        yPos + aircraftStyle.height / 2
+      );
+
+      // Draw line to bottom left
+      ctx.lineTo(
+        xPos - aircraftStyle.width / 2,
+        yPos + aircraftStyle.height / 2
+      );
+
+      // Close the path back to the top
+      ctx.closePath();
+
+      // Set the stroke style for the range
+      ctx.strokeStyle = theme.border;
+      ctx.stroke();
+
+      // Draw the health-based filled triangle
+      ctx.beginPath();
+
+      // Move to the top point of the filled triangle
+      ctx.moveTo(
+        xPos,
+        yPos - aircraftStyle.height / 2 + (aircraftStyle.height - fillHeight)
+      );
+
+      // Draw line to bottom right
+      ctx.lineTo(
+        xPos + aircraftStyle.width / 2,
+        yPos + aircraftStyle.height / 2
+      );
+
+      // Draw line to bottom left
+      ctx.lineTo(
+        xPos - aircraftStyle.width / 2,
+        yPos + aircraftStyle.height / 2
+      );
+
+      // Close the path back to the top
+      ctx.closePath();
+
       ctx.fillStyle = theme.fill;
       ctx.fill();
     }

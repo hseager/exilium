@@ -5,6 +5,7 @@ import { gameStateMachine } from "@/game-state-machine";
 import { menuState } from "@/game-states/menu.state";
 import { GameManager } from "@/core/game-manager";
 import {
+  aircraftStyle,
   getFactionTheme,
   pylonDamageRange,
   pylonHexCodes,
@@ -241,6 +242,15 @@ class GameState implements State {
         Math.hypot(
           unit.position.x - tankStyle.width / 2 - otherUnit.position.x,
           unit.position.y - tankStyle.height / 2 - otherUnit.position.y
+        ) <
+          unit.stats.range + otherUnit.stats.range
+      );
+    } else if (unit.type === UnitType.Aircraft) {
+      return (
+        otherUnit.faction !== unit.faction &&
+        Math.hypot(
+          unit.position.x - aircraftStyle.width / 2 - otherUnit.position.x,
+          unit.position.y - aircraftStyle.height / 2 - otherUnit.position.y
         ) <
           unit.stats.range + otherUnit.stats.range
       );

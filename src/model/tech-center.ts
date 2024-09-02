@@ -5,6 +5,7 @@ export class TechCentre {
   points = 4;
   infantryStatPoints: Stats;
   tankStatPoints: Stats;
+  aircraftStatPoints: Stats;
 
   constructor() {
     this.infantryStatPoints = {
@@ -16,6 +17,14 @@ export class TechCentre {
     };
 
     this.tankStatPoints = {
+      attack: 2,
+      attackSpeed: 2,
+      moveSpeed: 2,
+      health: 2,
+      range: 2,
+    };
+
+    this.aircraftStatPoints = {
       attack: 2,
       attackSpeed: 2,
       moveSpeed: 2,
@@ -83,6 +92,18 @@ export class TechCentre {
       } else if (name === "range") {
         return this.tankStatPoints.range;
       }
+    } else if (type === UnitType.Aircraft) {
+      if (name === "attack") {
+        return this.aircraftStatPoints.attack;
+      } else if (name === "attackSpeed") {
+        return this.aircraftStatPoints.attackSpeed;
+      } else if (name === "health") {
+        return this.aircraftStatPoints.health;
+      } else if (name === "moveSpeed") {
+        return this.aircraftStatPoints.moveSpeed;
+      } else if (name === "range") {
+        return this.aircraftStatPoints.range;
+      }
     }
 
     return this.infantryStatPoints.attack;
@@ -112,6 +133,18 @@ export class TechCentre {
         this.tankStatPoints.moveSpeed = value;
       } else if (name === "range") {
         this.tankStatPoints.range = value;
+      }
+    } else if (type === UnitType.Aircraft) {
+      if (name === "attack") {
+        this.aircraftStatPoints.attack = value;
+      } else if (name === "attackSpeed") {
+        this.aircraftStatPoints.attackSpeed = value;
+      } else if (name === "health") {
+        this.aircraftStatPoints.health = value;
+      } else if (name === "moveSpeed") {
+        this.aircraftStatPoints.moveSpeed = value;
+      } else if (name === "range") {
+        this.aircraftStatPoints.range = value;
       }
     }
   }

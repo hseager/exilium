@@ -37,8 +37,9 @@
               value="0"
             ></progress>
           </div>
-          <div id="aircraft-option" class="grid-item d-none">
-            <button id="deploy-aircraft" class="button deploy">
+          <!-- <div id="aircraft-option" class="grid-item d-none"> -->
+          <div id="aircraft-option" class="grid-item">
+            <button id="deploy-aircraft" class="button deploy" disabled>
               <span>Raptor</span>
             </button>
             <progress
@@ -49,9 +50,7 @@
             ></progress>
           </div>
         </div>
-        <!--
-          <button>Raptor (Aircraft)</button>
-          <button>Goliath mk.II (Mech)</button> -->
+        <!-- <button>Goliath mk.II (Mech)</button> -->
       </section>
       <section id="research-centre" class="d-none">
         <h3 class="m-0">Research</h3>
@@ -69,7 +68,9 @@
         </h3>
         <button class="tab active" data-type="infantry">Infantry</button>
         <button class="tab" data-type="tank">Tank</button>
-        <button class="tab d-none" data-type="aircraft">Aircraft</button>
+        <button id="aircraft-tab" class="tab" data-type="aircraft">
+          Aircraft
+        </button>
         <div id="infantry-tech" class="tab-panel active">
           <div class="form-row">
             <label>Attack Power</label>
@@ -194,17 +195,68 @@
             />
           </div>
         </div>
-
-        <!-- <div class="col">
-          <h5 class="m-0">Stats</h5>
-          <p class="m-0">Points: <strong>10</strong></p>
-          Defence
-          <input type="range" min="1" max="10" value="2" />
-          Attack Power
-          <input type="range" min="1" max="10" value="2" />
-          Range
-          <input type="range" min="1" max="10" value="2" />
-        </div> -->
+        <div id="aircraft-tech" class="tab-panel">
+          <div class="form-row">
+            <label>Attack Power</label>
+            <input
+              class="tech-range"
+              type="range"
+              min="0"
+              max="10"
+              value="2"
+              data-type="aircraft"
+              data-stat="attack"
+            />
+          </div>
+          <div class="form-row">
+            <label>Attack Speed</label>
+            <input
+              class="tech-range"
+              type="range"
+              min="0"
+              max="10"
+              value="2"
+              data-type="aircraft"
+              data-stat="attackSpeed"
+            />
+          </div>
+          <div class="form-row">
+            <label>Defence</label>
+            <input
+              class="tech-range"
+              type="range"
+              min="0"
+              max="10"
+              value="2"
+              data-type="aircraft"
+              data-stat="health"
+            />
+          </div>
+          <div class="form-row">
+            <label>Move Speed</label>
+            <input
+              class="tech-range"
+              type="range"
+              min="0"
+              max="10"
+              value="2"
+              data-type="aircraft"
+              data-stat="moveSpeed"
+            />
+          </div>
+          <div class="form-row">
+            <label>Range</label>
+            <input
+              class="tech-range"
+              type="range"
+              min="0"
+              max="10"
+              value="2"
+              data-type="aircraft"
+              data-stat="range"
+            />
+          </div>
+        </div>
       </section>
     </section>
     <script type="module" src="/src/index.ts"></script>

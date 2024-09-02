@@ -57,6 +57,14 @@ export const basePlayerTankStats: Stats = {
   range: 28,
 };
 
+export const basePlayerAircraftStats: Stats = {
+  attack: 30,
+  attackSpeed: 0.08,
+  moveSpeed: 0.4,
+  health: 75,
+  range: 35,
+};
+
 // Enemy base stats
 export const baseEnemyInfantryStats: Stats = {
   attack: 10,
@@ -118,6 +126,11 @@ export const tankStyle = {
   height: 42,
 };
 
+export const aircraftStyle = {
+  width: 28,
+  height: 40,
+};
+
 export const playerInfantryTimer: TimerConfig = {
   maxTime: 100,
   speed: 0.0065,
@@ -125,6 +138,10 @@ export const playerInfantryTimer: TimerConfig = {
 export const playerTankTimer: TimerConfig = {
   maxTime: 100,
   speed: 0.0035,
+};
+export const playerAircraftTimer: TimerConfig = {
+  maxTime: 100,
+  speed: 0.0025,
 };
 export const playerResearchTimer: TimerConfig = {
   maxTime: 100,

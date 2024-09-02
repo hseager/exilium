@@ -2,6 +2,7 @@ import { select } from "@/util";
 import { Faction, Mode, Pylon, Stats, TimerType, UnitType } from "./types";
 import { Unit } from "../model/unit";
 import {
+  basePlayerAircraftStats,
   basePlayerInfantryStats,
   basePlayerTankStats,
   initialGameStartDelay,
@@ -141,6 +142,36 @@ export class GameManager {
           };
         }
         break;
+      case UnitType.Aircraft:
+        if (!this.techCentre) {
+          unitStats = {
+            ...basePlayerAircraftStats,
+          };
+        } else {
+          unitStats = {
+            attack:
+              basePlayerAircraftStats.attack +
+              this.techCentre?.aircraftStatPoints.attack *
+                techCentreStatIncrement.attack,
+            attackSpeed:
+              basePlayerAircraftStats.attackSpeed +
+              this.techCentre?.aircraftStatPoints.attackSpeed *
+                techCentreStatIncrement.attackSpeed,
+            health:
+              basePlayerAircraftStats.health +
+              this.techCentre?.aircraftStatPoints.health *
+                techCentreStatIncrement.health,
+            moveSpeed:
+              basePlayerAircraftStats.moveSpeed +
+              this.techCentre?.aircraftStatPoints.moveSpeed *
+                techCentreStatIncrement.moveSpeed,
+            range:
+              basePlayerAircraftStats.range +
+              this.techCentre?.aircraftStatPoints.range *
+                techCentreStatIncrement.range,
+          };
+        }
+        break;
       default:
         unitStats = { ...basePlayerInfantryStats };
         break;
@@ -171,24 +202,39 @@ export class GameManager {
       );
     });
 
+    const deployAircraftButton = select<HTMLButtonElement>("#deploy-aircraft");
+    deployAircraftButton?.addEventListener("click", () => {
+      this.mode = Mode.PlaceUnit;
+      this.unitToDeploy = new Unit(
+        UnitType.Aircraft,
+        Faction.Vanguard,
+        this.getUnitStats(UnitType.Aircraft)
+      );
+    });
+
     c2d.addEventListener("click", () => {
       if (this.mode === Mode.PlaceUnit) {
+        this.unitToDeploy?.initPosition();
+        this.unitToDeploy && this.units.push(this.unitToDeploy);
+
         switch (this.unitToDeploy?.type) {
           case UnitType.Infantry:
-            this.unitToDeploy.initPosition();
-            this.units.push(this.unitToDeploy);
             const infantryTimer = this.timers.find(
               (timer) => timer.type == TimerType.PlayerDeployInfantry
             );
             infantryTimer && infantryTimer.restart();
             break;
           case UnitType.Tank:
-            this.unitToDeploy.initPosition();
-            this.units.push(this.unitToDeploy);
             const tankTimer = this.timers.find(
               (timer) => timer.type == TimerType.PlayerDeployTank
             );
             tankTimer && tankTimer.restart();
+            break;
+          case UnitType.Aircraft:
+            const aircraftTimer = this.timers.find(
+              (timer) => timer.type == TimerType.PlayerDeployAircraft
+            );
+            aircraftTimer && aircraftTimer.restart();
             break;
         }
       }

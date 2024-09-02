@@ -11,14 +11,14 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 ## TODO
 
 - Balance
-- Add aircraft
+  - Increase enemy spawn time
+- Attack bonuses against units
 - UI Design
 - Text Narration/Event log
 
 ### Research ideas
 
 - Ion cannon
-- Aircraft Tech points
 - Auto heal over time
 
 ## Credits
