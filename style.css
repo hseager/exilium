@@ -220,16 +220,16 @@ button {
 }
 
 #deploy-infantry {
-  background: url("/troopers.png") no-repeat;
+  background: url("./troopers.png") no-repeat;
   background-size: 100%;
 }
 
 #deploy-tank {
-  background: url("/negotiator.png") no-repeat;
+  background: url("./negotiator.png") no-repeat;
   background-size: 100%;
 }
 
 #deploy-aircraft {
-  background: url("/raptor.png") no-repeat;
+  background: url("./raptor.png") no-repeat;
   background-size: 100%;
 }
