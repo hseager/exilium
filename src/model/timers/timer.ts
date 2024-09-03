@@ -4,13 +4,12 @@ import { TimerType } from "../../core/types";
 export class Timer {
   type: TimerType;
   currentTime = 0;
-  maxTime: number;
+  maxTime = 1000;
   speed: number;
   active = true;
 
-  constructor(type: TimerType, maxTime: number, speed: number) {
+  constructor(type: TimerType, speed: number) {
     this.type = type;
-    this.maxTime = maxTime;
     this.speed = speed;
   }
 

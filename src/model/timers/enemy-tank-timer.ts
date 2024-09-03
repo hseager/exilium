@@ -12,11 +12,7 @@ import { Unit } from "../unit";
 
 export class EnemyTankTimer extends Timer {
   constructor() {
-    super(
-      TimerType.EnemyDeployTank,
-      enemyTankTimer.maxTime,
-      enemyTankTimer.speed
-    );
+    super(TimerType.EnemyDeployTank, enemyTankTimer.speed);
   }
 
   start() {

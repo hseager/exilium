@@ -71,12 +71,12 @@ export const ResearchType = {
   AutoDeployInfantry: 6,
   IncreaseInfantryAutoDeploySpeed: 7,
   AirBase: 8,
+  IncreaseAircraftBuildSpeed: 9,
 };
 
 export type ResearchType = (typeof ResearchType)[keyof typeof ResearchType];
 
 export interface TimerConfig {
-  maxTime: number;
   speed: number;
 }
 

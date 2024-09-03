@@ -5,11 +5,7 @@ import { playerAircraftTimer } from "@/core/config";
 
 export class PlayerAircraftTimer extends Timer {
   constructor() {
-    super(
-      TimerType.PlayerDeployAircraft,
-      playerAircraftTimer.maxTime,
-      playerAircraftTimer.speed
-    );
+    super(TimerType.PlayerDeployAircraft, playerAircraftTimer.speed);
   }
 
   start() {
@@ -35,7 +31,7 @@ export class PlayerAircraftTimer extends Timer {
 
     const progress = select<HTMLProgressElement>("#aircraft-progress");
     if (progress) {
-      progress.value = this.currentTime;
+      progress.value = this.currentTime / 10;
     }
   }
 }

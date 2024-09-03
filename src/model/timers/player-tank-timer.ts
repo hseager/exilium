@@ -5,11 +5,7 @@ import { playerTankTimer } from "@/core/config";
 
 export class PlayerTankTimer extends Timer {
   constructor() {
-    super(
-      TimerType.PlayerDeployTank,
-      playerTankTimer.maxTime,
-      playerTankTimer.speed
-    );
+    super(TimerType.PlayerDeployTank, playerTankTimer.speed);
   }
 
   start() {
@@ -35,7 +31,7 @@ export class PlayerTankTimer extends Timer {
 
     const progress = select<HTMLProgressElement>("#tank-progress");
     if (progress) {
-      progress.value = this.currentTime;
+      progress.value = this.currentTime / 10;
     }
   }
 }

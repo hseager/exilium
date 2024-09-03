@@ -10,11 +10,7 @@ import { GameManager } from "@/core/game-manager";
 
 export class ResearchTimer extends Timer {
   constructor() {
-    super(
-      TimerType.PlayerResearch,
-      playerResearchTimer.maxTime,
-      playerResearchTimer.speed
-    );
+    super(TimerType.PlayerResearch, playerResearchTimer.speed);
   }
 
   start() {
@@ -33,7 +29,7 @@ export class ResearchTimer extends Timer {
 
     const progress = select<HTMLProgressElement>("#research-progress");
     if (progress) {
-      progress.value = this.currentTime;
+      progress.value = this.currentTime / 10;
     }
   }
 }

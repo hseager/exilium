@@ -5,11 +5,7 @@ import { playerInfantryTimer } from "@/core/config";
 
 export class PlayerInfantryTimer extends Timer {
   constructor() {
-    super(
-      TimerType.PlayerDeployInfantry,
-      playerInfantryTimer.maxTime,
-      playerInfantryTimer.speed
-    );
+    super(TimerType.PlayerDeployInfantry, playerInfantryTimer.speed);
   }
 
   start() {
@@ -35,7 +31,7 @@ export class PlayerInfantryTimer extends Timer {
 
     const progress = select<HTMLProgressElement>("#infantry-progress");
     if (progress) {
-      progress.value = this.currentTime;
+      progress.value = this.currentTime / 10;
     }
   }
 }

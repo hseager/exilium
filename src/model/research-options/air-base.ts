@@ -17,5 +17,8 @@ export class AirBase extends ResearchOption {
     select("#aircraft-tab")?.classList.remove("d-none");
 
     gameManager.timers.push(new PlayerAircraftTimer());
+
+    // Add 2 exta tech points when building airbase
+    gameManager.techCentre && gameManager.techCentre.addSkillPoints(2);
   }
 }

@@ -10,11 +10,7 @@ import { Unit } from "../unit";
 
 export class EnemyInfantryTimer extends Timer {
   constructor() {
-    super(
-      TimerType.EnemyDeployInfantry,
-      enemyInfantryTimer.maxTime,
-      enemyInfantryTimer.speed
-    );
+    super(TimerType.EnemyDeployInfantry, enemyInfantryTimer.speed);
   }
 
   start() {
@@ -23,7 +19,6 @@ export class EnemyInfantryTimer extends Timer {
 
   handleComplete(gameManager: GameManager) {
     // We increment each enemy stat for each player level to make the game harder as the player levels up
-
     const unitStats: Stats = {
       attack:
         baseEnemyInfantryStats.attack +

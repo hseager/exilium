@@ -40,7 +40,6 @@ export class GameManager {
     this.researchOptions = [];
     this.unitToDeploy = null;
     this.techCentre = null;
-
     this.attachDomEvents();
     this.setInitialTimers();
   }

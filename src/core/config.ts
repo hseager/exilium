@@ -132,39 +132,33 @@ export const aircraftStyle = {
 };
 
 export const playerInfantryTimer: TimerConfig = {
-  maxTime: 100,
-  speed: 0.0065,
+  speed: 0.065,
 };
 export const playerTankTimer: TimerConfig = {
-  maxTime: 100,
-  speed: 0.0035,
+  speed: 0.035,
 };
 export const playerAircraftTimer: TimerConfig = {
-  maxTime: 100,
-  speed: 0.0025,
+  speed: 0.025,
 };
 export const playerResearchTimer: TimerConfig = {
-  maxTime: 100,
-  speed: 0.0035,
+  speed: 0.035,
 };
 export const enemyInfantryTimer: TimerConfig = {
-  maxTime: 100,
-  speed: 0.003,
+  speed: 0.03,
 };
 export const enemyTankTimer: TimerConfig = {
-  maxTime: 100,
-  speed: 0.002,
+  speed: 0.02,
 };
 export const autoDeployInfantryTimer: TimerConfig = {
-  maxTime: 100,
-  speed: 0.002,
+  speed: 0.02,
 };
 
 export const researchUpgradeStats = {
   timers: {
-    playerInfantry: 0.0022,
-    playerTank: 0.002,
-    playerResearch: 0.001,
-    playerInfantryAutoDeploy: 0.001,
+    playerInfantry: 0.022,
+    playerTank: 0.02,
+    playerResearch: 0.01,
+    playerInfantryAutoDeploy: 0.015,
+    playerAircraft: 0.015,
   },
 };

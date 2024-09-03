@@ -6,11 +6,7 @@ import { Unit } from "../unit";
 
 export class AutoDeployInfantryTimer extends Timer {
   constructor() {
-    super(
-      TimerType.AutoDeployInfantry,
-      autoDeployInfantryTimer.maxTime,
-      autoDeployInfantryTimer.speed
-    );
+    super(TimerType.AutoDeployInfantry, autoDeployInfantryTimer.speed);
   }
 
   start() {
