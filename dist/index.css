@@ -26,17 +26,6 @@
 #c2d {
   background: var(--theme-1);
   image-rendering: pixelated;
-
-  /* clip-path: polygon(
-    0 8%,
-    4% 0,
-    100% 0,
-    100% 10%,
-    100% 100%,
-    95% 100%,
-    4% 100%,
-    0% 95%
-  ); */
 }
 
 html,
@@ -51,46 +40,6 @@ body {
   font-size: var(--font-size);
 }
 
-.interface {
-  width: 1330px;
-  height: 600px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--theme-1);
-  position: relative;
-  /* --mask: linear-gradient(
-      45deg,
-      #0000 28.28px,
-      #000 0 calc(28.28px + 10px),
-      #0000 0 calc(100% - 28.28px - 10px),
-      #000 0 calc(100% - 28.28px),
-      #0000 0
-    ),
-    linear-gradient(
-      -45deg,
-      #0000 28.28px,
-      #000 0 calc(28.28px + 10px),
-      #0000 0 calc(100% - 28.28px - 10px),
-      #000 0 calc(100% - 28.28px),
-      #0000 0
-    ),
-    linear-gradient(90deg, #000 20px, #0000 0) -10px 50%/100% calc(100% - 80px) repeat-x,
-    linear-gradient(#000 20px, #0000 0) 50% -10px / calc(100% - 80px) 100% repeat-y; */
-}
-
-.interface:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--theme-5);
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-  z-index: 9;
-  pointer-events: none;
-}
-
 button {
   font-family: var(--font-family);
   font-size: var(--font-size);
@@ -100,6 +49,9 @@ button {
   padding: var(--spacing-4);
   height: 600px;
   width: 300px;
+
+  border-top: 1px solid var(--theme-7);
+  border-right: 1px solid var(--theme-7);
 
   background: var(--theme-1);
   background: linear-gradient(
