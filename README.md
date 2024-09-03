@@ -16,6 +16,8 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 - Add attack range for randomness
 - UI Design
 - Text Narration/Event log
+- Refactor
+  - Units into unit types, Infantry/Tank etc
 
 ### Research ideas
 
