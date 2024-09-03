@@ -100,7 +100,6 @@ export const baseEnemyInfantryStats: Stats = {
   health: 100,
   range: 15,
 };
-
 export const baseEnemyTankStats: Stats = {
   attack: 20,
   attackSpeed: 0.1,
@@ -108,7 +107,13 @@ export const baseEnemyTankStats: Stats = {
   health: 140,
   range: 28,
 };
-
+export const baseEnemyAircraftStats: Stats = {
+  attack: 26,
+  attackSpeed: 0.1,
+  moveSpeed: 0.38,
+  health: 100,
+  range: 35,
+};
 export const techCentreStatIncrement: Stats = {
   attack: 2,
   attackSpeed: 0.05,
@@ -120,19 +125,25 @@ export const techCentreStatIncrement: Stats = {
 // # Difficulty
 // The amount that enemy unit stats increment by each player level
 export const enemyInfantryIncrementStat: Stats = {
-  attack: 0.7,
-  attackSpeed: 0.007,
+  attack: 0.3,
+  attackSpeed: 0.01,
   moveSpeed: 0.01,
   health: 1,
   range: 0.4,
 };
-
 export const enemyTankIncrementStat: Stats = {
   attack: 0.6,
   attackSpeed: 0.003,
   moveSpeed: 0.008,
   health: 1,
   range: 0.6,
+};
+export const enemyAircraftIncrementStat: Stats = {
+  attack: 0.4,
+  attackSpeed: 0.002,
+  moveSpeed: 0.007,
+  health: 1,
+  range: 0.7,
 };
 
 export const enemyInfantrySpawnIncreaseSpeed = 0.03;
@@ -147,6 +158,7 @@ export const autoDeployInfantryTimerSpeed = 0.02;
 
 export const enemyInfantryTimerSpeed = 0.03;
 export const enemyTankTimerSpeed = 0.02;
+export const enemyAircraftTimerSpeed = 0.012;
 
 // # Research
 export const researchUpgradeStats = {

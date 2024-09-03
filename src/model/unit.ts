@@ -111,26 +111,28 @@ export class Unit {
     } else if (this.type === UnitType.Aircraft) {
       ctx.beginPath();
 
-      // Define the three points of the triangle
-      const xPos = x ? x : this.position.x;
-      const yPos = y ? y : this.position.y;
+      const xPos = x ?? this.position.x;
+      const yPos = y ?? this.position.y;
 
-      // Move to the top point of the triangle
-      ctx.moveTo(xPos, yPos - aircraftStyle.height / 2);
+      // Check if the faction is Dominus, and flip the triangle if true
+      const flipFactor = this.faction === Faction.Dominus ? -1 : 1;
 
-      // Draw line to bottom right
+      // Move to the top (or bottom, if flipped) point of the triangle
+      ctx.moveTo(xPos, yPos - (flipFactor * aircraftStyle.height) / 2);
+
+      // Draw line to bottom right (or top right, if flipped)
       ctx.lineTo(
         xPos + aircraftStyle.width / 2,
-        yPos + aircraftStyle.height / 2
+        yPos + (flipFactor * aircraftStyle.height) / 2
       );
 
-      // Draw line to bottom left
+      // Draw line to bottom left (or top left, if flipped)
       ctx.lineTo(
         xPos - aircraftStyle.width / 2,
-        yPos + aircraftStyle.height / 2
+        yPos + (flipFactor * aircraftStyle.height) / 2
       );
 
-      // Close the path back to the top
+      // Close the path back to the top (or bottom, if flipped)
       ctx.closePath();
 
       // Set the stroke style for the range
@@ -140,25 +142,27 @@ export class Unit {
       // Draw the health-based filled triangle
       ctx.beginPath();
 
-      // Move to the top point of the filled triangle
+      // Move to the top (or bottom, if flipped) point of the filled triangle
       ctx.moveTo(
         xPos,
-        yPos - aircraftStyle.height / 2 + (aircraftStyle.height - fillHeight)
+        yPos -
+          (flipFactor * aircraftStyle.height) / 2 +
+          (aircraftStyle.height - fillHeight) * flipFactor
       );
 
-      // Draw line to bottom right
+      // Draw line to bottom right (or top right, if flipped)
       ctx.lineTo(
         xPos + aircraftStyle.width / 2,
-        yPos + aircraftStyle.height / 2
+        yPos + (flipFactor * aircraftStyle.height) / 2
       );
 
-      // Draw line to bottom left
+      // Draw line to bottom left (or top left, if flipped)
       ctx.lineTo(
         xPos - aircraftStyle.width / 2,
-        yPos + aircraftStyle.height / 2
+        yPos + (flipFactor * aircraftStyle.height) / 2
       );
 
-      // Close the path back to the top
+      // Close the path back to the top (or bottom, if flipped)
       ctx.closePath();
 
       ctx.fillStyle = theme.fill;

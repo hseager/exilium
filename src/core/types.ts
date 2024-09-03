@@ -24,7 +24,8 @@ export const TimerType = {
   PlayerResearch: 3,
   EnemyDeployInfantry: 4,
   EnemyDeployTank: 5,
-  AutoDeployInfantry: 6,
+  EnemyDeployAircraft: 6,
+  AutoDeployInfantry: 7,
 };
 
 export type TimerType = (typeof TimerType)[keyof typeof TimerType];

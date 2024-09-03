@@ -5,6 +5,7 @@ import {
   enemyInfantrySpawnIncreaseSpeed,
   enemyTankSpawnIncreaseSpeed,
 } from "./config";
+import { EnemyAircraftTimer } from "@/model/timers/enemy-aircraft-timer";
 
 export class DifficultyManager {
   handleAiScaling(level: number, timers: Timer[]) {
@@ -13,9 +14,13 @@ export class DifficultyManager {
       this.increaseEnemyInfantrySpawnSpeed(timers);
     }
 
-    if (level === 10) {
+    if (level === 8) {
       this.increaseEnemyInfantrySpawnSpeed(timers);
       this.increaseEnemyTankSpawnSpeed(timers);
+    }
+
+    if (level === 13) {
+      timers.push(new EnemyAircraftTimer());
     }
   }
 

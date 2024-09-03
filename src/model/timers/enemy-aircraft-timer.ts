@@ -1,6 +1,7 @@
 import { Faction, Stats, TimerType, UnitType } from "@/core/types";
 import { Timer } from "./timer";
 import {
+  baseEnemyAircraftStats,
   baseEnemyTankStats,
   enemyTankIncrementStat,
   enemyTankTimerSpeed,
@@ -8,9 +9,9 @@ import {
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
 
-export class EnemyTankTimer extends Timer {
+export class EnemyAircraftTimer extends Timer {
   constructor() {
-    super(TimerType.EnemyDeployTank, enemyTankTimerSpeed);
+    super(TimerType.EnemyDeployAircraft, enemyTankTimerSpeed);
   }
 
   start() {
@@ -21,23 +22,23 @@ export class EnemyTankTimer extends Timer {
     // We increment each enemy stat for each player level to make the game harder as the player levels up
     const unitStats: Stats = {
       attack:
-        baseEnemyTankStats.attack +
+        baseEnemyAircraftStats.attack +
         gameManager.player.level * enemyTankIncrementStat.attack,
       attackSpeed:
-        baseEnemyTankStats.attackSpeed +
+        baseEnemyAircraftStats.attackSpeed +
         gameManager.player.level * enemyTankIncrementStat.attackSpeed,
       health:
-        baseEnemyTankStats.health +
+        baseEnemyAircraftStats.health +
         gameManager.player.level * enemyTankIncrementStat.health,
       moveSpeed:
-        baseEnemyTankStats.moveSpeed +
+        baseEnemyAircraftStats.moveSpeed +
         gameManager.player.level * enemyTankIncrementStat.moveSpeed,
       range:
-        baseEnemyTankStats.range +
+        baseEnemyAircraftStats.range +
         gameManager.player.level * enemyTankIncrementStat.range,
     };
 
-    const unit = new Unit(UnitType.Tank, Faction.Dominus, unitStats);
+    const unit = new Unit(UnitType.Aircraft, Faction.Dominus, unitStats);
 
     gameManager.units.push(unit);
     super.restart();
