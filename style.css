@@ -245,7 +245,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  background: var(--theme-6);
+  background: var(--theme-2);
   height: 0;
   width: 100%;
   z-index: 99;
@@ -260,6 +260,7 @@ button {
   bottom: 0;
   left: 0;
   width: 100%;
+  border: 1px solid var(--theme-1);
 }
 
 .form-row label {
