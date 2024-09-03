@@ -1,11 +1,11 @@
 import { TimerType } from "@/core/types";
 import { Timer } from "./timer";
 import { select } from "@/util";
-import { playerAircraftTimer } from "@/core/config";
+import { playerAircraftTimerSpeed } from "@/core/config";
 
 export class PlayerAircraftTimer extends Timer {
   constructor() {
-    super(TimerType.PlayerDeployAircraft, playerAircraftTimer.speed);
+    super(TimerType.PlayerDeployAircraft, playerAircraftTimerSpeed);
   }
 
   start() {

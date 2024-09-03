@@ -1,12 +1,12 @@
 import { Faction, Stats, TimerType, UnitType } from "@/core/types";
 import { Timer } from "./timer";
-import { autoDeployInfantryTimer } from "@/core/config";
+import { autoDeployInfantryTimerSpeed } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
 
 export class AutoDeployInfantryTimer extends Timer {
   constructor() {
-    super(TimerType.AutoDeployInfantry, autoDeployInfantryTimer.speed);
+    super(TimerType.AutoDeployInfantry, autoDeployInfantryTimerSpeed);
   }
 
   start() {

@@ -6,7 +6,6 @@ export class AddTechSkillPoint extends ResearchOption {
   points = 1;
 
   constructor(points?: number) {
-    console.log(points);
     const title = points
       ? `Add ${points} skill points`
       : "Add tech skill point";

@@ -76,10 +76,6 @@ export const ResearchType = {
 
 export type ResearchType = (typeof ResearchType)[keyof typeof ResearchType];
 
-export interface TimerConfig {
-  speed: number;
-}
-
 export type Building = {
   x: number;
   y: number;

@@ -5,14 +5,14 @@ import {
   baseEnemyTankStats,
   enemyInfantryIncrementStat,
   enemyTankIncrementStat,
-  enemyTankTimer,
+  enemyTankTimerSpeed,
 } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
 
 export class EnemyTankTimer extends Timer {
   constructor() {
-    super(TimerType.EnemyDeployTank, enemyTankTimer.speed);
+    super(TimerType.EnemyDeployTank, enemyTankTimerSpeed);
   }
 
   start() {

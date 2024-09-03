@@ -1,11 +1,11 @@
 import { TimerType } from "@/core/types";
 import { Timer } from "./timer";
 import { select } from "@/util";
-import { playerTankTimer } from "@/core/config";
+import { playerTankTimerSpeed } from "@/core/config";
 
 export class PlayerTankTimer extends Timer {
   constructor() {
-    super(TimerType.PlayerDeployTank, playerTankTimer.speed);
+    super(TimerType.PlayerDeployTank, playerTankTimerSpeed);
   }
 
   start() {

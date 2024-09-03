@@ -5,12 +5,12 @@ import {
   hideResearchOptions,
   showResearchOptions,
 } from "@/core/research-manager";
-import { playerResearchTimer } from "@/core/config";
+import { playerResearchTimerSpeed } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 
 export class ResearchTimer extends Timer {
   constructor() {
-    super(TimerType.PlayerResearch, playerResearchTimer.speed);
+    super(TimerType.PlayerResearch, playerResearchTimerSpeed);
   }
 
   start() {

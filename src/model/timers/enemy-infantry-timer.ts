@@ -3,14 +3,14 @@ import { Timer } from "./timer";
 import {
   baseEnemyInfantryStats,
   enemyInfantryIncrementStat,
-  enemyInfantryTimer,
+  enemyInfantryTimerSpeed,
 } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
 
 export class EnemyInfantryTimer extends Timer {
   constructor() {
-    super(TimerType.EnemyDeployInfantry, enemyInfantryTimer.speed);
+    super(TimerType.EnemyDeployInfantry, enemyInfantryTimerSpeed);
   }
 
   start() {

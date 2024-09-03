@@ -16,7 +16,7 @@ import { EnemyInfantryTimer } from "@/model/timers/enemy-infantry-timer";
 import { Player } from "@/model/player";
 import { ResearchOption } from "@/model/research-option";
 import { TechCentre } from "@/model/tech-center";
-import { EnemyTankTimer } from "@/model/timers/enemy-tank-timer";
+import { DifficultyManager } from "./difficulty-manager";
 
 export class GameManager {
   mode: Mode;
@@ -25,6 +25,7 @@ export class GameManager {
   pylons: Pylon[];
   timers: Timer[];
   player: Player;
+  difficultyManager: DifficultyManager;
   researchOptions: ResearchOption[];
   techCentre: TechCentre | null;
 
@@ -37,9 +38,11 @@ export class GameManager {
     }));
     this.timers = [];
     this.player = new Player();
+    this.difficultyManager = new DifficultyManager();
     this.researchOptions = [];
     this.unitToDeploy = null;
     this.techCentre = null;
+
     this.attachDomEvents();
     this.setInitialTimers();
   }
@@ -68,13 +71,7 @@ export class GameManager {
 
   levelUp() {
     this.player.level++;
-    this.handleAIScaling(this.player.level);
-  }
-
-  private handleAIScaling(level: number) {
-    if (level === 5) {
-      this.timers.push(new EnemyTankTimer());
-    }
+    this.difficultyManager.handleAiScaling(this.player.level, this.timers);
   }
 
   getUnitStats(unitType: UnitType) {
