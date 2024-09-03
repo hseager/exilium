@@ -26,6 +26,17 @@
 #c2d {
   background: var(--theme-1);
   image-rendering: pixelated;
+
+  clip-path: polygon(
+    0 8%,
+    4% 0,
+    100% 0,
+    100% 10%,
+    100% 100%,
+    95% 100%,
+    5% 100%,
+    0% 90%
+  );
 }
 
 html,
@@ -38,6 +49,69 @@ body {
   height: 100%;
   font-family: var(--font-family);
   font-size: var(--font-size);
+}
+
+/* .interface {
+  position: relative;
+  width: 1280px;
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--theme-1);
+  clip-path: polygon(
+    0 10%,
+    5% 0,
+    95% 0,
+    100% 10%,
+    100% 100%,
+    95% 100%,
+    5% 100%,
+    0% 90%
+  );
+  /* border: 1px solid var(--theme-5); */
+/* box-shadow: inset var(--theme-4) 2px 2px;
+} */
+
+.interface {
+  width: 1280px;
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--theme-1);
+  position: relative;
+  --mask: linear-gradient(
+      45deg,
+      #0000 28.28px,
+      #000 0 calc(28.28px + 10px),
+      #0000 0 calc(100% - 28.28px - 10px),
+      #000 0 calc(100% - 28.28px),
+      #0000 0
+    ),
+    linear-gradient(
+      -45deg,
+      #0000 28.28px,
+      #000 0 calc(28.28px + 10px),
+      #0000 0 calc(100% - 28.28px - 10px),
+      #000 0 calc(100% - 28.28px),
+      #0000 0
+    ),
+    linear-gradient(90deg, #000 20px, #0000 0) -10px 50%/100% calc(100% - 80px) repeat-x,
+    linear-gradient(#000 20px, #0000 0) 50% -10px / calc(100% - 80px) 100% repeat-y;
+}
+
+.interface:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--theme-5);
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  z-index: 9;
+  pointer-events: none;
 }
 
 button {
@@ -59,10 +133,7 @@ button {
   );
 
   color: var(--theme-4);
-  border: 2px solid var(--theme-7);
-  border-left-color: var(--theme-6);
-  border-bottom-color: var(--theme-6);
-
+  overflow: hidden;
   overflow-y: auto;
 }
 
@@ -179,6 +250,7 @@ button {
   width: 100%;
   z-index: 99;
   transition: height 0.5s;
+  z-index: 1;
 }
 
 .current-health {

@@ -10,8 +10,6 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ## TODO
 
-- Balance
-  - Increase enemy spawn time
 - Attack bonuses against units
 - Add attack range for randomness
 - UI Design
