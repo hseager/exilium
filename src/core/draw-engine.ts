@@ -11,6 +11,18 @@ class DrawEngine {
       let mouseY = event.clientY - c2d.getBoundingClientRect().top;
       this.mousePosition = new DOMPoint(mouseX, mouseY);
     });
+    c2d.addEventListener("touchmove", (event: TouchEvent) => {
+      const touch = event.touches[0];
+      const rect = c2d.getBoundingClientRect();
+
+      let mouseX = touch.clientX - rect.left;
+      let mouseY = touch.clientY - rect.top;
+
+      mouseX *= c2d.width / rect.width;
+      mouseY *= c2d.height / rect.height;
+
+      this.mousePosition = new DOMPoint(mouseX, mouseY);
+    });
   }
 
   get canvasWidth() {

@@ -26,6 +26,8 @@
 #c2d {
   background: var(--theme-1);
   image-rendering: pixelated;
+  width: 100%;
+  max-width: 1000px;
 }
 
 html,
@@ -38,6 +40,7 @@ body {
   height: 100%;
   font-family: var(--font-family);
   font-size: var(--font-size);
+  flex-wrap: wrap;
 }
 
 button {
@@ -45,13 +48,15 @@ button {
   font-size: var(--font-size);
 }
 
+.ui {
+  display: flex;
+}
+
 .controls {
   padding: var(--spacing-4);
   height: 600px;
   width: 300px;
-
-  border-top: 1px solid var(--theme-7);
-  border-right: 1px solid var(--theme-7);
+  border: 1px solid var(--theme-7);
 
   background: var(--theme-1);
   background: linear-gradient(
@@ -81,6 +86,7 @@ button {
 }
 
 .controls .grid .grid-item {
+  width: 120px;
   height: 120px;
 }
 
@@ -101,7 +107,7 @@ button {
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .progress-bar {
@@ -238,4 +244,45 @@ button {
 #deploy-ion-canon {
   background: url("./ion-canon.png") no-repeat;
   background-size: 100%;
+}
+
+@media screen and (max-width: 1350px) {
+  html,
+  body {
+    align-items: normal;
+  }
+  body {
+    padding: var(--spacing-3);
+  }
+  .ui {
+    width: 100%;
+    max-width: 1000px;
+  }
+  .controls {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .controls > section {
+    width: 50%;
+  }
+  .damage-meter {
+    height: auto;
+  }
+  .controls .grid .grid-item {
+    width: 100px;
+    height: 100px;
+  }
+  .button {
+    font-size: var(--font-size);
+    padding: var(--spacing-2) var(--spacing-1);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  html,
+  body {
+    flex-direction: column;
+  }
 }

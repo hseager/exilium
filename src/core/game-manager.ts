@@ -208,7 +208,7 @@ export class GameManager {
       );
     });
 
-    c2d.addEventListener("click", () => {
+    const handleUnitPlacement = () => {
       if (this.mode === Mode.PlaceUnit) {
         this.unitToDeploy?.initPosition();
         this.unitToDeploy && this.units.push(this.unitToDeploy);
@@ -236,6 +236,9 @@ export class GameManager {
       }
       this.unitToDeploy = null;
       this.mode = Mode.Playing;
-    });
+    };
+
+    c2d.addEventListener("click", handleUnitPlacement);
+    c2d.addEventListener("touchend", handleUnitPlacement);
   }
 }
