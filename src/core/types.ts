@@ -8,6 +8,7 @@ export interface State {
 export const Mode = {
   Playing: 1,
   PlaceUnit: 2,
+  IonCannon: 3,
 };
 
 export type Mode = (typeof Mode)[keyof typeof Mode];

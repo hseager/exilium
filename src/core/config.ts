@@ -35,6 +35,15 @@ export const pylonHexCodes = [
   "#3F3C7D",
 ];
 
+export const ionCannonConfig = {
+  radius: 62,
+  color: "#25bedf",
+  opacity: 0.4,
+  damage: 3,
+  duration: 5000,
+  interval: 100,
+};
+
 // Give the player a while to work out what's going on before
 // sending enemy infantry and player research
 export const initialGameStartDelay = 1000 * 12;

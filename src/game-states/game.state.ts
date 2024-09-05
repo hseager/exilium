@@ -7,6 +7,7 @@ import { GameManager } from "@/core/game-manager";
 import {
   aircraftStyle,
   getFactionTheme,
+  ionCannonConfig,
   pylonDamageRange,
   pylonHexCodes,
   pylonWidth,
@@ -69,6 +70,7 @@ class GameState implements State {
     this.drawUnits(delta);
 
     this.handleUnitPlacement();
+    this.handleIonCannon();
 
     this.gameManager.updateTimers(delta);
 
@@ -78,6 +80,30 @@ class GameState implements State {
 
     this.checkWinCondition();
     this.checkLoseCondition();
+  }
+
+  private handleIonCannon() {
+    if (this.gameManager.mode == Mode.IonCannon) {
+      const xPadding = ionCannonConfig.radius;
+      let x = drawEngine.mousePosition.x;
+      let y = drawEngine.mousePosition.y;
+
+      if (x < xPadding) x = xPadding;
+      if (x > drawEngine.canvasWidth - xPadding)
+        x = drawEngine.canvasWidth - xPadding;
+
+      if (y < wallConfig.y) y = wallConfig.y;
+      if (y > drawEngine.canvasHeight - safeZoneConfig.y)
+        y = drawEngine.canvasHeight - safeZoneConfig.y;
+
+      this.ctx.globalAlpha = ionCannonConfig.opacity;
+      this.ctx.beginPath();
+      this.ctx.arc(x, y, ionCannonConfig.radius, 0, 2 * Math.PI);
+      this.ctx.fillStyle = ionCannonConfig.color;
+      this.ctx.fill();
+      this.ctx.closePath();
+      this.ctx.globalAlpha = 1;
+    }
   }
 
   private checkWinCondition() {

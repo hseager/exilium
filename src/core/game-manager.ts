@@ -20,6 +20,7 @@ import { DifficultyManager } from "./difficulty-manager";
 import { Infantry } from "@/model/infantry";
 import { Tank } from "@/model/tank";
 import { Aircraft } from "@/model/aircraft";
+import { IonCannon } from "@/model/Ion-cannon";
 
 export class GameManager {
   mode: Mode;
@@ -31,6 +32,7 @@ export class GameManager {
   difficultyManager: DifficultyManager;
   researchOptions: ResearchOption[];
   techCentre: TechCentre | null;
+  ionCannon: IonCannon | null;
 
   constructor() {
     this.mode = Mode.Playing;
@@ -45,6 +47,7 @@ export class GameManager {
     this.researchOptions = [];
     this.unitToDeploy = null;
     this.techCentre = null;
+    this.ionCannon = null;
 
     this.attachDomEvents();
     this.setInitialTimers();
@@ -208,7 +211,13 @@ export class GameManager {
       );
     });
 
-    const handleUnitPlacement = () => {
+    const deployIonCannonButton =
+      select<HTMLButtonElement>("#deploy-ion-cannon");
+    deployIonCannonButton?.addEventListener("click", () => {
+      this.mode = Mode.IonCannon;
+    });
+
+    const handleCanvasClick = () => {
       if (this.mode === Mode.PlaceUnit) {
         this.unitToDeploy?.initPosition();
         this.unitToDeploy && this.units.push(this.unitToDeploy);
@@ -229,12 +238,14 @@ export class GameManager {
           );
           aircraftTimer && aircraftTimer.restart();
         }
+      } else if (this.mode === Mode.IonCannon) {
+        this.ionCannon?.fire(this.units);
       }
       this.unitToDeploy = null;
       this.mode = Mode.Playing;
     };
 
-    c2d.addEventListener("click", handleUnitPlacement);
-    c2d.addEventListener("touchend", handleUnitPlacement);
+    c2d.addEventListener("click", handleCanvasClick);
+    c2d.addEventListener("touchend", handleCanvasClick);
   }
 }
