@@ -37,7 +37,7 @@ export const pylonHexCodes = [
 
 // Give the player a while to work out what's going on before
 // sending enemy infantry and player research
-export const initialGameStartDelay = 1000 * 20;
+export const initialGameStartDelay = 1000 * 12;
 
 // # Theme
 export function getFactionTheme(faction: Faction) {
@@ -150,7 +150,7 @@ export const enemyInfantrySpawnIncreaseSpeed = 0.03;
 export const enemyTankSpawnIncreaseSpeed = 0.025;
 
 // # Timers
-export const playerInfantryTimerSpeed = 0.065;
+export const playerInfantryTimerSpeed = 0.067;
 export const playerTankTimerSpeed = 0.035;
 export const playerAircraftTimerSpeed = 0.025;
 export const playerResearchTimerSpeed = 0.035;

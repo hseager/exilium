@@ -19,39 +19,39 @@ class MenuState implements State {
     drawEngine.drawText("The fall of Dominus", 45, xCenter, 120);
     drawEngine.drawText(
       "In a world ruled by fear, the Dominus Network’s 13 towering",
-      20,
+      24,
       xCenter,
       200
     );
     drawEngine.drawText(
       "pylons cast a menacing shadow, controlling every aspect of life.",
-      20,
+      24,
       xCenter,
-      232
+      236
     );
     drawEngine.drawText(
-      "The people live in terror, their freedom crushed by the AI's relentless grip.",
-      20,
+      "The people live in terror, their freedom crushed by the AI's",
+      24,
       xCenter,
-      264
+      270
     );
     drawEngine.drawText(
-      "But the Vanguard, a brave band of rebels, rises to challenge this tyranny.",
-      20,
+      "relentless grip. But the Vanguard, a brave band of rebels,",
+      24,
       xCenter,
-      294
+      304
     );
     drawEngine.drawText(
-      "Their mission: destroy the pylons, dismantle the AI, and restore",
-      20,
+      "rises to challenge this tyranny. Their mission: destroy the pylons,",
+      24,
       xCenter,
-      324
+      336
     );
     drawEngine.drawText(
-      "liberty to a world on the edge of despair.",
-      20,
+      "dismantle the AI, and restore liberty to a world on the edge of despair.",
+      23,
       xCenter,
-      354
+      366
     );
     drawEngine.drawText("Start Game", 60, xCenter, 500);
     this.updateControls();
