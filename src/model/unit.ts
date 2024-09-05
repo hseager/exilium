@@ -1,14 +1,9 @@
-import {
-  aircraftStyle,
-  getFactionTheme,
-  tankStyle,
-  wallConfig,
-} from "@/core/config";
+import { wallConfig } from "@/core/config";
 import { drawEngine } from "../core/draw-engine";
-import { Faction, Stats, UnitType } from "../core/types";
+import { Faction, Stats } from "../core/types";
+import { Timer } from "./timers/timer";
 
 export class Unit {
-  type: UnitType;
   position: DOMPoint;
   faction: Faction;
   stats: Stats;
@@ -16,8 +11,7 @@ export class Unit {
   hasAttackedPylon: boolean;
   maxHealth: number;
 
-  constructor(type: UnitType, faction: Faction, stats: Stats) {
-    this.type = type;
+  constructor(faction: Faction, stats: Stats) {
     this.faction = faction;
     this.position = this.getStartingPosition();
     this.stats = stats;
@@ -56,119 +50,5 @@ export class Unit {
     this.position = this.getStartingPosition();
   }
 
-  draw(ctx: CanvasRenderingContext2D, x?: number, y?: number) {
-    const theme = getFactionTheme(this.faction);
-
-    const posX = x ?? this.position.x;
-    const posY = y ?? this.position.y;
-
-    const healthRatio = this.stats.health / this.maxHealth;
-    const fillHeight = tankStyle.height * healthRatio;
-
-    ctx.beginPath();
-
-    if (this.type === UnitType.Infantry) {
-      // Draw the full arc stroke for the range (outer circle)
-      ctx.arc(posX, posY, this.stats.range, 0, 2 * Math.PI);
-      ctx.strokeStyle = theme.border;
-      ctx.stroke();
-
-      // Calculate the radius of the health circle based on health ratio
-      const healthRadius = this.stats.range * healthRatio;
-
-      // Draw the filled arc for health (inner circle)
-      ctx.beginPath();
-      ctx.arc(posX, posY, healthRadius, 0, 2 * Math.PI);
-      ctx.fillStyle = theme.fill;
-      ctx.fill();
-    } else if (this.type === UnitType.Tank) {
-      // Draw the full rectangle for the tank
-      ctx.rect(
-        x ? x - tankStyle.width / 2 : this.position.x - tankStyle.width / 2,
-        y ? y - tankStyle.height / 2 : this.position.y - tankStyle.height / 2,
-        tankStyle.width,
-        tankStyle.height
-      );
-
-      // Set the stroke style for the range
-      ctx.strokeStyle = theme.border;
-      ctx.stroke();
-
-      // Draw the health-based filled rectangle
-      ctx.beginPath();
-      ctx.rect(
-        x ? x - tankStyle.width / 2 : this.position.x - tankStyle.width / 2,
-        y
-          ? y - tankStyle.height / 2 + (tankStyle.height - fillHeight)
-          : this.position.y -
-              tankStyle.height / 2 +
-              (tankStyle.height - fillHeight),
-        tankStyle.width,
-        fillHeight
-      );
-      ctx.fillStyle = theme.fill;
-      ctx.fill();
-    } else if (this.type === UnitType.Aircraft) {
-      ctx.beginPath();
-
-      const xPos = x ?? this.position.x;
-      const yPos = y ?? this.position.y;
-
-      // Check if the faction is Dominus, and flip the triangle if true
-      const flipFactor = this.faction === Faction.Dominus ? -1 : 1;
-
-      // Move to the top (or bottom, if flipped) point of the triangle
-      ctx.moveTo(xPos, yPos - (flipFactor * aircraftStyle.height) / 2);
-
-      // Draw line to bottom right (or top right, if flipped)
-      ctx.lineTo(
-        xPos + aircraftStyle.width / 2,
-        yPos + (flipFactor * aircraftStyle.height) / 2
-      );
-
-      // Draw line to bottom left (or top left, if flipped)
-      ctx.lineTo(
-        xPos - aircraftStyle.width / 2,
-        yPos + (flipFactor * aircraftStyle.height) / 2
-      );
-
-      // Close the path back to the top (or bottom, if flipped)
-      ctx.closePath();
-
-      // Set the stroke style for the range
-      ctx.strokeStyle = theme.border;
-      ctx.stroke();
-
-      // Draw the health-based filled triangle
-      ctx.beginPath();
-
-      // Move to the top (or bottom, if flipped) point of the filled triangle
-      ctx.moveTo(
-        xPos,
-        yPos -
-          (flipFactor * aircraftStyle.height) / 2 +
-          (aircraftStyle.height - fillHeight) * flipFactor
-      );
-
-      // Draw line to bottom right (or top right, if flipped)
-      ctx.lineTo(
-        xPos + aircraftStyle.width / 2,
-        yPos + (flipFactor * aircraftStyle.height) / 2
-      );
-
-      // Draw line to bottom left (or top left, if flipped)
-      ctx.lineTo(
-        xPos - aircraftStyle.width / 2,
-        yPos + (flipFactor * aircraftStyle.height) / 2
-      );
-
-      // Close the path back to the top (or bottom, if flipped)
-      ctx.closePath();
-
-      ctx.fillStyle = theme.fill;
-      ctx.fill();
-    }
-
-    ctx.closePath();
-  }
+  draw(ctx: CanvasRenderingContext2D, x?: number, y?: number) {}
 }

@@ -17,6 +17,9 @@ import { Player } from "@/model/player";
 import { ResearchOption } from "@/model/research-option";
 import { TechCentre } from "@/model/tech-center";
 import { DifficultyManager } from "./difficulty-manager";
+import { Infantry } from "@/model/infantry";
+import { Tank } from "@/model/tank";
+import { Aircraft } from "@/model/aircraft";
 
 export class GameManager {
   mode: Mode;
@@ -181,8 +184,7 @@ export class GameManager {
     const deployInfantryButton = select<HTMLButtonElement>("#deploy-infantry");
     deployInfantryButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
-      this.unitToDeploy = new Unit(
-        UnitType.Infantry,
+      this.unitToDeploy = new Infantry(
         Faction.Vanguard,
         this.getUnitStats(UnitType.Infantry)
       );
@@ -191,8 +193,7 @@ export class GameManager {
     const deployTankButton = select<HTMLButtonElement>("#deploy-tank");
     deployTankButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
-      this.unitToDeploy = new Unit(
-        UnitType.Tank,
+      this.unitToDeploy = new Tank(
         Faction.Vanguard,
         this.getUnitStats(UnitType.Tank)
       );
@@ -201,8 +202,7 @@ export class GameManager {
     const deployAircraftButton = select<HTMLButtonElement>("#deploy-aircraft");
     deployAircraftButton?.addEventListener("click", () => {
       this.mode = Mode.PlaceUnit;
-      this.unitToDeploy = new Unit(
-        UnitType.Aircraft,
+      this.unitToDeploy = new Aircraft(
         Faction.Vanguard,
         this.getUnitStats(UnitType.Aircraft)
       );
@@ -213,25 +213,21 @@ export class GameManager {
         this.unitToDeploy?.initPosition();
         this.unitToDeploy && this.units.push(this.unitToDeploy);
 
-        switch (this.unitToDeploy?.type) {
-          case UnitType.Infantry:
-            const infantryTimer = this.timers.find(
-              (timer) => timer.type == TimerType.PlayerDeployInfantry
-            );
-            infantryTimer && infantryTimer.restart();
-            break;
-          case UnitType.Tank:
-            const tankTimer = this.timers.find(
-              (timer) => timer.type == TimerType.PlayerDeployTank
-            );
-            tankTimer && tankTimer.restart();
-            break;
-          case UnitType.Aircraft:
-            const aircraftTimer = this.timers.find(
-              (timer) => timer.type == TimerType.PlayerDeployAircraft
-            );
-            aircraftTimer && aircraftTimer.restart();
-            break;
+        if (this.unitToDeploy instanceof Infantry) {
+          const infantryTimer = this.timers.find(
+            (timer) => timer.type == TimerType.PlayerDeployInfantry
+          );
+          infantryTimer && infantryTimer.restart();
+        } else if (this.unitToDeploy instanceof Tank) {
+          const tankTimer = this.timers.find(
+            (timer) => timer.type == TimerType.PlayerDeployTank
+          );
+          tankTimer && tankTimer.restart();
+        } else if (this.unitToDeploy instanceof Aircraft) {
+          const aircraftTimer = this.timers.find(
+            (timer) => timer.type == TimerType.PlayerDeployAircraft
+          );
+          aircraftTimer && aircraftTimer.restart();
         }
       }
       this.unitToDeploy = null;

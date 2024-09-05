@@ -3,6 +3,7 @@ import { Timer } from "./timer";
 import { autoDeployInfantryTimerSpeed } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
+import { Infantry } from "../infantry";
 
 export class AutoDeployInfantryTimer extends Timer {
   constructor() {
@@ -14,8 +15,7 @@ export class AutoDeployInfantryTimer extends Timer {
   }
 
   handleComplete(gameManager: GameManager) {
-    const unit = new Unit(
-      UnitType.Infantry,
+    const unit = new Infantry(
       Faction.Vanguard,
       gameManager.getUnitStats(UnitType.Infantry)
     );

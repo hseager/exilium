@@ -30,6 +30,9 @@ import { loseState } from "./lose.state";
 import { CombatManager } from "@/core/combat-manager";
 import { Unit } from "@/model/unit";
 import { select } from "@/util";
+import { Infantry } from "@/model/infantry";
+import { Tank } from "@/model/tank";
+import { Aircraft } from "@/model/aircraft";
 
 class GameState implements State {
   private pylonSprite = new Image();
@@ -227,7 +230,7 @@ class GameState implements State {
   }
 
   private checkCollision(unit: Unit, otherUnit: Unit) {
-    if (unit.type === UnitType.Infantry) {
+    if (unit instanceof Infantry) {
       return (
         otherUnit.faction !== unit.faction &&
         Math.hypot(
@@ -236,7 +239,7 @@ class GameState implements State {
         ) <
           unit.stats.range + otherUnit.stats.range
       );
-    } else if (unit.type === UnitType.Tank) {
+    } else if (unit instanceof Tank) {
       return (
         otherUnit.faction !== unit.faction &&
         Math.hypot(
@@ -245,7 +248,7 @@ class GameState implements State {
         ) <
           unit.stats.range + otherUnit.stats.range
       );
-    } else if (unit.type === UnitType.Aircraft) {
+    } else if (unit instanceof Aircraft) {
       return (
         otherUnit.faction !== unit.faction &&
         Math.hypot(

@@ -8,6 +8,7 @@ import {
 } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
+import { Aircraft } from "../aircraft";
 
 export class EnemyAircraftTimer extends Timer {
   constructor() {
@@ -38,7 +39,7 @@ export class EnemyAircraftTimer extends Timer {
         gameManager.player.level * enemyTankIncrementStat.range,
     };
 
-    const unit = new Unit(UnitType.Aircraft, Faction.Dominus, unitStats);
+    const unit = new Aircraft(Faction.Dominus, unitStats);
 
     gameManager.units.push(unit);
     super.restart();

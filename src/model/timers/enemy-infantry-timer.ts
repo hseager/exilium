@@ -7,6 +7,7 @@ import {
 } from "@/core/config";
 import { GameManager } from "@/core/game-manager";
 import { Unit } from "../unit";
+import { Infantry } from "../infantry";
 
 export class EnemyInfantryTimer extends Timer {
   constructor() {
@@ -37,7 +38,7 @@ export class EnemyInfantryTimer extends Timer {
         gameManager.player.level * enemyInfantryIncrementStat.range,
     };
 
-    const unit = new Unit(UnitType.Infantry, Faction.Dominus, unitStats);
+    const unit = new Infantry(Faction.Dominus, unitStats);
 
     gameManager.units.push(unit);
     super.restart();
