@@ -29,7 +29,7 @@ export class CombatManager {
 
     if (unit.lastAttackTime >= attackCooldown) {
       // Apply damage to the opponent
-      opponent.stats.health -= unit.stats.attack;
+      opponent.stats.health -= this.getAttackRange(unit.stats.attack);
       unit.lastAttackTime = 0; // Reset attack timer
 
       // Check if any units have been defeated
@@ -40,6 +40,14 @@ export class CombatManager {
         this.removeCombatUnit(unit, gameManager);
       }
     }
+  }
+
+  private getAttackRange(attack: number): number {
+    // Generate a random number between -1, 0, and 1
+    const variation = Math.floor(Math.random() * 3) - 1;
+
+    // Return the modified attack value
+    return attack + variation;
   }
 
   // Adds a unit and its opponent to the combat tracking
