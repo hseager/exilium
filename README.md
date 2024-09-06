@@ -6,19 +6,22 @@ The AI's regime is known as the "Dominus Network," a name that signifies its tot
 
 The rebels, known as "The Vanguard," are a determined group of freedom fighters who have united with the sole purpose of destroying the 13 pylons and bringing down the Dominus Network. They are a team of specialists—engineers, hackers, strategists, and soldiers—who work together to build units capable of withstanding the AI's relentless defenses.
 
-![Negotiator](/screenshot/preview.webp)
+![Troopers, Negotiator, Raptor](/screenshot/preview.webp)
 
 # About
+
+My entry for the [JS13K 2024 competition](https://js13kgames.com/).
 
 Playable demo: [https://hseager.github.io/exilium](https://hseager.github.io/exilium). It works on mobile but plays best on desktop.
 
 - To build for prod: npm run build
 - Local dev: npm run serve
 
-## Extra Features
+## Extra features if I had more time
 
-- UI Design
+- Improve UI Design
 - Text Narration/Event log
+- Sound Effects ("Contruction Complete", "Unit Ready", "Ion Cannon Ready!")
 
 ### Research ideas
 
@@ -27,4 +30,4 @@ Playable demo: [https://hseager.github.io/exilium](https://hseager.github.io/exi
 ## Credits
 
 - roblouie for [js13k-typescript-starter](https://github.com/roblouie/js13k-typescript-starter)
-- Inspiration: Paperclip game + C&C Tiberian Sun
+- Inspiration: [Paperclips](https://www.decisionproblem.com/paperclips/index2.html) + C&C Tiberian Sun
