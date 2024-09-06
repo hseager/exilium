@@ -55,7 +55,7 @@ button {
 .controls {
   padding: var(--spacing-4);
   height: 600px;
-  width: 300px;
+  width: 315px;
   border: 1px solid var(--theme-7);
 
   background: var(--theme-1);
@@ -247,8 +247,8 @@ button {
   background: url("./raptor.png") no-repeat;
   background-size: 100%;
 }
-#deploy-ion-canon {
-  background: url("./ion-canon.png") no-repeat;
+#deploy-ion-cannon {
+  background: url("./ion-cannon.png") no-repeat;
   background-size: 100%;
 }
 

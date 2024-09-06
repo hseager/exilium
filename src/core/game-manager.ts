@@ -21,6 +21,8 @@ import { Infantry } from "@/model/infantry";
 import { Tank } from "@/model/tank";
 import { Aircraft } from "@/model/aircraft";
 import { IonCannon } from "@/model/Ion-cannon";
+import { CombatManager } from "./combat-manager";
+import { StatManager } from "@/model/stat-manager";
 
 export class GameManager {
   mode: Mode;
@@ -33,6 +35,8 @@ export class GameManager {
   researchOptions: ResearchOption[];
   techCentre: TechCentre | null;
   ionCannon: IonCannon | null;
+  combatManager: CombatManager;
+  statManager: StatManager;
 
   constructor() {
     this.mode = Mode.Playing;
@@ -47,7 +51,9 @@ export class GameManager {
     this.researchOptions = [];
     this.unitToDeploy = null;
     this.techCentre = null;
-    this.ionCannon = null;
+    this.combatManager = new CombatManager(this);
+    this.ionCannon = new IonCannon(this);
+    this.statManager = new StatManager(this);
 
     this.attachDomEvents();
     this.setInitialTimers();
@@ -57,6 +63,10 @@ export class GameManager {
     this.timers.push(new PlayerInfantryTimer());
 
     setTimeout(() => {
+      this.units.push(
+        new Infantry(Faction.Dominus, this.statManager.getEnemyInfantryStats())
+      );
+
       this.timers.push(new ResearchTimer());
       this.timers.push(new EnemyInfantryTimer());
 
@@ -80,108 +90,6 @@ export class GameManager {
     this.difficultyManager.handleAiScaling(this.player.level, this.timers);
   }
 
-  getUnitStats(unitType: UnitType) {
-    let unitStats: Stats;
-
-    switch (unitType) {
-      case UnitType.Infantry:
-        if (!this.techCentre) {
-          unitStats = {
-            ...basePlayerInfantryStats,
-          };
-        } else {
-          unitStats = {
-            attack:
-              basePlayerInfantryStats.attack +
-              this.techCentre?.infantryStatPoints.attack *
-                techCentreStatIncrement.attack,
-            attackSpeed:
-              basePlayerInfantryStats.attackSpeed +
-              this.techCentre?.infantryStatPoints.attackSpeed *
-                techCentreStatIncrement.attackSpeed,
-            health:
-              basePlayerInfantryStats.health +
-              this.techCentre?.infantryStatPoints.health *
-                techCentreStatIncrement.health,
-            moveSpeed:
-              basePlayerInfantryStats.moveSpeed +
-              this.techCentre?.infantryStatPoints.moveSpeed *
-                techCentreStatIncrement.moveSpeed,
-            range:
-              basePlayerInfantryStats.range +
-              this.techCentre?.infantryStatPoints.range *
-                techCentreStatIncrement.range,
-          };
-        }
-        break;
-      case UnitType.Tank:
-        if (!this.techCentre) {
-          unitStats = {
-            ...basePlayerTankStats,
-          };
-        } else {
-          unitStats = {
-            attack:
-              basePlayerTankStats.attack +
-              this.techCentre?.tankStatPoints.attack *
-                techCentreStatIncrement.attack,
-            attackSpeed:
-              basePlayerTankStats.attackSpeed +
-              this.techCentre?.tankStatPoints.attackSpeed *
-                techCentreStatIncrement.attackSpeed,
-            health:
-              basePlayerTankStats.health +
-              this.techCentre?.tankStatPoints.health *
-                techCentreStatIncrement.health,
-            moveSpeed:
-              basePlayerTankStats.moveSpeed +
-              this.techCentre?.tankStatPoints.moveSpeed *
-                techCentreStatIncrement.moveSpeed,
-            range:
-              basePlayerTankStats.range +
-              this.techCentre?.tankStatPoints.range *
-                techCentreStatIncrement.range,
-          };
-        }
-        break;
-      case UnitType.Aircraft:
-        if (!this.techCentre) {
-          unitStats = {
-            ...basePlayerAircraftStats,
-          };
-        } else {
-          unitStats = {
-            attack:
-              basePlayerAircraftStats.attack +
-              this.techCentre?.aircraftStatPoints.attack *
-                techCentreStatIncrement.attack,
-            attackSpeed:
-              basePlayerAircraftStats.attackSpeed +
-              this.techCentre?.aircraftStatPoints.attackSpeed *
-                techCentreStatIncrement.attackSpeed,
-            health:
-              basePlayerAircraftStats.health +
-              this.techCentre?.aircraftStatPoints.health *
-                techCentreStatIncrement.health,
-            moveSpeed:
-              basePlayerAircraftStats.moveSpeed +
-              this.techCentre?.aircraftStatPoints.moveSpeed *
-                techCentreStatIncrement.moveSpeed,
-            range:
-              basePlayerAircraftStats.range +
-              this.techCentre?.aircraftStatPoints.range *
-                techCentreStatIncrement.range,
-          };
-        }
-        break;
-      default:
-        unitStats = { ...basePlayerInfantryStats };
-        break;
-    }
-
-    return unitStats;
-  }
-
   private attachDomEvents() {
     // TODO this could be refactored similar to research options
     const deployInfantryButton = select<HTMLButtonElement>("#deploy-infantry");
@@ -189,7 +97,7 @@ export class GameManager {
       this.mode = Mode.PlaceUnit;
       this.unitToDeploy = new Infantry(
         Faction.Vanguard,
-        this.getUnitStats(UnitType.Infantry)
+        this.statManager.getPlayerInfantryStats()
       );
     });
 
@@ -198,7 +106,7 @@ export class GameManager {
       this.mode = Mode.PlaceUnit;
       this.unitToDeploy = new Tank(
         Faction.Vanguard,
-        this.getUnitStats(UnitType.Tank)
+        this.statManager.getPlayerTankStats()
       );
     });
 
@@ -207,7 +115,7 @@ export class GameManager {
       this.mode = Mode.PlaceUnit;
       this.unitToDeploy = new Aircraft(
         Faction.Vanguard,
-        this.getUnitStats(UnitType.Aircraft)
+        this.statManager.getPlayerAircraftStats()
       );
     });
 
@@ -217,7 +125,7 @@ export class GameManager {
       this.mode = Mode.IonCannon;
     });
 
-    const handleCanvasClick = () => {
+    const handleCanvasClick = (event: MouseEvent) => {
       if (this.mode === Mode.PlaceUnit) {
         this.unitToDeploy?.initPosition();
         this.unitToDeploy && this.units.push(this.unitToDeploy);

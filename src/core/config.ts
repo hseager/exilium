@@ -39,8 +39,8 @@ export const ionCannonConfig = {
   radius: 62,
   color: "#25bedf",
   opacity: 0.4,
-  damage: 3,
-  duration: 5000,
+  damage: 7,
+  duration: 25,
   interval: 100,
 };
 

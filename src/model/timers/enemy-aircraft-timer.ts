@@ -20,28 +20,12 @@ export class EnemyAircraftTimer extends Timer {
   }
 
   handleComplete(gameManager: GameManager) {
-    // We increment each enemy stat for each player level to make the game harder as the player levels up
-    const unitStats: Stats = {
-      attack:
-        baseEnemyAircraftStats.attack +
-        gameManager.player.level * enemyTankIncrementStat.attack,
-      attackSpeed:
-        baseEnemyAircraftStats.attackSpeed +
-        gameManager.player.level * enemyTankIncrementStat.attackSpeed,
-      health:
-        baseEnemyAircraftStats.health +
-        gameManager.player.level * enemyTankIncrementStat.health,
-      moveSpeed:
-        baseEnemyAircraftStats.moveSpeed +
-        gameManager.player.level * enemyTankIncrementStat.moveSpeed,
-      range:
-        baseEnemyAircraftStats.range +
-        gameManager.player.level * enemyTankIncrementStat.range,
-    };
-
-    const unit = new Aircraft(Faction.Dominus, unitStats);
-
-    gameManager.units.push(unit);
+    gameManager.units.push(
+      new Aircraft(
+        Faction.Dominus,
+        gameManager.statManager.getEnemyAircraftStats()
+      )
+    );
     super.restart();
   }
 

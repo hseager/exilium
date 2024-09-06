@@ -3,24 +3,24 @@ import { GameManager } from "./game-manager";
 
 export class CombatManager {
   // Maps each unit to a set of opponents it's currently in combat with
+  private gameManager: GameManager;
   private unitsInCombat: Map<Unit, Set<Unit>> = new Map();
 
+  constructor(gameManager: GameManager) {
+    this.gameManager = gameManager;
+  }
+
   // Updates combat states for all units in combat
-  public update(delta: number, gameManager: GameManager) {
+  public update(delta: number) {
     this.unitsInCombat.forEach((opponents, unit) => {
       opponents.forEach((opponent) => {
-        this.handleCombat(unit, opponent, delta, gameManager);
+        this.handleCombat(unit, opponent, delta);
       });
     });
   }
 
   // Handles the combat logic between two units
-  private handleCombat(
-    unit: Unit,
-    opponent: Unit,
-    deltaTime: number,
-    gameManager: GameManager
-  ) {
+  private handleCombat(unit: Unit, opponent: Unit, deltaTime: number) {
     const attackCooldown = 1000 / unit.stats.attackSpeed; // Attack cooldown in milliseconds
 
     // Update attack timings
@@ -34,10 +34,10 @@ export class CombatManager {
 
       // Check if any units have been defeated
       if (opponent.stats.health <= 0) {
-        this.removeCombatUnit(opponent, gameManager);
+        this.removeCombatUnit(opponent);
       }
       if (unit.stats.health <= 0) {
-        this.removeCombatUnit(unit, gameManager);
+        this.removeCombatUnit(unit);
       }
     }
   }
@@ -64,7 +64,7 @@ export class CombatManager {
   }
 
   // Removes a unit from combat and cleans up any references to it
-  public removeCombatUnit(unit: Unit, gameManager: GameManager) {
+  public removeCombatUnit(unit: Unit) {
     if (this.unitsInCombat.has(unit)) {
       // Remove this unit from its opponents' sets
       this.unitsInCombat.get(unit)!.forEach((opponent) => {
@@ -79,6 +79,6 @@ export class CombatManager {
     }
 
     // Remove the unit from the game manager's units
-    gameManager.units = gameManager.units.filter((u) => u !== unit);
+    this.gameManager.units = this.gameManager.units.filter((u) => u !== unit);
   }
 }

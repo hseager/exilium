@@ -17,7 +17,7 @@ export class AutoDeployInfantryTimer extends Timer {
   handleComplete(gameManager: GameManager) {
     const unit = new Infantry(
       Faction.Vanguard,
-      gameManager.getUnitStats(UnitType.Infantry)
+      gameManager.statManager.getPlayerInfantryStats()
     );
 
     unit.setRandomStartPosition();

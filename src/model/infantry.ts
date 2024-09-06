@@ -24,7 +24,8 @@ export class Infantry extends Unit {
     ctx.stroke();
 
     // Calculate the radius of the health circle based on health ratio
-    const healthRadius = this.stats.range * healthRatio;
+    let healthRadius = this.stats.range * healthRatio;
+    if (healthRadius < 0) healthRadius = 0;
 
     // Draw the filled arc for health (inner circle)
     ctx.beginPath();

@@ -28,7 +28,6 @@ import {
   drawWall,
 } from "@/core/scene";
 import { loseState } from "./lose.state";
-import { CombatManager } from "@/core/combat-manager";
 import { Unit } from "@/model/unit";
 import { select } from "@/util";
 import { Infantry } from "@/model/infantry";
@@ -40,14 +39,12 @@ class GameState implements State {
   private ctx;
   private gameManager;
   private buildings: Building[];
-  private combatManager;
 
   constructor() {
     this.ctx = drawEngine.context;
     this.pylonSprite.src = "pylon.png";
     this.gameManager = new GameManager();
     this.buildings = [];
-    this.combatManager = new CombatManager();
   }
 
   onEnter() {
@@ -83,27 +80,7 @@ class GameState implements State {
   }
 
   private handleIonCannon() {
-    if (this.gameManager.mode == Mode.IonCannon) {
-      const xPadding = ionCannonConfig.radius;
-      let x = drawEngine.mousePosition.x;
-      let y = drawEngine.mousePosition.y;
-
-      if (x < xPadding) x = xPadding;
-      if (x > drawEngine.canvasWidth - xPadding)
-        x = drawEngine.canvasWidth - xPadding;
-
-      if (y < wallConfig.y) y = wallConfig.y;
-      if (y > drawEngine.canvasHeight - safeZoneConfig.y)
-        y = drawEngine.canvasHeight - safeZoneConfig.y;
-
-      this.ctx.globalAlpha = ionCannonConfig.opacity;
-      this.ctx.beginPath();
-      this.ctx.arc(x, y, ionCannonConfig.radius, 0, 2 * Math.PI);
-      this.ctx.fillStyle = ionCannonConfig.color;
-      this.ctx.fill();
-      this.ctx.closePath();
-      this.ctx.globalAlpha = 1;
-    }
+    this.gameManager.ionCannon?.check();
   }
 
   private checkWinCondition() {
@@ -296,7 +273,7 @@ class GameState implements State {
       if (opponent) {
         // Manage combat state
         // Units do not move if they are engaged in combat
-        this.combatManager.addCombatUnit(unit, opponent);
+        this.gameManager.combatManager.addCombatUnit(unit, opponent);
       } else {
         // Reset lastAttackTime when not in combat
         unit.lastAttackTime = undefined;
@@ -314,7 +291,7 @@ class GameState implements State {
         }
 
         // Remove from combat if they are not in combat
-        this.combatManager.removeCombatUnit(unit, this.gameManager);
+        this.gameManager.combatManager.removeCombatUnit(unit);
       }
 
       // Draw the unit
@@ -324,7 +301,7 @@ class GameState implements State {
     });
 
     // Update combat manager
-    this.combatManager.update(delta, this.gameManager);
+    this.gameManager.combatManager.update(delta);
   }
 }
 

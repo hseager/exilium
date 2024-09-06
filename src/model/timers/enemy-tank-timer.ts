@@ -19,28 +19,9 @@ export class EnemyTankTimer extends Timer {
   }
 
   handleComplete(gameManager: GameManager) {
-    // We increment each enemy stat for each player level to make the game harder as the player levels up
-    const unitStats: Stats = {
-      attack:
-        baseEnemyTankStats.attack +
-        gameManager.player.level * enemyTankIncrementStat.attack,
-      attackSpeed:
-        baseEnemyTankStats.attackSpeed +
-        gameManager.player.level * enemyTankIncrementStat.attackSpeed,
-      health:
-        baseEnemyTankStats.health +
-        gameManager.player.level * enemyTankIncrementStat.health,
-      moveSpeed:
-        baseEnemyTankStats.moveSpeed +
-        gameManager.player.level * enemyTankIncrementStat.moveSpeed,
-      range:
-        baseEnemyTankStats.range +
-        gameManager.player.level * enemyTankIncrementStat.range,
-    };
-
-    const unit = new Tank(Faction.Dominus, unitStats);
-
-    gameManager.units.push(unit);
+    gameManager.units.push(
+      new Tank(Faction.Dominus, gameManager.statManager.getEnemyTankStats())
+    );
     super.restart();
   }
 
