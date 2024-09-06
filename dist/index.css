@@ -253,9 +253,9 @@ button {
 }
 
 @media screen and (max-width: 1350px) {
-  html,
   body {
     flex-direction: column;
+    flex-wrap: nowrap;
   }
   body {
     padding: var(--spacing-2);
