@@ -12,6 +12,8 @@ import { AutoDeployInfantryOption } from "@/model/research-options/auto-deploy-i
 import { IncreaseInfantryAutoDeploy } from "@/model/research-options/increase-infantry-auto-deploy";
 import { AirBase } from "@/model/research-options/air-base";
 import { IncreaseAircraftBuildSpeed } from "@/model/research-options/increase-aircraft-build-speed";
+import { IonCannonOption } from "@/model/research-options/ion-cannon-option";
+import { IncreaseIonCannonSpeed } from "@/model/research-options/increase-ion-cannon-speed";
 
 const optionsContainer = select<HTMLDivElement>("#research-points");
 
@@ -28,6 +30,17 @@ const researchOptionsMap = new Map<number, ResearchOption[]>([
   [13, [new AddTechSkillPoint(), new IncreaseInfantryAutoDeploy()]],
   [14, [new IncreaseAircraftBuildSpeed()]],
   [15, [new AddTechSkillPoint(2)]],
+  [16, [new IonCannonOption()]],
+  [
+    17,
+    [
+      new IncreaseIonCannonSpeed(),
+      new AddTechSkillPoint(2),
+      new IncreaseAircraftBuildSpeed(),
+    ],
+  ],
+  [19, [new IncreaseIonCannonSpeed(), new IncreaseInfantryAutoDeploy()]],
+  [21, [new AddTechSkillPoint(2)]],
 ]);
 
 const addResearchOptions = (gameManager: GameManager, level: number) => {

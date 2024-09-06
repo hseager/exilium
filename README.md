@@ -8,14 +8,13 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ![Negotiator](/screenshot/preview.webp)
 
-## TODO
+## Extra Features
 
 - UI Design
 - Text Narration/Event log
 
 ### Research ideas
 
-- Ion cannon
 - Auto heal over time
 
 ## Credits

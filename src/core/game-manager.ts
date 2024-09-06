@@ -148,6 +148,10 @@ export class GameManager {
         }
       } else if (this.mode === Mode.IonCannon) {
         this.ionCannon?.fire(this.units);
+        const ionCannonTimer = this.timers.find(
+          (timer) => timer.type == TimerType.IonCannonTimer
+        );
+        ionCannonTimer && ionCannonTimer.restart();
       }
       this.unitToDeploy = null;
       this.mode = Mode.Playing;

@@ -164,6 +164,7 @@ export const playerTankTimerSpeed = 0.035;
 export const playerAircraftTimerSpeed = 0.025;
 export const playerResearchTimerSpeed = 0.035;
 export const autoDeployInfantryTimerSpeed = 0.02;
+export const ionCannonTimer = 0.02;
 
 export const enemyInfantryTimerSpeed = 0.03;
 export const enemyTankTimerSpeed = 0.02;
@@ -175,7 +176,8 @@ export const researchUpgradeStats = {
     playerInfantry: 0.022,
     playerTank: 0.02,
     playerResearch: 0.01,
-    playerInfantryAutoDeploy: 0.015,
+    playerInfantryAutoDeploy: 0.02,
     playerAircraft: 0.015,
+    ionCannon: 0.015,
   },
 };

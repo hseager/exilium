@@ -27,6 +27,7 @@ export const TimerType = {
   EnemyDeployTank: 5,
   EnemyDeployAircraft: 6,
   AutoDeployInfantry: 7,
+  IonCannonTimer: 8,
 };
 
 export type TimerType = (typeof TimerType)[keyof typeof TimerType];
@@ -74,6 +75,8 @@ export const ResearchType = {
   IncreaseInfantryAutoDeploySpeed: 7,
   AirBase: 8,
   IncreaseAircraftBuildSpeed: 9,
+  IonCannonSatellite: 10,
+  IncreaseIonCannonSpeed: 11,
 };
 
 export type ResearchType = (typeof ResearchType)[keyof typeof ResearchType];
