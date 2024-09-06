@@ -8,6 +8,13 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 ![Negotiator](/screenshot/preview.webp)
 
+# About
+
+Playable demo: [https://hseager.github.io/exilium](https://hseager.github.io/exilium). It works on mobile but plays best on desktop.
+
+- To build for prod: npm run build
+- Local dev: npm run serve
+
 ## Extra Features
 
 - UI Design
@@ -20,3 +27,4 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 ## Credits
 
 - roblouie for [js13k-typescript-starter](https://github.com/roblouie/js13k-typescript-starter)
+- Inspiration: Paperclip game + C&C Tiberian Sun
