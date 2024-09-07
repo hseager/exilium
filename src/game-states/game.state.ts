@@ -219,7 +219,7 @@ class GameState implements State {
     this.ctx.clip();
 
     this.ctx.shadowColor = glowColour;
-    this.ctx.shadowBlur = 4;
+    this.ctx.shadowBlur = 8;
     this.ctx.shadowOffsetX = 0;
     this.ctx.shadowOffsetY = 0;
 

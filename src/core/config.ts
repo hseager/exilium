@@ -20,20 +20,35 @@ export const pylonY = 40;
 export const pylonDamageRange = 108;
 
 export const pylonHexCodes = [
-  "#3F3C7D",
-  "#4C4F9B",
-  "#7A79C0",
-  "#8F8EC4",
-  "#A4A1C8",
-  "#B9B6D1",
-  "#D0C9E3",
-  "#C8B9E2",
-  "#B0A1E1",
-  "#9B8CD0",
-  "#7A79C0",
-  "#4C4F9B",
-  "#3F3C7D",
+  "#78769b",
+  "#8d8bb1",
+  "#a7a5cb",
+  "#bcbbdf",
+  "#c9c7e7",
+  "#dbdaed",
+  "#e0dff7",
+  "#dbdaed",
+  "#c9c7e7",
+  "#bcbbdf",
+  "#a7a5cb",
+  "#8d8bb1",
+  "#78769b",
 ];
+// export const pylonHexCodes = [
+//   "#3F3C7D",
+//   "#4C4F9B",
+//   "#7A79C0",
+//   "#8F8EC4",
+//   "#A4A1C8",
+//   "#B9B6D1",
+//   "#D0C9E3",
+//   "#C8B9E2",
+//   "#B0A1E1",
+//   "#9B8CD0",
+//   "#7A79C0",
+//   "#4C4F9B",
+//   "#3F3C7D",
+// ];
 
 export const ionCannonConfig = {
   radius: 62,
@@ -160,7 +175,7 @@ export const enemyInfantrySpawnIncreaseSpeed = 0.03;
 export const enemyTankSpawnIncreaseSpeed = 0.025;
 
 // # Timers
-export const playerInfantryTimerSpeed = 0.067;
+export const playerInfantryTimerSpeed = 0.07;
 export const playerTankTimerSpeed = 0.035;
 export const playerAircraftTimerSpeed = 0.025;
 export const playerResearchTimerSpeed = 0.035;
@@ -174,7 +189,7 @@ export const enemyAircraftTimerSpeed = 0.012;
 // # Research
 export const researchUpgradeStats = {
   timers: {
-    playerInfantry: 0.022,
+    playerInfantry: 0.015,
     playerTank: 0.02,
     playerResearch: 0.01,
     playerInfantryAutoDeploy: 0.02,
