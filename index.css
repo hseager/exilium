@@ -26,7 +26,7 @@
 #c2d {
   background: var(--theme-1);
   image-rendering: pixelated;
-  width: calc(100vw - 14px);
+  width: calc(100% - 14px);
   max-width: 1000px;
 }
 
@@ -256,9 +256,6 @@ button {
   body {
     flex-direction: column;
     flex-wrap: nowrap;
-  }
-  body {
-    padding: var(--spacing-2);
   }
   .controls {
     width: 100%;
