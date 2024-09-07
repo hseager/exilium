@@ -296,7 +296,7 @@ button {
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 920px) {
   body {
     flex-wrap: nowrap;
     flex-direction: row;
