@@ -42,6 +42,7 @@ export const ionCannonConfig = {
   damage: 7,
   duration: 25,
   interval: 100,
+  bolts: 4,
 };
 
 // Give the player a while to work out what's going on before

@@ -21,7 +21,6 @@ export class IonCannon {
     } else {
       if (this.isFiring) {
         this.draw(this.x, this.y);
-        this.animateLightning(this.x, this.y);
       }
     }
   }
@@ -44,6 +43,15 @@ export class IonCannon {
     this.ctx.fill();
     this.ctx.closePath();
     this.ctx.globalAlpha = 1;
+
+    if (this.isFiring) {
+      this.drawLightningInCircle(
+        this.x,
+        this.y,
+        ionCannonConfig.radius,
+        ionCannonConfig.bolts
+      );
+    }
   }
 
   fire(units: Unit[]) {
@@ -125,21 +133,5 @@ export class IonCannon {
       // Draw a lightning bolt between the start and end points
       this.drawLightningBolt(startX, startY, endX, endY, 5); // 5 segments for zigzag
     }
-  }
-
-  private animateLightning(x: number, y: number) {
-    const endTime = Date.now() + ionCannonConfig.duration * 1000;
-
-    const animate = () => {
-      // Draw new lightning bolts
-      this.drawLightningInCircle(x, y, ionCannonConfig.radius, 3); // 3 bolts per frame
-
-      // Continue animation while within the duration
-      if (Date.now() < endTime) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    animate(); // Start the animation
   }
 }
