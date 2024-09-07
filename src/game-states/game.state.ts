@@ -26,7 +26,7 @@ import {
   drawSun,
   drawWall,
 } from "@/core/scene";
-import { loseState } from "./lose.state";
+import { LoseState } from "./lose.state";
 import { Unit } from "@/model/unit";
 import { select } from "@/util";
 import { Infantry } from "@/model/infantry";
@@ -104,7 +104,7 @@ class GameState implements State {
 
   private checkLoseCondition() {
     if (this.gameManager.player.life <= 0) {
-      gameStateMachine.setState(loseState);
+      gameStateMachine.setState(new LoseState(this.gameManager.player.level));
     }
   }
 

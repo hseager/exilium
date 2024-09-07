@@ -3,7 +3,13 @@ import { drawEngine } from "@/core/draw-engine";
 import { controls } from "@/core/controls";
 import { select } from "@/util";
 
-class LoseState implements State {
+export class LoseState implements State {
+  private level: number;
+
+  constructor(level: number) {
+    this.level = level;
+  }
+
   onEnter() {
     select<HTMLDivElement>(".damage-meter")?.classList.add("d-none");
     select<HTMLDivElement>(".controls")?.classList.add("d-none");
@@ -33,6 +39,12 @@ class LoseState implements State {
       xCenter,
       220
     );
+    drawEngine.drawText(
+      `You made it to level ${this.level}.`,
+      30,
+      xCenter,
+      290
+    );
     drawEngine.drawText("Back to Menu", 60, xCenter, 400);
 
     this.updateControls();
@@ -44,5 +56,3 @@ class LoseState implements State {
     }
   }
 }
-
-export const loseState = new LoseState();

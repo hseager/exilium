@@ -88,6 +88,10 @@ export class GameManager {
   levelUp() {
     this.player.level++;
     this.difficultyManager.handleAiScaling(this.player.level, this.timers);
+    const levelElement = select("#level");
+    if (levelElement) {
+      levelElement.textContent = this.player.level.toString();
+    }
   }
 
   private attachDomEvents() {
