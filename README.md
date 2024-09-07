@@ -10,7 +10,7 @@ The rebels, known as "The Vanguard," are a determined group of freedom fighters 
 
 # About
 
-My entry for the [JS13K 2024 competition](https://js13kgames.com/).
+My entry for the [JS13K](https://js13kgames.com/) 2024 competition.
 
 Playable demo: [https://hseager.github.io/exilium](https://hseager.github.io/exilium). It works on mobile but plays best on desktop.
 
