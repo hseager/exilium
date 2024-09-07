@@ -23,24 +23,27 @@ const researchOptionsMap = new Map<number, ResearchOption[]>([
   [3, [new TankFactory()]],
   [5, [new IncreaseInfantryRecruitment()]],
   [6, [new TechCentreResearchOption(), new IncreaseTankBuildSpeed()]],
-  [8, [new AddTechSkillPoint()]],
+  [8, [new AddTechSkillPoint(2)]],
   [9, [new IncreaseInfantryAutoDeploy(), new IncreaseTankBuildSpeed()]],
-  [11, [new AddTechSkillPoint()]],
+  [11, [new AddTechSkillPoint(2)]],
   [12, [new AirBase()]],
-  [13, [new AddTechSkillPoint(), new IncreaseInfantryAutoDeploy()]],
+  [13, [new AddTechSkillPoint(2), new IncreaseInfantryAutoDeploy()]],
   [14, [new IncreaseAircraftBuildSpeed()]],
-  [15, [new AddTechSkillPoint(2)]],
+  [15, [new AddTechSkillPoint(3)]],
   [16, [new IonCannonOption()]],
   [
     17,
     [
       new IncreaseIonCannonSpeed(),
-      new AddTechSkillPoint(2),
+      new AddTechSkillPoint(3),
       new IncreaseAircraftBuildSpeed(),
     ],
   ],
   [19, [new IncreaseIonCannonSpeed(), new IncreaseInfantryAutoDeploy()]],
-  [21, [new AddTechSkillPoint(2)]],
+  [21, [new AddTechSkillPoint(3)]],
+  [25, [new AddTechSkillPoint(5)]],
+  [27, [new IncreaseIonCannonSpeed()]],
+  [28, [new IncreaseInfantryAutoDeploy()]],
 ]);
 
 const addResearchOptions = (gameManager: GameManager, level: number) => {
