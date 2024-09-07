@@ -21,7 +21,7 @@ Playable demo: [https://hseager.github.io/exilium](https://hseager.github.io/exi
 
 - Improve UI Design
 - Text Narration/Event log
-- Sound Effects ("Contruction Complete", "Unit Ready", "Ion Cannon Ready!")
+- Sound Effects ("Construction Complete", "Unit Ready", "Ion Cannon Ready!")
 
 ### Research ideas
 
