@@ -254,8 +254,8 @@ button {
 
 @media screen and (max-width: 1350px) {
   body {
-    flex-direction: column;
     flex-wrap: nowrap;
+    flex-direction: column;
   }
   .controls {
     width: 100%;
@@ -293,5 +293,17 @@ button {
   }
   .controls h3 {
     font-size: var(--font-size);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+}
+@media screen and (max-width: 600px) {
+  body {
+    flex-direction: column;
   }
 }
