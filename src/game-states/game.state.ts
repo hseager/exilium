@@ -7,7 +7,6 @@ import { GameManager } from "@/core/game-manager";
 import {
   aircraftStyle,
   getFactionTheme,
-  ionCannonConfig,
   pylonDamageRange,
   pylonHexCodes,
   pylonWidth,
@@ -47,11 +46,25 @@ class GameState implements State {
     this.buildings = [];
   }
 
+  toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
   onEnter() {
     this.gameManager = new GameManager();
     this.initializeSkyline();
     select<HTMLDivElement>(".damage-meter")?.classList.remove("d-none");
     select<HTMLDivElement>(".controls")?.classList.remove("d-none");
+
+    // Force fullscreen for mobiles as the gestures in most browsers mess with the game
+    // and cause them to exit the tab or refresh the page
+    if (window.innerWidth <= 920) {
+      this.toggleFullscreen();
+    }
   }
 
   onUpdate(delta: number) {

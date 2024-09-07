@@ -34,21 +34,6 @@ export const pylonHexCodes = [
   "#8d8bb1",
   "#78769b",
 ];
-// export const pylonHexCodes = [
-//   "#3F3C7D",
-//   "#4C4F9B",
-//   "#7A79C0",
-//   "#8F8EC4",
-//   "#A4A1C8",
-//   "#B9B6D1",
-//   "#D0C9E3",
-//   "#C8B9E2",
-//   "#B0A1E1",
-//   "#9B8CD0",
-//   "#7A79C0",
-//   "#4C4F9B",
-//   "#3F3C7D",
-// ];
 
 export const ionCannonConfig = {
   radius: 62,
